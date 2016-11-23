@@ -1,11 +1,10 @@
 ---
 author: Jarmo Kivekäs
 title: Overview of the Thesis Structure and Style
-date: 16 Nov. 2016
 institute: Turku University of Applied Sciences
+date: 2016
 link-citations: true
-bibliography: biblio.bib
-toc: true
+#bibliography: biblio.bib
 class: report
 ---
 
@@ -15,12 +14,24 @@ class: report
 
 # List of abbreviations
 
-# Table of contents
+- USRP - Univeral Sofware Defined Radio
+- RF - Radio Frequency
+- GRC - GnuRadio Companion
+- SDR - Sofware Defined Radio
+- FPGA - Field Programmable Gate Array
+- PHY - Physical layer
+- DSP - Digital Signal Processing
+
+\tableofcontents
+
 
 # Introduction
 
 # Key concepts
+
 ## Applications of Spectrum Monitoring
+
+Spectrum monitoring is applications are key technology when considering the use of dynamic spectrum access. Advances in radio technology allows for implementing flexible radio systems that reduce underutilization of available RF spectrum. [@gronroos16]
 
 ## The Universal Sofware Defined Radio Peripheral
 
