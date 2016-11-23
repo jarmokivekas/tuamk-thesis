@@ -2,15 +2,21 @@
 # Thanks to @leouieda of swung.rocks
 MANUSCRIPT=overview
 BIB=biblio.bib
-# LATEXHEADER=-H header.tex
-PANDOCARGS=-V fontsize=11pt --bibliography $(BIB) --csl=ieee.csl --filter pandoc-citeproc --standalone
+PREAMBLE=preamble.tex
+POSTAMBLE=postamble.tex
+PANDOCARGS=-V fontsize=11pt --bibliography $(BIB) --csl=ieee.csl --filter pandoc-citeproc
 
 all: pdf
 
 pdf: $(MANUSCRIPT).pdf
+tex: $(MANUSCRIPT).tex
 
-$(MANUSCRIPT).pdf: $(MANUSCRIPT).md $(BIB) #header.tex
-	pandoc $(LATEXHEADER) $(PANDOCARGS) $< -o $(MANUSCRIPT).tex
+$(MANUSCRIPT).tex: $(MANUSCRIPT).md $(BIB) $(PREAMBLE)
+	pandoc  $(PANDOCARGS) $< -o $(MANUSCRIPT).tex
+	cat $(PREAMBLE) $(MANUSCRIPT).tex $(POSTAMBLE) > $(MANUSCRIPT)-tmp.tex
+	mv $(MANUSCRIPT)-tmp.tex $(MANUSCRIPT).tex
+
+$(MANUSCRIPT).pdf: $(MANUSCRIPT).tex
 	# this is executed multiple times so the references are updated
 	pdflatex $(MANUSCRIPT).tex
 	pdflatex $(MANUSCRIPT).tex

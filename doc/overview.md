@@ -1,12 +1,16 @@
----
-author: Jarmo Kivekäs
-title: Overview of the Thesis Structure and Style
-institute: Turku University of Applied Sciences
-date: 2016
-link-citations: true
-#bibliography: biblio.bib
-class: report
----
+
+
+<!-- ---
+# author: Jarmo Kivekäs
+# title: Overview of the Thesis Structure and Style
+# institute: Turku University of Applied Sciences
+# date: 2016
+# link-citations: true
+# secnumdepth: 3
+# #bibliography: biblio.bib
+# class: report
+# margin: 0.5in
+--- -->
 
 
 
@@ -31,7 +35,7 @@ class: report
 
 ## Applications of Spectrum Monitoring
 
-Spectrum monitoring is applications are key technology when considering the use of dynamic spectrum access. Advances in radio technology allows for implementing flexible radio systems that reduce underutilization of available RF spectrum. [@gronroos16 ch.6 ; @ni-forum-question]
+Spectrum monitoring is applications are key technology when considering the use of dynamic spectrum access. Advances in radio technology allows for implementing flexible radio systems that reduce underutilization of available RF spectrum. [@gronroos16 ch.6; @ni-forum-question]
 
 ## The Universal Sofware Defined Radio Peripheral
 
