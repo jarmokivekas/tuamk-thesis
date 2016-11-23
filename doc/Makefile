@@ -1,3 +1,5 @@
+# originally forked based on https://github.com/pinga-lab/paper-tle-euler-tutorial
+# Thanks to @leouieda of swung.rocks
 MANUSCRIPT=overview
 BIB=biblio.bib
 # LATEXHEADER=-H header.tex
@@ -9,7 +11,7 @@ pdf: $(MANUSCRIPT).pdf
 
 $(MANUSCRIPT).pdf: $(MANUSCRIPT).md $(BIB) #header.tex
 	pandoc $(LATEXHEADER) $(PANDOCARGS) $< -o $(MANUSCRIPT).tex
-	# pdflatex $(MANUSCRIPT).tex
+	# this is executed multiple times so the references are updated
 	pdflatex $(MANUSCRIPT).tex
 	pdflatex $(MANUSCRIPT).tex
 	pdflatex $(MANUSCRIPT).tex

@@ -31,7 +31,7 @@ class: report
 
 ## Applications of Spectrum Monitoring
 
-Spectrum monitoring is applications are key technology when considering the use of dynamic spectrum access. Advances in radio technology allows for implementing flexible radio systems that reduce underutilization of available RF spectrum. [@gronroos16]
+Spectrum monitoring is applications are key technology when considering the use of dynamic spectrum access. Advances in radio technology allows for implementing flexible radio systems that reduce underutilization of available RF spectrum. [@gronroos16 ch.6 ; @ni-forum-question]
 
 ## The Universal Sofware Defined Radio Peripheral
 
