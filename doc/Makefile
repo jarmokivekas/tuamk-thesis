@@ -4,37 +4,38 @@ MANUSCRIPT=overview
 BIB=biblio.bib
 PREAMBLE=preamble.tex
 POSTAMBLE=postamble.tex
-PANDOCARGS=-V fontsize=11pt --bibliography $(BIB) --csl=ieee.csl --filter pandoc-citeproc
+# PANDOCARGS=-V --bibliography $(BIB) --csl=ieee.csl --filter pandoc-citeproc
+PANDOCARGS=
+BUILDDIR=build
+
+MDFILES=overview.md abstract.md
+TEXTARGETS=$(patsubst %.md,%.tex,$(MDFILES))
+TEXFILES=$(wildcard *.tex)
 
 all: pdf
 
-pdf: $(MANUSCRIPT).pdf
+pdf: thesis.pdf
 tex: $(MANUSCRIPT).tex
 
-$(MANUSCRIPT).tex: $(MANUSCRIPT).md $(BIB) $(PREAMBLE)
-	pandoc  $(PANDOCARGS) $< -o $(MANUSCRIPT).tex
-	cat $(PREAMBLE) $(MANUSCRIPT).tex $(POSTAMBLE) > $(MANUSCRIPT)-tmp.tex
-	mv $(MANUSCRIPT)-tmp.tex $(MANUSCRIPT).tex
+%.tex: %.md
+	pandoc  $(PANDOCARGS) $< -o $@
 
-$(MANUSCRIPT).pdf: $(MANUSCRIPT).tex
+thesis.pdf: $(TEXTARGETS) $(TEXFILES)
 	# this is executed multiple times so the references are updated
-	pdflatex $(MANUSCRIPT).tex
-	pdflatex $(MANUSCRIPT).tex
-	pdflatex $(MANUSCRIPT).tex
+	pdflatex thesis
+	# bibtex thesis
+	pdflatex thesis
+	pdflatex thesis
 
-doc: $(MANUSCRIPT).doc
-
-$(MANUSCRIPT).doc: $(MANUSCRIPT).md $(BIB)
-	pandoc $(PANDOCARGS) $< -o $@
-
-odt: $(MANUSCRIPT).odt
-
-$(MANUSCRIPT).odt: $(MANUSCRIPT).md $(BIB)
-	pandoc $(PANDOCARGS) $< -o $@
 
 wordcount:
 	@echo "Word count:"
 	@wc -w $(MANUSCRIPT).md
 
+test:
+	# $(MDFILES)
+	# $(TEXTARGETS)
+	# $(TEXFILES)
+
 clean:
-	rm -f $(MANUSCRIPT).tex $(MANUSCRIPT).pdf *.aux *.bbl *.log *.out *.blg *.fff *.lof *.toc
+	rm -f overview.tex abstract.tex thesis.pdf *.aux *.bbl *.log *.out *.blg *.fff *.lof *.toc

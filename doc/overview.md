@@ -14,21 +14,6 @@
 
 
 
-# Abstract
-
-# List of abbreviations
-
-- USRP - Univeral Sofware Defined Radio
-- RF - Radio Frequency
-- GRC - GnuRadio Companion
-- SDR - Sofware Defined Radio
-- FPGA - Field Programmable Gate Array
-- PHY - Physical layer
-- DSP - Digital Signal Processing
-- TVWS - Television White Space
-
-\tableofcontents
-
 
 # Introduction
 
@@ -36,18 +21,18 @@
 
 ## Applications of Spectrum Monitoring
 
-Spectrum monitoring is applications are key technology when considering the use of dynamic spectrum access. Advances in radio technology allows for implementing flexible radio systems that reduce underutilization of available RF spectrum. [@gronroos16 ch.6; @ni-forum-question]
+Spectrum monitoring is applications are key technology when considering the use of dynamic spectrum access. Advances in radio technology allows for implementing flexible radio systems that reduce underutilization of available RF spectrum. \cite{gronroos16} \cite{ni-forum-question}
 
 ## The Universal Sofware Defined Radio Peripheral
 
-The USRP has a FPGA that can be used for simple signal processing, however due to the relatively small size of the FPGA, it is limited in it's capability, and cannot be used to implement complex PHY layer DPS blocks. [@ni-forum-question]
+The USRP has a FPGA that can be used for simple signal processing, however due to the relatively small size of the FPGA, it is limited in it's capability, and cannot be used to implement complex PHY layer DPS blocks. \cite{ni-forum-question}
 
 
 # Trying out renderings
 
 $$ \lambda = \cfrac{c}{f} $$
 
-  * hello [@ni-usrp-monitoring]
+  * hello \cite{ni-usrp-monitoring}
 
   * these are in a loose bullet list
 
@@ -55,7 +40,7 @@ $$ \lambda = \cfrac{c}{f} $$
 
   * Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\cite{whisppi}
 
 
 # implementing the xxx
