@@ -76,8 +76,23 @@
 \author{Jarmo Kivekäs}
 \date{2016}
 
+% TUAS: adding the logo to the title page uses this
 \usepackage{graphicx}
+
+% TUAS: add appropriate footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\rhead{\thepage}
+\lfoot{TUAS BACHELOR'S THESIS | Jarmo Kivekäs}
+% TUAS guidlines call for no header or footer rules
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+
 \begin{document}
+% maketitle is used to create the default article title
+% we use \begin{titlepage} instead.
 % \maketitle
 
 
@@ -107,3 +122,5 @@
     	\includegraphics{img/tuas-logo}\par\vspace{1cm}
     }
 \end{titlepage}
+
+\rule{\textwidth}{\textheight}
