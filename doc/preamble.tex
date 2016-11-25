@@ -33,7 +33,8 @@
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 
-% TUAS font TODO?
+% TUAS font TODO: not actually arial
+% also need 1.5 em line height
 \renewcommand{\familydefault}{\sfdefault}
 
 
@@ -75,5 +76,34 @@
 \author{Jarmo Kivekäs}
 \date{2016}
 
+\usepackage{graphicx}
 \begin{document}
-\maketitle
+% \maketitle
+
+
+\begin{titlepage}
+% commend in this title section based mostly on the wiki
+% https://en.wikibooks.org/wiki/LaTeX/Title_Creation
+    BACHELOR'S THESIS
+
+    ELECTRONIC ENGINEERING
+
+    NELEKS13
+
+    2017
+
+    {
+        \addtolength{\leftskip}{0.886in}
+    	\vspace{5cm}
+        JARMO KIVEKÄS\par
+    	% \includegraphics[width=0.15\textwidth]{img/tuas-logo}\par\vspace{1cm}
+    	% {\scshape\LARGE Columbidae University \par}
+    	% {\scshape\Large Final year project\par}
+    	{\Huge TITLE OF THE THESISI HERE, IT CAN BE LONG\par}
+    }
+    \vfill
+    {
+        \centering
+    	\includegraphics{img/tuas-logo}\par\vspace{1cm}
+    }
+\end{titlepage}
