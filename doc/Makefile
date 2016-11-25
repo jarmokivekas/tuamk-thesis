@@ -15,7 +15,7 @@ TEXFILES=$(wildcard *.tex)
 all: pdf
 
 pdf: thesis.pdf
-tex: $(MANUSCRIPT).tex
+
 
 %.tex: %.md
 	pandoc  $(PANDOCARGS) $< -o $@
@@ -23,7 +23,7 @@ tex: $(MANUSCRIPT).tex
 thesis.pdf: $(TEXTARGETS) $(TEXFILES)
 	# this is executed multiple times so the references are updated
 	pdflatex thesis
-	# bibtex thesis
+	bibtex thesis
 	pdflatex thesis
 	pdflatex thesis
 
@@ -38,4 +38,4 @@ test:
 	# $(TEXFILES)
 
 clean:
-	rm -f overview.tex abstract.tex thesis.pdf *.aux *.bbl *.log *.out *.blg *.fff *.lof *.toc
+	rm -f $(TEXTARGETS) thesis.pdf *.aux *.bbl *.log *.out *.blg *.fff *.lof *.toc

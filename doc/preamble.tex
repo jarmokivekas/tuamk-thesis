@@ -15,20 +15,9 @@
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
 
-
-
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-\fi
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 
 % TUAS font TODO: not actually arial
 % also need 1.5 em line height
@@ -80,6 +69,7 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \rhead{\thepage}
+\cfoot{}
 \lfoot{TUAS BACHELOR'S THESIS | Jarmo Kivekäs}
 % TUAS guidlines call for no header or footer rules
 \renewcommand{\headrulewidth}{0pt}
