@@ -25,6 +25,7 @@
 - FPGA - Field Programmable Gate Array
 - PHY - Physical layer
 - DSP - Digital Signal Processing
+- TVWS - Television White Space
 
 \tableofcontents
 
@@ -58,3 +59,5 @@ $$ \lambda = \cfrac{c}{f} $$
 
 
 # implementing the xxx
+
+asdf
