@@ -4,11 +4,20 @@
 \input{preamble}
 
 \begin{document}
-    % \pagenumbering{alph}
     \input{tuas-title-page}
+    \pagenumbering{roman}
     \input{abstract}
+    \clearpage
+    \input{list-of-abbreviations}
+    \clearpage
     \tableofcontents
+    \clearpage
+
+    \pagenumbering{arabic}
+    \setcounter{page}{5}
     \input{overview}
+    \input{markdown-sandbox}
+    \input{latex-sandbox}
 
     \bibliographystyle{ieeetr}
     \bibliography{biblio}

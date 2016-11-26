@@ -1,6 +1,4 @@
 
-# Abstract
-
 # List of abbreviations
 
 - USRP - Univeral Sofware Defined Radio

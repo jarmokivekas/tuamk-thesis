@@ -65,12 +65,23 @@
 % TUAS: adding the logo to the title page uses this
 \usepackage{graphicx}
 
+
+%%%%%% footers and headers
 % TUAS: add appropriate footer
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \rhead{\thepage}
 \cfoot{}
+\lhead{}
 \lfoot{TUAS BACHELOR'S THESIS | Jarmo Kivekäs}
 % TUAS guidlines call for no header or footer rules
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+
+%%%%%%% this is used in the abstract page to show the number of packages
+% using the commen \pageref{LastPage}
+\usepackage{lastpage}
+
+%%%%%%% TUAS guidlines call of 1.5 em line spacing
+\usepackage{setspace}
+\onehalfspacing

@@ -8,7 +8,7 @@ POSTAMBLE=postamble.tex
 PANDOCARGS=
 BUILDDIR=build
 
-MDFILES=overview.md abstract.md
+MDFILES=$(wildcard *.md)
 TEXTARGETS=$(patsubst %.md,%.tex,$(MDFILES))
 TEXFILES=$(wildcard *.tex)
 
