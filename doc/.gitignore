@@ -8,7 +8,6 @@
 *.fff
 *.lof
 *.toc
-abstract.tex
 overview.tex
 list-of-abbreviations.tex
 markdown-sandbox.tex

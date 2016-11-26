@@ -1,3 +1,7 @@
+% this is the base tex file that will collect all the other files
+% it is inpired by the exellent work at
+% https://github.com/jrk/uggedal-thesis/
+
 % 11 pt font according to TUAS rules
 \documentclass[11pt]{article}
 
@@ -6,10 +10,13 @@
 \begin{document}
     \input{tuas-title-page}
     \pagenumbering{roman}
+    \addcontentsline{toc}{section}{Abstract}
     \input{abstract}
     \clearpage
+    \addcontentsline{toc}{section}{List of Abbreviations}
     \input{list-of-abbreviations}
     \clearpage
+    \addcontentsline{toc}{section}{Contents}
     \tableofcontents
     \clearpage
 
@@ -19,6 +26,8 @@
     \input{markdown-sandbox}
     \input{latex-sandbox}
 
+    \clearpage
+    \addcontentsline{toc}{section}{References}
     \bibliographystyle{ieeetr}
     \bibliography{biblio}
 
