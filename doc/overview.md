@@ -8,7 +8,7 @@
 
 
 
-# Key concepts
+# Spectrum Monitoring
 
 Conventionally sections of radio spectrum are allocated for use in a particular application, and the rights to transmit on those section are licensed by a governing body. Licensees may obtain licenses for comparatively long spans of time, during which the allocated spectrum may not be used used continuously and in full. \cite{subramaniam15}
 
@@ -29,12 +29,14 @@ A concrete example dynamic spectrum access is the secondary use of TV whitespace
 
 ## Spectrum Sensing Methods
 
-### Energy detection
+TODO: Sensing applications can be either generalized, or designed for a specific type of transmission, in order to monitor the use of particular standardized channels of a radio system.
+
+### Energy Detection
 
 <!--  subramanima15 has many references to sensing studies -->
 <!-- "using the energy detection method with fixed-treshold [9]" \cite{subramaniam15} -->
 
-Energy detection is commonly used in research applications to determine the utilization of radio frequencies \site{subramaniam15}.
+Energy detection is commonly used in research applications to determine the utilization of radio frequencies \cite{subramaniam15}.
 In a simplistic application energy detection can be done by digitizing a span of spectrum using a software defined radio, or a purpose-built spectrum analyzer.
 A binary decision about whether a particular frequency is in use is made by comparing the received RF energy on that frequency to a fixed threshold value. \cite {subramaniam15}
 
@@ -46,13 +48,17 @@ Similarly, if the threshold value is too low, false positives may be triggered b
 <!--  see subramaniam15 reference [12] for more -->
 
 ### Autocorrelation
+
+Autocorrelation function (ACF)
+
+
 <!--  see subramaniam15 reference [13] for more -->
 
 ### Correlation Distance
 
-## Software Defined Radio
+# Software Defined Radio
 
-### The Universal Sofware Defined Radio Peripheral
+## The Universal Sofware Defined Radio Peripheral
 
 The USRP is a platform that is designed for research applications \cite{needed}, and it is evident based on earlier research publications that is suitable for spectrum sensing applications \cite{angrisani16}.
 
