@@ -10,14 +10,14 @@
 
 # Key concepts
 
+Conventionally sections of radio spectrum are allocated for use in a particular application, and the rights to transmit on those section are licensed by a governing body. Licensees may obtain licenses for comparatively long spans of time, during which the allocated spectrum may not be used used continuously and in full. \cite{subramaniam15}
+
+The Finnish Communications Regulatory Authority (FICORA) regulates the use of frequencies 9 kHz -- 400 GHz \cite{ficoraReg15}.
 
 Advances in radio technology allows the implementation of flexible radio systems that reduce underutilization of available RF spectrum \cite{gronroos16}.
 Thanks to increased flexibility, transmission frequencies, bandwidth, and modulation schemes can be changed rapidly in a dynamic way in order to accommodate for changes in the available spectrum.
 Spectrum monitoring is a key technology when considering the use of dynamic spectrum access \cite{zennaro12}.
 
-Conventionally bands of radio spectrum are allocated for use in a particular application, and the rights to transmit on those bands is licensed by a governing body.
-
-The Finnish Communications Regulatory Authority (FICORA) regulates the use of frequencies 9 kHz -- 400 GHz \cite{ficoraReg15}. The 2
 
 ## Applications of Spectrum Monitoring
 
@@ -26,6 +26,29 @@ The Finnish Communications Regulatory Authority (FICORA) regulates the use of fr
 A concrete example dynamic spectrum access is the secondary use of TV whitespace (TVWS). In Finland
 
 ### Enforcement of Radio Regulation
+
+## Spectrum Sensing Methods
+
+### Energy detection
+
+<!--  subramanima15 has many references to sensing studies -->
+<!-- "using the energy detection method with fixed-treshold [9]" \cite{subramaniam15} -->
+
+Energy detection is commonly used in research applications to determine the utilization of radio frequencies \site{subramaniam15}.
+In a simplistic application energy detection can be done by digitizing a span of spectrum using a software defined radio, or a purpose-built spectrum analyzer.
+A binary decision about whether a particular frequency is in use is made by comparing the received RF energy on that frequency to a fixed threshold value. \cite {subramaniam15}
+
+Energy detection using a fixed threshold is problematic.
+Threshold values that are set manually are error prone, and may need re-adjustment depending on the environment in which measurements are done.
+A threshold that is set too high will cause false negatives, when a signal that is present is note strong enough to pass the threshold.
+Similarly, if the threshold value is too low, false positives may be triggered by noise, whether man-made or otherwise, that exceeds the threshold. \cite{subramaniam15}
+
+<!--  see subramaniam15 reference [12] for more -->
+
+### Autocorrelation
+<!--  see subramaniam15 reference [13] for more -->
+
+### Correlation Distance
 
 ## Software Defined Radio
 
