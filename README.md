@@ -29,9 +29,14 @@ to make a text body sized box
 
 ## tools
 
-    apt-get install texlive pandoc pdflatex
+All the tools that are needed are listed in .travis.yml.
 
-### tool versions
+The output of Travis is quite technical, but it does define an environment where the manuscript should be guaranteed to build.
+
+
+## tool versions
+
+
 
  - os: Ubuntu 16.04
 
