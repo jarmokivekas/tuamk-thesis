@@ -40,4 +40,4 @@ show:
 	evince thesis.pdf
 
 clean:
-	rm -f $(TEXTARGETS) thesis.pdf *.aux *.bbl *.log *.out *.blg *.fff *.lof *.toc
+	rm -f $(TEXTARGETS) thesis.pdf *.aux *.bbl *.log *.out *.blg *.fff *.lof *.toc *.md.bak

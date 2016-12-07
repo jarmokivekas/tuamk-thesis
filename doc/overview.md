@@ -14,7 +14,7 @@ Conventionally sections of radio spectrum are allocated for use in a particular 
 
 The Finnish Communications Regulatory Authority (FICORA) regulates the use of frequencies 9 kHz -- 400 GHz \cite{ficoraReg15}.
 
-Advances in radio technology allows the implementation of flexible radio systems that reduce underutilization of available RF spectrum \cite{gronroos16}.
+Advances in radio technology allows the implementation of flexible radio systems that reduce under utilization of available RF spectrum \cite{gronroos16}.
 Thanks to increased flexibility, transmission frequencies, bandwidth, and modulation schemes can be changed rapidly in a dynamic way in order to accommodate for changes in the available spectrum.
 Spectrum monitoring is a key technology when considering the use of dynamic spectrum access \cite{zennaro12}.
 
@@ -34,7 +34,7 @@ TODO: Sensing applications can be either generalized, or designed for a specific
 ### Energy Detection
 
 <!--  subramanima15 has many references to sensing studies -->
-<!-- "using the energy detection method with fixed-treshold [9]" \cite{subramaniam15} -->
+<!-- "using the energy detection method with fixed-threshold [9]" \cite{subramaniam15} -->
 
 Energy detection is commonly used in research applications to determine the utilization of radio frequencies \cite{subramaniam15}.
 In a simplistic application energy detection can be done by digitizing a span of spectrum using a software defined radio, or a purpose-built spectrum analyzer.
@@ -63,7 +63,7 @@ A software defined radio peripheral is in simple terms a fast ADC that's attach 
 
 In an optimal SDR solution the antenna would be essentially connected  directly to the ADC. However, in actual applications it is usually necessary to implement a radio front end. Typical parts of such a front end include a bandpass filter (BPF), a low-noise amplifier (LNA) \cite{needed}
 
-## The Universal Sofware Defined Radio Peripheral
+## The Universal Software Defined Radio Peripheral
 
 The USRP is a platform that is designed for research applications \cite{needed}, and it is evident based on earlier research publications that is suitable for spectrum sensing applications \cite{angrisani16}.
 
