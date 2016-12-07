@@ -58,6 +58,11 @@ Autocorrelation function (ACF)
 
 # Software Defined Radio
 
+
+A software defined radio peripheral is in simple terms a fast ADC that's attach to an antenna. SDR platforms are used to digitize a sections of spectrum which is then either processed in real-time, or it can be written to non-volatile storage and processing of data can happen at a  later stage.
+
+In an optimal SDR solution the antenna would be essentially connected  directly to the ADC. However, in actual applications it is usually necessary to implement a radio front end. Typical parts of such a front end include a bandpass filter (BPF), a low-noise amplifier (LNA) \cite{needed}
+
 ## The Universal Sofware Defined Radio Peripheral
 
 The USRP is a platform that is designed for research applications \cite{needed}, and it is evident based on earlier research publications that is suitable for spectrum sensing applications \cite{angrisani16}.
