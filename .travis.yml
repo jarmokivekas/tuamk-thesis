@@ -1,0 +1,12 @@
+dist: xenial
+addons:
+  apt:
+    packages:
+      - pandoc
+      - pdflatex
+      - aspell
+      - graphviz
+
+script:
+  - cd doc
+  - make
