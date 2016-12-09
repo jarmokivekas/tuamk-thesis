@@ -8,7 +8,9 @@
 
 
 
-# Spectrum Monitoring
+# Background
+
+## Spectrum Monitoring
 
 Conventionally sections of radio spectrum are allocated for use in a particular application, and the rights to transmit on those section are licensed by a governing body. Licensees may obtain licenses for comparatively long spans of time, during which the allocated spectrum may not be used used continuously and in full. \cite{subramaniam15}
 
@@ -19,13 +21,30 @@ Thanks to increased flexibility, transmission frequencies, bandwidth, and modula
 Spectrum monitoring is a key technology when considering the use of dynamic spectrum access \cite{zennaro12}.
 
 
+<!--  read hoyhtya16 and wirte something in this section-->
+
 ## Applications of Spectrum Monitoring
+
 
 ### Opportunistic Spectrum access
 
 A concrete example dynamic spectrum access is the secondary use of TV whitespace (TVWS). In Finland
 
 ### Enforcement of Radio Regulation
+
+## Licensed Shared Access
+
+Licensed shared access (LSA) is an approach to radio spectrum regulation that
+allows further use of spectrum that is previously allocated to an incumbent user.
+LSA is based on a framework where the incumbent user, one or several LSA
+licensees -- i.e new users -- and the spectrum regulation authority collectively
+agree on a sharing scheme. The sharing scheme in LSA is controlled in a way that
+both the incumbent user, as well as the licensee can expect predictable
+quality-of-service and are protected from interference.
+
+Availability information and spectrum access policies are held centrally in an
+LSA repository.
+
 
 ## Spectrum Sensing Methods
 
@@ -56,12 +75,16 @@ Autocorrelation function (ACF)
 
 ### Correlation Distance
 
-# Software Defined Radio
+## Software Defined Radio
 
 
 A software defined radio peripheral is in simple terms a fast ADC that's attach to an antenna. SDR platforms are used to digitize a sections of spectrum which is then either processed in real-time, or it can be written to non-volatile storage and processing of data can happen at a  later stage.
 
 In an optimal SDR solution the antenna would be essentially connected  directly to the ADC. However, in actual applications it is usually necessary to implement a radio front end. Typical parts of such a front end include a bandpass filter (BPF), a low-noise amplifier (LNA) \cite{needed}
+
+
+
+# Materials and Methods
 
 ## The Universal Software Defined Radio Peripheral
 
@@ -69,9 +92,8 @@ The USRP is a platform that is designed for research applications \cite{needed},
 
 The USRP has an FPGA that can be used for simple signal processing, however due to the relatively small size of the FPGA, it is limited in it's capability, and cannot be used to implement complex PHY layer DPS blocks. \cite{ni-forum-question}
 
+# Results
 
-# Goals
+# Discussion
 
-# Method
-
-# Analysis
+# Conclusion
