@@ -47,14 +47,14 @@ whitespace (TVWS). In Finland
 Licensed shared access (LSA) is an approach to radio spectrum regulation
 that allows further use of spectrum that is previously allocated to
 an incumbent user.  LSA is based on a framework where the incumbent
-user, one or several LSA licensees -- i.e new users -- and the spectrum
+user, one or several LSA licensees -- i.e new users, and the spectrum
 regulation authority collectively agree on a sharing scheme. The sharing
 scheme in LSA is controlled in a way that both the incumbent user, as
 well as the licensee can expect predictable quality-of-service and are
 protected from interference. \cite{lsa}
 
 Availability information and spectrum access policies are held centrally
-in an LSA repository.
+in an LSA repository. An LSA controller communicates with the LSA repository
 
 
 ## Spectrum Sensing Methods
