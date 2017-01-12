@@ -10,6 +10,47 @@
 
 # Background
 
+
+## The 800 MHz band
+
+
+- http://www.cellular-news.com/story/43196.php
+- https://tech.ebu.ch/news/ec-makes-official-recommendation-for-790-29oct09
+
+## Orthogonal Frequencies-Division Multiplexing
+
+OFDM is used in most contemporary communication systems, including cellular standards such as WiMax and LTE Advanced, digital broadcasting such as DVB-T, and several IEEE 802.11 standards.\cite{bloessl13}
+
+
+- http://niviuk.free.fr/lte_bandwidth.php good source for
+
+![LTE 800 network bandwidths](img/LTE 800 frequencies.png)
+
+This section is based on \cite{lte-ofdm-ofdma-scfdma}
+http://www.radio-electronics.com/info/cellulartelecomms/lte-long-term-evolution/lte-ofdm-ofdma-scfdma.php
+
+Multiple closely spaced carriers are modulated with a low data rate. Using orthogonal modulations means there is no mutual interference between the closely spaced carriers.
+
+OFDM can also be used with TDD and FDD (division dumplex? **TODO**)
+
+
+> The channel bandwidths that have been chosen for LTE are:
+>
+> - 1.4 MHz
+> - 3 MHz
+> - 5 MHz
+> - 10 MHz
+> - 15 MHz
+> - 20 MHz
+>
+> In addition to this the subcarriers spacing is 15 kHz, i.e. the LTE subcarriers are spaced 15 kHz apart from each > other. To maintain orthogonality, this gives a symbol rate of 1 / 15 kHz = of 66.7 µs.
+>
+> Each subcarrier is able to carry data at a maximum rate of 15 ksps (kilosymbols per second). This gives a 20 MHz > bandwidth system a raw symbol rate of 18 Msps. In turn this is able to provide a raw data rate of 108 Mbps as each symbol using 64QAM is able to represent six bits.
+>
+
+
+
+
 ## Spectrum Monitoring
 
 Conventionally sections of radio spectrum are allocated for use in a
