@@ -1,0 +1,5 @@
+{
+  "commands": [
+    "seminars/planning-seminar.md: pandoc -t beamer seminars/planning-seminar.md -o seminars/planning-seminar.pdf"
+  ]
+}
