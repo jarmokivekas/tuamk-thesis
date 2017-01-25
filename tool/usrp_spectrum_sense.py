@@ -276,7 +276,7 @@ def main_loop(tb):
 
     timestamp = 0
     centerfreq = 0
-
+    scaniteration = 0
     datafile = open("../data/" + str(datetime.now()) + "-sense.tsv", "w")
     while 1:
         # Get the next message sent from the C++ code (blocking call).
@@ -292,6 +292,7 @@ def main_loop(tb):
         if timestamp == 0:
             timestamp = time.time()
             centerfreq = m.center_freq
+        # this is triggered when the entire bandwidth has been scanned
         if m.center_freq < centerfreq:
             sys.stderr.write("scanned %.1fMHz in %.1fs\n" % ((centerfreq - m.center_freq)/1.0e6, time.time() - timestamp))
             timestamp = time.time()
@@ -306,13 +307,18 @@ def main_loop(tb):
             power_db = 10*math.log10(m.data[i_bin]/tb.usrp_rate) - noise_floor_db
 
             if (power_db > tb.squelch_threshold) and (freq >= tb.min_freq) and (freq <= tb.max_freq):
-                datafile.write("{date}|{center}|{freq}|{power}|{noise}\n".format(
+                datafile.write("{date}|{center}|{freq}|{power}|{noise}|{iteration}\n".format(
                     date = datetime.now(),
                     center = center_freq,
                     freq = freq,
                     power = power_db,
-                    noise = noise_floor_db
+                    noise = noise_floor_db,
+                    iteration = scaniteration
                 ))
+        # having this metadata help to handle the data in
+        # using pandas is post-processing
+        scaniteration = scaniteration + 1
+
 
 if __name__ == '__main__':
     t = ThreadClass()
