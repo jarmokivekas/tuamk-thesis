@@ -16,7 +16,7 @@ toc: true
 - specific case: LTE 800 DD
 
 
-# Background
+# Background topics
 
 - The 800 MHz EU digital dividend
 - Orthogonal Frequencies-Division Multiplexing
@@ -24,7 +24,7 @@ toc: true
     - Applications of Spectrum Monitoring
         - Opportunistic Spectrum access
         - Enforcement of Radio Regulation
-    - Licensed Shared Access
+    - Licensed Shared Access (LSA)
     - Spectrum Sensing Methods
         - Energy Detection
         - Autocorrelation
@@ -37,17 +37,19 @@ toc: true
 # Methods & Tools
 
 - Software defined radio
-- USRP n201
-- GNU Radio
-- Baudline
-- python scripting
+    - GNU Radio
+    - USRP n201
+- Signal processing
+    - Baudline
+    - python (numpy, scipy)
+    - julia?
 - Signal capture from the ICT antenna platform.
 
 
 
 # Practicalities
 
-- IEEExplore & Research Gate as the main information source
+- IEEExplore as the main information source
 - BibTeX for tracking reference
 - Work and data tracked with Git and Git LFS
 
@@ -55,5 +57,6 @@ toc: true
 
 - Started work late December 2016
 - Large parts of background theory already written
-- Test system implementation already started.
+- Test system implementation already started
+- Topic not strictly specified yet
 - Complete at end of April
