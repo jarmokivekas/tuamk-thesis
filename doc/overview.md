@@ -33,6 +33,12 @@ Multiple closely spaced carriers are modulated with a low data rate. Using ortho
 
 OFDM can also be used with TDD and FDD (division dumplex? **TODO**)
 
+The band consists of:
+
+- B18  (800 Lower)
+- B19  (800 Upper)
+- B20  (800 DD)
+
 
 > The channel bandwidths that have been chosen for LTE are:
 >
@@ -167,6 +173,8 @@ The USRP has an FPGA that can be used for simple signal processing,
 however due to the relatively small size of the FPGA, it is limited in
 it's capability, and cannot be used to implement complex PHY layer DPS
 blocks. \cite{ni-forum-question}
+
+The USRP is capable of streaming up to 50 MSps over Gigabit Ethernet\cite{ettusN210}, which is a high enough sample rate that the entire TLE 800 DD band, which covers a 30 MHz span at 791 – 821 MHz \cite{ficoraAlloc15} can be captured by a single FFT.
 
 # Results
 

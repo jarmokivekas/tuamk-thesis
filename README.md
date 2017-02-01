@@ -4,6 +4,11 @@ This repository contains material related to Jarmo Kivekäs' thesis work at Turk
 
 
 
+# TODO
+
+- [ ] clean up 0 Hz DC values from scanned FFT data
+- [ ] clean up overlapping FFT bins at the edges of each scan
+- [ ] add metadata for sweep, scan, and bin number to sensing data
 
 
 # Compiling documentation

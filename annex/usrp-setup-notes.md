@@ -4,7 +4,7 @@ Notes in this section is largely based on the Ettus wiki article [on how to veri
 
 
 
-Initially set the Ethernet interface address manually to 192.168.10.1/24. 
+Initially set the Ethernet interface address manually to 192.168.10.1/24.
 
 
 ```
@@ -25,6 +25,17 @@ Device Address:
 on Ubuntu examples can be located at `/usr/lib/uhd/examples` as well as `/usr/share/gnuradio/examples/uhd`.
 
 To test your installation, move to the `/usr/lib/uhd/examples` directory
-and execute the benchmark_rate pregram
+and execute the benchmark_rate program
 
     ./benchmark_rate --rx_rate 10e6 --tx_rate 10e6
+
+
+# Calibrating IQ sample balance
+
+sun the command
+
+# Spectrum Sensing
+
+The gnu radio example have python script that can be used for simple monitoring:
+
+    ./usrp_spectrum_sense.py  791000000 821000000
