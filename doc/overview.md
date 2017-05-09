@@ -163,6 +163,12 @@ front end include a bandpass filter (BPF), a low-noise amplifier (LNA)
 
 # Materials and Methods
 
+A radio spectrum monitoring system was implemented using an NI USRP as the antenna
+interface. The application logic the spectrum monitor was implemented in the
+Python \cite{python_software} scripting language by utilizing the open-souce
+GNU radio \cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
+visualization, and controlling the USRP.
+
 ## The Universal Software Defined Radio Peripheral
 
 The USRP is a platform that is designed for research applications
@@ -174,9 +180,22 @@ however due to the relatively small size of the FPGA, it is limited in
 it's capability, and cannot be used to implement complex PHY layer DPS
 blocks. \cite{ni-forum-question}
 
-The USRP is capable of streaming up to 50 MSps over Gigabit Ethernet\cite{ettusN210}, which is a high enough sample rate that the entire TLE 800 DD band, which covers a 30 MHz span at 791 – 821 MHz \cite{ficoraAlloc15} can be captured by a single FFT.
 
-# Results
+## Data model on disk
+
+The collected spectum data can be stored long-term in plain text files as
+commaseparated tabular data in .csv files. This makes it easy to import the data into
+a large variety of applications for post-processing.
+
+Alternatively, the data can be stored in a more compact way using python's native
+pickle storage. This is a In order to collect data over long periods of time,
+
+
+<!--  CAN IT, THOGH? -->
+<!-- The USRP is capable of streaming up to 50 MSps over Gigabit Ethernet\cite{ettusN210}, which is a high enough sample rate that the entire TLE 800 DD band, which covers a 30 MHz span at 791 – 821 MHz \cite{ficoraAlloc15} can be captured by a single FFT. -->
+
+
+
 
 # Discussion
 
