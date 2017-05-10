@@ -12,7 +12,7 @@ applications in modern communication systems.
 
 The bulk of work in this thesis is the implementation of a radio spectrum monitoring system
 consisting of a commercial software defined peripheral and a Linux laptop with
-custom applicaiton logic, post-processing and data vizualizaiton scripts.
+custom application logic, post-processing and data visualization scripts.
 
 # Background
 
@@ -39,7 +39,7 @@ http://www.radio-electronics.com/info/cellulartelecomms/lte-long-term-evolution/
 
 Multiple closely spaced carriers are modulated with a low data rate. Using orthogonal modulations means there is no mutual interference between the closely spaced carriers.
 
-OFDM can also be used with TDD and FDD (division dumplex? **TODO**)
+OFDM can also be used with TDD and FDD (division duplex? **TODO**)
 
 The band consists of:
 
@@ -58,9 +58,9 @@ The band consists of:
 > - 15 MHz
 > - 20 MHz
 >
-> In addition to this the subcarriers spacing is 15 kHz, i.e. the LTE subcarriers are spaced 15 kHz apart from each > other. To maintain orthogonality, this gives a symbol rate of 1 / 15 kHz = of 66.7 µs.
+> In addition to this the sub-carriers spacing is 15 kHz, i.e. the LTE subcarriers are spaced 15 kHz apart from each > other. To maintain orthogonality, this gives a symbol rate of 1 / 15 kHz = of 66.7 µs.
 >
-> Each subcarrier is able to carry data at a maximum rate of 15 ksps (kilosymbols per second). This gives a 20 MHz > bandwidth system a raw symbol rate of 18 Msps. In turn this is able to provide a raw data rate of 108 Mbps as each symbol using 64QAM is able to represent six bits.
+> Each subcarrier is able to carry data at a maximum rate of 15 ksps (kilosymbols per second). This gives a 20 MHz > bandwidth system a raw symbol rate of 18 MSPS. In turn this is able to provide a raw data rate of 108 Mbps as each symbol using 64QAM is able to represent six bits.
 >
 
 -->
@@ -88,7 +88,7 @@ spectrum.  Spectrum monitoring is a key technology when considering the
 use of dynamic spectrum access \cite{zennaro12}.
 
 
-<!--  read hoyhtya16 and wirte something in this section-->
+<!--  read hoyhtya16 and write something in this section-->
 
 ## Applications of Spectrum Monitoring
 
@@ -177,7 +177,7 @@ front end include a bandpass filter (BPF), a low-noise amplifier (LNA)
 
 A radio spectrum monitoring system was implemented using an NI USRP as the antenna
 interface. The application logic the spectrum monitor was implemented in the
-Python \cite{python_software} scripting language by utilizing the open-souce
+Python \cite{python_software} scripting language by utilizing the open-source
 GNU radio \cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
 visualization, and controlling the USRP.
 
@@ -197,13 +197,13 @@ blocks. \cite{ni-forum-question}
 
 ## Data flow
 
-Full spectum scans are completed by incrementing the USRPS center frequency at
+Full spectrum scans are completed by incrementing the USRP's center frequency at
 regular intervals. An FFT is calculated and stored for each hop during the scan.
 
-The difference in the center frequency of each consecutive hop is silghtly less
-than what the width of each FFT. This overlap between FFTs can be used to improve
-data quality by discarding some of the lowest and highset frequency FFT bins,
-which may suffer from CIC rolloff.
+The difference in the center frequency of each consecutive hop is slightly less
+than what the width of each FFT. This overlap between FF Ts can be used to improve
+data quality by discarding some of the lowest and highest frequency FFT bins,
+which may suffer from CIC-roll-off.
 
 ## Data model
 
@@ -223,7 +223,7 @@ The columns in the data structure are
 - scan: which incremental scan the hop of the FFT bin belongs to
 
 Representing the data in the described manner allows for easy manipulation
-of the data with exsisting tools at the cost of increased dataset size due
+of the data with existing tools at the cost of increased dataset size due
 to redundancy.
 
 Developing a more storage-efficient data model is outside the scope of work
@@ -231,16 +231,16 @@ for this thesis.
 
 ## Data storage on disk
 
-The collected spectum data can be stored long-term in plain text files as
-commaseparated tabular data in .csv files. This makes it easy to import the data into
+The collected spectrum data can be stored long-term in plain text files as
+comma separated tabular data in .csv files. This makes it easy to import the data into
 a large variety of applications for post-processing.
 
 Alternatively, the data can be stored in a more compact way using python's native
 pickle storage. This is a In order to collect data over long periods of time,
 
 
-<!--  CAN IT, THOGH? -->
-<!-- The USRP is capable of streaming up to 50 MSps over Gigabit Ethernet\cite{ettusN210}, which is a high enough sample rate that the entire TLE 800 DD band, which covers a 30 MHz span at 791 – 821 MHz \cite{ficoraAlloc15} can be captured by a single FFT. -->
+<!--  CAN IT, THOUGH? -->
+<!-- The USRP is capable of streaming up to 50 MSPS over Gigabit Ethernet\cite{ettusN210}, which is a high enough sample rate that the entire LTE 800 DD band, which covers a 30 MHz span at 791 – 821 MHz \cite{ficoraAlloc15} can be captured by a single FFT. -->
 
 
 ## Choosing the sample rate.
@@ -251,19 +251,45 @@ resolution that are available.
 The USRP able to stream complex samples over its Gigabit Ethernet interface
 at rates of up to 50 MSPS at 8-bit resolution and 25 MSPS at 16-bit resolution.
 The resolution of the 16-bit samples is 14-bit is practice, which is the maximum
-accuracy of the ADCs used for sample acquisition.
+accuracy of the ADCs used for sample acquisition. \cite{ettusN210}
 
-interface, and  25 MSPS \cite{ettusN210}
-
-The USRP and GNURadio ecosystems for signal processing pirmarily use IQ-sampling
+The USRP and GNURadio ecosystems for signal processing primarily use IQ-sampling
 when representing waveforms digitally.
-The nyquist frequency for complex sampling is equal to the complex sample rate.
+The Nyquist frequency for complex sampling is equal to the complex sample rate.
 Therefore in this context, passband width is often show the same value as the signal sample rate.
-In fact, passband width is often to simply as sample rate.
+In fact, passband width is often to simply as sample rate. \cite{needed}
 
 
-The USRP's integrated FPGA processes samples at 100 MSPS  
 
+### CIC-roll-off
+
+Cascaded integrator-comb filters, CIC filters for short, are a class of hardware-efficient
+finite response filters that can be used for decimation and interpolation of a signal \cite{donadio200}
+
+The USRP's integrated FPGA processes samples at 100 MSPS from the antenna ADC.
+The samples are down sampled to a lower sample rate in order to transfer them
+over the Gigabit Ethernet interface to the computer using a CIC filter.
+
+The chosen sample rate has significant impact on the quality of the scan data.
+Choosing an inappropriate sample rate will cause the data to have CIC-roll-off
+artifacts from the filter that is involved in the down sampling.
+
+The input sample rate to output sample rate ratio of the conversion needs to be even in
+order to avoid CIC-roll-of. The CIC-roll-off is at its worst when the ration is odd
+
+$$\cfrac{R_{in}}{R_out} \mod 2 = 0$$
+
+
+The measurements in \ref{fig:cic-rollof} shows the manifestation of CIC-roll-off
+at two distinct sample rates. The resampling is done from 100 MSPS, therefore
+the rate rations are $100 \text{ MSPS} / 20 \text{ MSPS} = 5$ and
+$100 \text{ MSPS} / 25 \text{ MSPS} = 4$
+
+
+
+![Sample rates chosen in order to maximize (left) and minimize (right) the effect of CIC-roll-off](img/cic-rollof-by-sample-rate.png)
+
+CIC (cascaded integrator-comb)
 
 # Discussion
 
