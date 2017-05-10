@@ -7,15 +7,23 @@
 # Introduction
 
 
+This thesis covers basic aspects of radio spectrum monitoring and some of its
+applications in modern communication systems.
+
+The bulk of work in this thesis is the implementation of a radio spectrum monitoring system
+consisting of a commercial software defined peripheral and a Linux laptop with
+custom applicaiton logic, post-processing and data vizualizaiton scripts.
 
 # Background
 
 
+<!--------------------------- section deprecated, irrelevant to thesis -------
+
+
 ## The 800 MHz band
-
-
 - http://www.cellular-news.com/story/43196.php
 - https://tech.ebu.ch/news/ec-makes-official-recommendation-for-790-29oct09
+
 
 ## Orthogonal Frequencies-Division Multiplexing
 
@@ -40,6 +48,7 @@ The band consists of:
 - B20  (800 DD)
 
 
+
 > The channel bandwidths that have been chosen for LTE are:
 >
 > - 1.4 MHz
@@ -53,6 +62,8 @@ The band consists of:
 >
 > Each subcarrier is able to carry data at a maximum rate of 15 ksps (kilosymbols per second). This gives a 20 MHz > bandwidth system a raw symbol rate of 18 Msps. In turn this is able to provide a raw data rate of 108 Mbps as each symbol using 64QAM is able to represent six bits.
 >
+
+-->
 
 
 
@@ -106,7 +117,8 @@ in an LSA repository. An LSA controller communicates with the LSA repository
 
 ## Spectrum Sensing Methods
 
-TODO: Sensing applications can be either generalized, or designed for a
+<!-- TODO: this section -->
+Sensing applications can be either generalized, or designed for a
 specific type of transmission, in order to monitor the use of particular
 standardized channels of a radio system.
 
@@ -169,7 +181,9 @@ Python \cite{python_software} scripting language by utilizing the open-souce
 GNU radio \cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
 visualization, and controlling the USRP.
 
-## The Universal Software Defined Radio Peripheral
+
+
+## The Universal Software Radio Peripheral
 
 The USRP is a platform that is designed for research applications
 \cite{needed}, and it is evident based on earlier research publications
@@ -181,7 +195,41 @@ it's capability, and cannot be used to implement complex PHY layer DPS
 blocks. \cite{ni-forum-question}
 
 
-## Data model on disk
+## Data flow
+
+Full spectum scans are completed by incrementing the USRPS center frequency at
+regular intervals. An FFT is calculated and stored for each hop during the scan.
+
+The difference in the center frequency of each consecutive hop is silghtly less
+than what the width of each FFT. This overlap between FFTs can be used to improve
+data quality by discarding some of the lowest and highset frequency FFT bins,
+which may suffer from CIC rolloff.
+
+## Data model
+
+The scan data is represented as a tabular data structure where each row
+represents a single FFT bin.
+
+The columns in the data structure are
+
+- date: a timestamp with millisecond accuracy
+- center: the center frequency to which the USRP was tuned
+- freq: frequency of the FFT bin
+- mag: power magnitude of the FFT bin
+- power: sensed
+<!-- - noise: power of the low*    *TODO** deprecate this bullet point** -->
+<!-- these are scan and sweep in the actual source code -->
+- hop: which incremental hop of a scan the FFT bin belongs to
+- scan: which incremental scan the hop of the FFT bin belongs to
+
+Representing the data in the described manner allows for easy manipulation
+of the data with exsisting tools at the cost of increased dataset size due
+to redundancy.
+
+Developing a more storage-efficient data model is outside the scope of work
+for this thesis.
+
+## Data storage on disk
 
 The collected spectum data can be stored long-term in plain text files as
 commaseparated tabular data in .csv files. This makes it easy to import the data into
@@ -195,8 +243,34 @@ pickle storage. This is a In order to collect data over long periods of time,
 <!-- The USRP is capable of streaming up to 50 MSps over Gigabit Ethernet\cite{ettusN210}, which is a high enough sample rate that the entire TLE 800 DD band, which covers a 30 MHz span at 791 – 821 MHz \cite{ficoraAlloc15} can be captured by a single FFT. -->
 
 
+## Choosing the sample rate.
+
+What sample rate is chosen impacts the speed of scanning and the frequency
+resolution that are available.
+
+The USRP able to stream complex samples over its Gigabit Ethernet interface
+at rates of up to 50 MSPS at 8-bit resolution and 25 MSPS at 16-bit resolution.
+The resolution of the 16-bit samples is 14-bit is practice, which is the maximum
+accuracy of the ADCs used for sample acquisition.
+
+interface, and  25 MSPS \cite{ettusN210}
+
+The USRP and GNURadio ecosystems for signal processing pirmarily use IQ-sampling
+when representing waveforms digitally.
+The nyquist frequency for complex sampling is equal to the complex sample rate.
+Therefore in this context, passband width is often show the same value as the signal sample rate.
+In fact, passband width is often to simply as sample rate.
+
+
+The USRP's integrated FPGA processes samples at 100 MSPS  
 
 
 # Discussion
+
+
+
+# Further development
+
+
 
 # Conclusion
