@@ -34,6 +34,11 @@ import struct
 import threading
 from datetime import datetime
 import time
+import logging
+
+FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
+logging.basicConfig(format=FORMAT, level=logging.DEBUG)
+
 
 sys.stderr.write("Warning: this may have issues on some machines+Python version combinations to seg fault due to the callback in bin_statitics.\n\n")
 
@@ -78,7 +83,7 @@ class tune(gr.feval_dd):
             return new_freq
 
         except Exception as e:
-            print("tune: Exception: ", e)
+            logging.error("tune: Exception: ", e)
 
 
 class parse_msg(object):
@@ -155,7 +160,7 @@ class my_top_block(gr.top_block):
                 realtime = True
             else:
                 realtime = False
-                print("Note: failed to enable realtime scheduling")
+                logging.warning("Note: failed to enable realtime scheduling")
 
         # build graph
         self.u = uhd.usrp_source(device_addr=options.args,
@@ -224,7 +229,7 @@ class my_top_block(gr.top_block):
             options.gain = float(g.start()+g.stop())/2.0
 
         self.set_gain(options.gain)
-        print("gain =", options.gain)
+        logging.info("gain =", options.gain)
 
     def set_next_freq(self):
         target_freq = self.next_freq
@@ -232,6 +237,7 @@ class my_top_block(gr.top_block):
         if self.next_freq >= self.max_center_freq:
             self.next_freq = self.min_center_freq
 
+        logging.info("tuning to frequency {}".format(target_freq))
         if not self.set_freq(target_freq):
             print("Failed to set frequency to", target_freq)
             sys.exit(1)
@@ -278,7 +284,11 @@ def main_loop(tb):
     centerfreq = 0
     scaniteration = 0 # a scan is a collection of FFT bins
     sweepiteration = 0 # a sweep is a collection of scans<
-    datafile = open("../data/" + str(datetime.now()) + "-sense.tsv", "w")
+    filename  = "../data/" + str(datetime.now()) + "-sense.tsv"
+    logging.info("saving data to {filename}".format(filename=filename))
+    datafile = open(filename, "w")
+    datafile.write("# {command}\n".format(command=str(sys.argv)))
+    
     while 1:
         # Get the next message sent from the C++ code (blocking call).
         # It contains the center frequency and the mag squared of the fft
@@ -295,7 +305,7 @@ def main_loop(tb):
             centerfreq = m.center_freq
         # this is triggered when the entire bandwidth has been scanned
         if m.center_freq < centerfreq:
-            sys.stderr.write("scanned %.1fMHz in %.1fs\n" % ((centerfreq - m.center_freq)/1.0e6, time.time() - timestamp))
+            logging.info("swept %.1fMHz in %.1fs, %f scan hops \n" % ((centerfreq - m.center_freq)/1.0e6, time.time() - timestamp, scaniteration))
             timestamp = time.time()
             # a new sweep is started, reset the scan number
             scaniteration = 0
@@ -309,12 +319,12 @@ def main_loop(tb):
             #noise_floor_db = -174 + 10*math.log10(tb.channel_bandwidth)
             noise_floor_db = 10*math.log10(min(m.data)/tb.usrp_rate)
             power_db = 10*math.log10(m.data[i_bin]/tb.usrp_rate) - noise_floor_db
-
             if (power_db > tb.squelch_threshold) and (freq >= tb.min_freq) and (freq <= tb.max_freq):
-                datafile.write("{date}|{center}|{freq}|{power}|{noise}|{scan}|{sweep}\n".format(
+                datafile.write("{date}|{center}|{freq}|{mag}|{power}|{noise}|{scan}|{sweep}\n".format(
                     date = datetime.now(),
                     center = center_freq,
                     freq = freq,
+                    mag = m.data[i_bin],
                     power = power_db,
                     noise = noise_floor_db,
                     scan = scaniteration,
