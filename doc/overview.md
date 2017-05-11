@@ -160,7 +160,7 @@ Autocorrelation function (ACF)
 
 
 A software defined radio peripheral is in simple terms a fast ADC that's
-attach to an antenna. SDR platforms are used to digitize a sections
+attached to an antenna. SDR platforms are used to digitize a section
 of spectrum which is then either processed in real-time, or it can be
 written to non-volatile storage and processing of data can happen at a
 later stage.
@@ -169,14 +169,14 @@ In an optimal SDR solution the antenna would be essentially connected
 directly to the ADC. However, in actual applications it is usually
 necessary to implement a radio front end. Typical parts of such a
 front end include a bandpass filter (BPF), a low-noise amplifier (LNA)
-\cite{needed}
+, and a mixing stage. \cite{needed}
 
 
 
 # Materials and Methods
 
-A radio spectrum monitoring system was implemented using an NI USRP as the antenna
-interface. The application logic the spectrum monitor was implemented in the
+This section decribes the implementation of a radio spectrum monitoring system using an NI USRP as the antenna
+interface. The application logic of the spectrum monitor was implemented in the
 Python \cite{python_software} scripting language by utilizing the open-source
 GNU radio \cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
 visualization, and controlling the USRP.
@@ -190,7 +190,7 @@ The USRP is a platform that is designed for research applications
 that is suitable for spectrum sensing applications \cite{angrisani16}.
 
 The USRP has an FPGA that can be used for simple signal processing,
-however due to the relatively small size of the FPGA, it is limited in
+however, due to the relatively small size of the FPGA, it is limited in
 it's capability, and cannot be used to implement complex PHY layer DPS
 blocks. \cite{ni-forum-question}
 
@@ -245,19 +245,19 @@ pickle storage. This is a In order to collect data over long periods of time,
 
 ## Choosing the sample rate.
 
-What sample rate is chosen impacts the speed of scanning and the frequency
-resolution that are available.
+What sample rate is chosen impacts the speed of scanning and the available frequency
+resolution.
 
-The USRP able to stream complex samples over its Gigabit Ethernet interface
+The USRP is able to stream complex samples over its Gigabit Ethernet interface
 at rates of up to 50 MSPS at 8-bit resolution and 25 MSPS at 16-bit resolution.
-The resolution of the 16-bit samples is 14-bit is practice, which is the maximum
+The resolution of the 16-bit samples is 14-bit in practice, which is the maximum
 accuracy of the ADCs used for sample acquisition. \cite{ettusN210}
 
-The USRP and GNURadio ecosystems for signal processing primarily use IQ-sampling
+The USRP and GNURadio ecosystems for signal processing primarily use I/Q-sampling
 when representing waveforms digitally.
 The Nyquist frequency for complex sampling is equal to the complex sample rate.
 Therefore in this context, passband width is often show the same value as the signal sample rate.
-In fact, passband width is often to simply as sample rate. \cite{needed}
+In fact, passband width is often referred to simply as sample rate. \cite{needed}
 
 
 
@@ -311,7 +311,11 @@ DC offset artifacts caused by phenomenon unrelated to CIC roll-off.
 The measurements verify what should be there in theory is observable in
 practice.
 
+## Visualization
 
+
+
+![Time average of scanned spectrum](img/spectrum-heatmap.png)
 
 # Discussion
 

@@ -1,6 +1,9 @@
 
+# Installation and configuration
 
-Notes in this section is largely based on the Ettus wiki article [on how to verify operation of the USRP](https://kb.ettus.com/Verifying_the_Operation_of_the_USRP_Using_UHD_and_GNU_Radio)
+
+
+Notes in this section are largely based on the Ettus wiki article [on how to verify operation of the USRP](https://kb.ettus.com/Verifying_the_Operation_of_the_USRP_Using_UHD_and_GNU_Radio)
 
 
 
@@ -32,10 +35,9 @@ and execute the benchmark_rate program
 
 # Calibrating IQ sample balance
 
-sun the command
 
 # Spectrum Sensing
 
-The gnu radio example have python script that can be used for simple monitoring:
+The gnu radio examples have python script that can be used for simple monitoring:
 
     ./usrp_spectrum_sense.py  791000000 821000000
