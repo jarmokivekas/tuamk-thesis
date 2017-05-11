@@ -201,9 +201,9 @@ Full spectrum scans are completed by incrementing the USRP's center frequency at
 regular intervals. An FFT is calculated and stored for each hop during the scan.
 
 The difference in the center frequency of each consecutive hop is slightly less
-than what the width of each FFT. This overlap between FF Ts can be used to improve
+than what the width of each FFT. This overlap between FFTs can be used to improve
 data quality by discarding some of the lowest and highest frequency FFT bins,
-which may suffer from CIC-roll-off.
+which may suffer from roll-off.
 
 ## Data model
 
@@ -223,7 +223,7 @@ The columns in the data structure are
 - scan: which incremental scan the hop of the FFT bin belongs to
 
 Representing the data in the described manner allows for easy manipulation
-of the data with existing tools at the cost of increased dataset size due
+of the data with existing tools at the cost of increased data set size due
 to redundancy.
 
 Developing a more storage-efficient data model is outside the scope of work
@@ -261,35 +261,57 @@ In fact, passband width is often to simply as sample rate. \cite{needed}
 
 
 
-### CIC-roll-off
+## CIC roll-off
 
 Cascaded integrator-comb filters, CIC filters for short, are a class of hardware-efficient
-finite response filters that can be used for decimation and interpolation of a signal \cite{donadio200}
+finite response filters that can be used for decimation and interpolation of a signal \cite{donadio2000}
 
 The USRP's integrated FPGA processes samples at 100 MSPS from the antenna ADC.
 The samples are down sampled to a lower sample rate in order to transfer them
 over the Gigabit Ethernet interface to the computer using a CIC filter.
 
 The chosen sample rate has significant impact on the quality of the scan data.
-Choosing an inappropriate sample rate will cause the data to have CIC-roll-off
+Choosing an inappropriate sample rate will cause the data to have CIC roll-off
 artifacts from the filter that is involved in the down sampling.
 
 The input sample rate to output sample rate ratio of the conversion needs to be even in
-order to avoid CIC-roll-of. The CIC-roll-off is at its worst when the ration is odd
+order to avoid CIC-roll-off. The CIC roll-off is at its worst when the ratio is odd.
 
-$$\cfrac{R_{in}}{R_out} \mod 2 = 0$$
+$$\cfrac{R_{in}}{R_{out}} \mod 2 = 0$$
 
 
-The measurements in \ref{fig:cic-rollof} shows the manifestation of CIC-roll-off
+#### CIC roll-off measurements
+
+
+The measurements shown in \ref{fig:cic-rollof} show the manifestation of CIC roll-off
 at two distinct sample rates. The resampling is done from 100 MSPS, therefore
-the rate rations are $100 \text{ MSPS} / 20 \text{ MSPS} = 5$ and
-$100 \text{ MSPS} / 25 \text{ MSPS} = 4$
+the rate rations are 100  MSPS / 20  MSPS} = 5 (odd) and
+100 MSPS / 25 MSPS = 4 (even)
+
+The sample rates 20 MSPS and 25 MSPS were chosen to show the most extreme and
+least extreme cases of CIC roll-off while still maintaining a the highest
+available sample rate, in this case using 16-bit samples. Choosing a high sample
+rate allows for measuring a wider band of spectrum at once, which is desirable
+in the context of the spectrum monitoring application presented in this thesis.
+
+![Sample rates chosen to maximize (left) and minimize (right) the effect of CIC roll-off](img/cic-rollof-by-sample-rate.png)
+
+Measurement configuration:
+
+- \itab{radio peripheral:}  \tab{USRP N210}
+- \itab{host interface:}    \tab{Gigabit Ethernet}
+- \itab{FPGA DSP rate:}     \tab{100 MSPS}
+- \itab{I/Q sample rate:}   \tab{25 MSPS, 20 MSPS}
+- \itab{I/Q sample depth:}  \tab{16-bit}
+- \itab{load:}              \tab{50 ohm RF terminator}
+
+The carriers visible in the center of plotted spectra in \ref{fig:cic-rolloff} are
+DC offset artifacts caused by phenomenon unrelated to CIC roll-off.
+
+The measurements verify what should be there in theory is observable in
+practice.
 
 
-
-![Sample rates chosen in order to maximize (left) and minimize (right) the effect of CIC-roll-off](img/cic-rollof-by-sample-rate.png)
-
-CIC (cascaded integrator-comb)
 
 # Discussion
 
