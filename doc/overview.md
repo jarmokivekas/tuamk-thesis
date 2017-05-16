@@ -12,7 +12,7 @@ This thesis covers basic aspects of radio spectrum monitoring and some of its
 applications in modern communication systems.
 
 Spectrum monitoring, in  general sense, involves sensing and interpreting the frequency content
-of on a band of radio spectrum over time \cite{ni-white-15}.
+of a band of the     radio spectrum over time \cite{ni-white-15}.
 The complexity of monitoring systems can vary from simple running time-averages
 of a sensed spectrum to much more complex systems that can for example partially
 decode signaling protocols, store spectrum usage history, and analyze data either in real-time or in post-processing in order to provide more information \cite{gronroos16}\cite{ni-white-15}.
@@ -20,6 +20,9 @@ decode signaling protocols, store spectrum usage history, and analyze data eithe
 The bulk of work in this thesis is the implementation of a radio spectrum monitoring system
 consisting of a commercial software-defined radio peripheral and a Linux laptop with
 custom application logic, post-processing, and data visualization scripts.
+
+
+\clearpage
 
 # Background
 
@@ -73,20 +76,27 @@ The band consists of:
 
 
 
-## Spectrum Monitoring
 
-Conventionally sections of the radio spectrum are allocated for use in a
-particular application, and the rights to transmit on those sections
+## Spectrum Allocation
+
+Conventionally bands of the radio spectrum are allocated for use in a
+particular application, and the rights to transmit on those bands
 are licensed by a governing body. Licensees may obtain licenses for
 comparatively long spans of time, during which the allocated spectrum
-may not be used continuously and in full. \cite{subramaniam15}
+may not be used continuously and in full.
+Faster data transmission rates and widespread use of radio-based communications\cite{subramaniam15}
 
-The Finnish Communications Regulatory Authority (FICORA) regulates the
+The Finnish Communications Regulatory Authority (FICORA) is the governing
+body that handles spectrum allocation in Finland. FICORA regulates the
 use of frequencies 9 kHz -- 400 GHz \cite{ficoraReg15}.
 
+The International Telecommunications Union (ITU) is a United Nations specialized agency that allocates
+radio spectrum and satellite orbits. The ITU is involved in coordinating with national regulatory authorities
+to maintain cross-compatible radio regulations globally.
+
 Advances in radio technology allow the implementation of flexible
-radio systems that reduce underutilization of available RF spectrum
-\cite{gronroos16}.  Thanks to increased flexibility, transmission
+radio systems that reduce underutilization of available RF spectrum.
+\cite{gronroos16}. Thanks to increased flexibility, transmission
 frequencies, bandwidth, and modulation schemes can be changed rapidly
 in a dynamic way in order to accommodate for changes in the available
 spectrum.  Spectrum monitoring is a key technology when considering the
@@ -108,7 +118,7 @@ whitespace (TVWS). In Finland
 ## Licensed Shared Access
 
 Licensed shared access (LSA) is an approach to radio spectrum regulation
-that allows further use of spectrum that is previously allocated to
+that allows further use of spectrum that is already allocated to
 an incumbent user.  LSA is based on a framework where the incumbent
 user, one or several LSA licensees -- i.e new users, and the spectrum
 regulation authority collectively agree on a sharing scheme. The sharing
@@ -117,8 +127,8 @@ well as the licensee can expect predictable quality-of-service and are
 protected from interference. \cite{lsa}
 
 Availability information and spectrum access policies are held centrally
-in an LSA repository. An LSA controller communicates with the LSA repository
-
+in an LSA repository. Spectrum monitoring is a key component for implementing
+a system such as LSA.
 
 ## Spectrum Sensing Methods
 
@@ -151,15 +161,16 @@ triggered by noise, whether man-made or otherwise, that exceeds the
 threshold. \cite{subramaniam15}
 
 <!--  see subramaniam15 reference [12] for more -->
-
+<!--  
 ### Autocorrelation
-
 Autocorrelation function (ACF)
-
+-->
 
 <!--  see subramaniam15 reference [13] for more -->
+<!--  
 
 ### Correlation Distance
+-->
 
 ## Software Defined Radio
 
@@ -327,6 +338,8 @@ practice.
 
 ![Time average of scanned spectrum](img/spectrum-heatmap.png)
 
+\clearpage
+
 # Discussion
 
 ## Protecting the radio peripheral
@@ -355,9 +368,7 @@ to the band in question will some amount time. This time can accumulate
 if the system is used to scan a wide band of spectrum by constantly re-tuning the radio peripheral,
 making each full scan take longer.
 
-
-
-# Further development
+## DC-offset
 
 
 
