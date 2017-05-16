@@ -187,7 +187,7 @@ visualization, and controlling the USRP.
 ## The Universal Software Radio Peripheral
 
 The USRP is a platform that is designed for research applications
-\cite{needed}, and it is evident based on earlier research publications
+\cite{needed}, and it's evident based on earlier research publications
 that is suitable for spectrum sensing applications \cite{angrisani16}.
 
 The USRP has an FPGA that can be used for simple signal processing,
@@ -198,8 +198,9 @@ blocks. \cite{ni-forum-question}
 
 ## Data flow
 
-Full spectrum scans are completed by incrementing the USRP's center frequency at
-regular intervals. An FFT is calculated and stored for each hop during the scan.
+The USRP's center frequency is incremented at regular intervals to complete
+full scans of a wide part of the spectrum.
+An FFT is calculated and stored for each hop during the scan.
 
 The difference in the center frequency of each consecutive hop is slightly less
 than what the width of each FFT. This overlap between FFTs can be used to improve
@@ -261,7 +262,7 @@ I/Q pair of 16-bit samples 32 bits in size.
 The USRP and GNURadio ecosystems for signal processing primarily use I/Q-sampling
 when representing waveforms digitally.
 The Nyquist frequency for complex sampling is equal to the complex sample rate.
-Therefore in this context, passband width is often shown as the same value as the signal sample rate.
+In this context, passband width is often shown as the same value as the signal sample rate.
 In fact, passband width is often referred to simply as the sample rate. \cite{needed}
 
 
@@ -340,16 +341,15 @@ that are too low or too high to conform with the expected signal strengths given
 in the application's standard. Out-of-spec signals can be rejected and ignored.
 
 
-Simplified measurement of the RF energy on present on a band can be done on on
-attenuated version of the signal, in order to set the receiver's gain to an
+Simplified measurement of the RF energy on present on a band can be done on
+attenuated version of the signal to set the receiver's gain to an
 appropriate level and protect the monitoring system from damage caused by high-power signals.
 
 This added level of protection may come at the expense of performance, as sensing
 the power of a band and setting the receiver gain before tuning the radio peripheral
-to the band in question will some amount time. This additional time can accumulate
+to the band in question will some amount time. This time can accumulate
 if the system is used to scan a wide band of spectrum by constantly re-tuning the radio peripheral,
-making each full scan take significantly longer.
-
+making each full scan take longer.
 
 
 
