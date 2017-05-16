@@ -4,6 +4,7 @@
 
 
 
+
 # Introduction
 
 
@@ -11,8 +12,8 @@ This thesis covers basic aspects of radio spectrum monitoring and some of its
 applications in modern communication systems.
 
 The bulk of work in this thesis is the implementation of a radio spectrum monitoring system
-consisting of a commercial software defined peripheral and a Linux laptop with
-custom application logic, post-processing and data visualization scripts.
+consisting of a commercial software-defined radio peripheral and a Linux laptop with
+custom application logic, post-processing, and data visualization scripts.
 
 # Background
 
@@ -70,17 +71,17 @@ The band consists of:
 
 ## Spectrum Monitoring
 
-Conventionally sections of radio spectrum are allocated for use in a
-particular application, and the rights to transmit on those section
+Conventionally sections of the radio spectrum are allocated for use in a
+particular application, and the rights to transmit on those sections
 are licensed by a governing body. Licensees may obtain licenses for
 comparatively long spans of time, during which the allocated spectrum
-may not be used used continuously and in full. \cite{subramaniam15}
+may not be used continuously and in full. \cite{subramaniam15}
 
 The Finnish Communications Regulatory Authority (FICORA) regulates the
 use of frequencies 9 kHz -- 400 GHz \cite{ficoraReg15}.
 
-Advances in radio technology allows the implementation of flexible
-radio systems that reduce under utilization of available RF spectrum
+Advances in radio technology allow the implementation of flexible
+radio systems that reduce underutilization of available RF spectrum
 \cite{gronroos16}.  Thanks to increased flexibility, transmission
 frequencies, bandwidth, and modulation schemes can be changed rapidly
 in a dynamic way in order to accommodate for changes in the available
@@ -118,8 +119,8 @@ in an LSA repository. An LSA controller communicates with the LSA repository
 ## Spectrum Sensing Methods
 
 <!-- TODO: this section -->
-Sensing applications can be either generalized, or designed for a
-specific type of transmission, in order to monitor the use of particular
+Sensing applications can be either generalized or designed for
+a specific type of transmission, in order to monitor the use of particular
 standardized channels of a radio system.
 
 ### Energy Detection
@@ -130,7 +131,7 @@ the energy detection method with fixed-threshold [9]" \cite{subramaniam15}
 
 Energy detection is commonly used in research applications to determine
 the utilization of radio frequencies \cite{subramaniam15}.  In a
-simplistic application energy detection can be done by digitizing a span
+simplistic application, energy detection can be done by digitizing a span
 of spectrum using a software defined radio, or a purpose-built spectrum
 analyzer.  A binary decision about whether a particular frequency is in
 use is made by comparing the received RF energy on that frequency to a
@@ -139,8 +140,8 @@ fixed threshold value. \cite {subramaniam15}
 Energy detection using a fixed threshold is problematic.  Threshold values
 that are set manually are error prone, and may need re-adjustment
 depending on the environment in which measurements are done.
-A threshold that is set too high will cause false negatives, when a
-signal that is present is note strong enough to pass the threshold.
+A threshold that is set too high will cause false negatives when
+a signal that is present is not strong enough to pass the threshold.
 Similarly, if the threshold value is too low, false positives may be
 triggered by noise, whether man-made or otherwise, that exceeds the
 threshold. \cite{subramaniam15}
@@ -161,12 +162,12 @@ Autocorrelation function (ACF)
 
 A software defined radio peripheral is in simple terms a fast ADC that's
 attached to an antenna. SDR platforms are used to digitize a section
-of spectrum which is then either processed in real-time, or it can be
+of the radio spectrum which is then either processed in real-time, or it can be
 written to non-volatile storage and processing of data can happen at a
 later stage.
 
 In an optimal SDR solution the antenna would be essentially connected
-directly to the ADC. However, in actual applications it is usually
+directly to the ADC. However, in actual applications, it is usually
 necessary to implement a radio front end. Typical parts of such a
 front end include a bandpass filter (BPF), a low-noise amplifier (LNA)
 , and a mixing stage. \cite{needed}
@@ -175,7 +176,7 @@ front end include a bandpass filter (BPF), a low-noise amplifier (LNA)
 
 # Materials and Methods
 
-This section decribes the implementation of a radio spectrum monitoring system using an NI USRP as the antenna
+This section describes the implementation of a radio spectrum monitoring system using an NI USRP as the antenna
 interface. The application logic of the spectrum monitor was implemented in the
 Python \cite{python_software} scripting language by utilizing the open-source
 GNU radio \cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
@@ -191,7 +192,7 @@ that is suitable for spectrum sensing applications \cite{angrisani16}.
 
 The USRP has an FPGA that can be used for simple signal processing,
 however, due to the relatively small size of the FPGA, it is limited in
-it's capability, and cannot be used to implement complex PHY layer DPS
+its capability, and cannot be used to implement complex PHY layer DPS
 blocks. \cite{ni-forum-question}
 
 
@@ -217,7 +218,7 @@ The columns in the data structure are
 - freq: frequency of the FFT bin
 - mag: power magnitude of the FFT bin
 - power: sensed
-<!-- - noise: power of the low*    *TODO** deprecate this bullet point** -->
+<!-- - noise: the power of the low*    *TODO** deprecate this bullet point** -->
 <!-- these are scan and sweep in the actual source code -->
 - hop: which incremental hop of a scan the FFT bin belongs to
 - scan: which incremental scan the hop of the FFT bin belongs to
@@ -236,7 +237,7 @@ comma separated tabular data in .csv files. This makes it easy to import the dat
 a large variety of applications for post-processing.
 
 Alternatively, the data can be stored in a more compact way using python's native
-pickle storage. This is a In order to collect data over long periods of time,
+pickle storage. This is in order to collect data over long periods of time,
 
 
 <!--  CAN IT, THOUGH? -->
@@ -249,15 +250,19 @@ What sample rate is chosen impacts the speed of scanning and the available frequ
 resolution.
 
 The USRP is able to stream complex samples over its Gigabit Ethernet interface
-at rates of up to 50 MSPS at 8-bit resolution and 25 MSPS at 16-bit resolution.
+at rates of up to 50 MSPS at an 8-bit resolution and 25 MSPS at a 16-bit resolution.
 The resolution of the 16-bit samples is 14-bit in practice, which is the maximum
 accuracy of the ADCs used for sample acquisition. \cite{ettusN210}
+
+An 8-bit sample refers to a sampling scheme where 8 bits are used to each of the
+I and Q sample, making the I/Q sample pair a total of 16 bits is size. Similarly an
+I/Q pair of 16-bit samples 32 bits in size.
 
 The USRP and GNURadio ecosystems for signal processing primarily use I/Q-sampling
 when representing waveforms digitally.
 The Nyquist frequency for complex sampling is equal to the complex sample rate.
-Therefore in this context, passband width is often show the same value as the signal sample rate.
-In fact, passband width is often referred to simply as sample rate. \cite{needed}
+Therefore in this context, passband width is often shown as the same value as the signal sample rate.
+In fact, passband width is often referred to simply as the sample rate. \cite{needed}
 
 
 
@@ -267,10 +272,10 @@ Cascaded integrator-comb filters, CIC filters for short, are a class of hardware
 finite response filters that can be used for decimation and interpolation of a signal \cite{donadio2000}
 
 The USRP's integrated FPGA processes samples at 100 MSPS from the antenna ADC.
-The samples are down sampled to a lower sample rate in order to transfer them
+The samples are downsampled to a lower sample rate in order to transfer them
 over the Gigabit Ethernet interface to the computer using a CIC filter.
 
-The chosen sample rate has significant impact on the quality of the scan data.
+The chosen sample rate has a significant impact on the quality of the scan data.
 Choosing an inappropriate sample rate will cause the data to have CIC roll-off
 artifacts from the filter that is involved in the down sampling.
 
@@ -289,9 +294,9 @@ the rate rations are 100  MSPS / 20  MSPS} = 5 (odd) and
 100 MSPS / 25 MSPS = 4 (even)
 
 The sample rates 20 MSPS and 25 MSPS were chosen to show the most extreme and
-least extreme cases of CIC roll-off while still maintaining a the highest
-available sample rate, in this case using 16-bit samples. Choosing a high sample
-rate allows for measuring a wider band of spectrum at once, which is desirable
+least extreme cases of CIC roll-off while still maintaining the highest
+available sample rate, in this case, using 16-bit samples. Choosing a high sample
+rate allows for measuring a wider band of the spectrum at once, which is desirable
 in the context of the spectrum monitoring application presented in this thesis.
 
 ![Sample rates chosen to maximize (left) and minimize (right) the effect of CIC roll-off](img/cic-rollof-by-sample-rate.png)
@@ -308,7 +313,7 @@ Measurement configuration:
 The carriers visible in the center of plotted spectra in \ref{fig:cic-rolloff} are
 DC offset artifacts caused by phenomenon unrelated to CIC roll-off.
 
-The measurements verify what should be there in theory is observable in
+The measurements verify what should be there, in theory, is observable in
 practice.
 
 ## Visualization
@@ -326,25 +331,24 @@ equipment needs to be able to cope with very high-power transmissions in order
 to have a robust system. When tuning the monitoring system to a certain
 band, one can not be certain of what signals will be present at those frequencies.
 
-In spectrum monitoring it is often desirable to be able to record the presence of signals
+In spectrum monitoring, it is often desirable to be able to record the presence of signals
 regardless of their power. A general monitoring application may not have given standardized specifications
 to conform to in the same manner as a traditional receiver purpose-built for a specific
 communications application.
-A purpose-built receiver doesn't necessarily need to work with signal strenghts
-that are too low or too high to conform with the expected signal strenghts given
+A purpose-built receiver doesn't necessarily need to work with signal strengths
+that are too low or too high to conform with the expected signal strengths given
 in the application's standard. Out-of-spec signals can be rejected and ignored.
 
 
 Simplified measurement of the RF energy on present on a band can be done on on
-attenuated version of the signal, in order to to set the receiver's gain to an
+attenuated version of the signal, in order to set the receiver's gain to an
 appropriate level and protect the monitoring system from damage caused by high-power signals.
 
 This added level of protection may come at the expense of performance, as sensing
 the power of a band and setting the receiver gain before tuning the radio peripheral
 to the band in question will some amount time. This additional time can accumulate
 if the system is used to scan a wide band of spectrum by constantly re-tuning the radio peripheral,
-making each full scan take significantly longer. 
-
+making each full scan take significantly longer.
 
 
 
