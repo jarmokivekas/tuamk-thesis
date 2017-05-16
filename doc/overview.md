@@ -11,6 +11,12 @@
 This thesis covers basic aspects of radio spectrum monitoring and some of its
 applications in modern communication systems.
 
+Spectrum monitoring, in  general sense, involves sensing and interpreting the frequency content
+of on a band of radio spectrum over time \cite{ni-white-15}.
+The complexity of monitoring systems can vary from simple running time-averages
+of a sensed spectrum to much more complex systems that can for example partially
+decode signaling protocols, store spectrum usage history, and analyze data either in real-time or in post-processing in order to provide more information \cite{gronroos16}\cite{ni-white-15}.
+
 The bulk of work in this thesis is the implementation of a radio spectrum monitoring system
 consisting of a commercial software-defined radio peripheral and a Linux laptop with
 custom application logic, post-processing, and data visualization scripts.
@@ -19,12 +25,9 @@ custom application logic, post-processing, and data visualization scripts.
 
 
 <!--------------------------- section deprecated, irrelevant to thesis -------
-
-
 ## The 800 MHz band
 - http://www.cellular-news.com/story/43196.php
 - https://tech.ebu.ch/news/ec-makes-official-recommendation-for-790-29oct09
-
 
 ## Orthogonal Frequencies-Division Multiplexing
 
@@ -65,6 +68,7 @@ The band consists of:
 >
 
 -->
+
 
 
 
@@ -130,7 +134,7 @@ the energy detection method with fixed-threshold [9]" \cite{subramaniam15}
 -->
 
 Energy detection is commonly used in research applications to determine
-the utilization of radio frequencies \cite{subramaniam15}.  In a
+the utilization of radio frequencies. In a
 simplistic application, energy detection can be done by digitizing a span
 of spectrum using a software defined radio, or a purpose-built spectrum
 analyzer.  A binary decision about whether a particular frequency is in
@@ -169,8 +173,8 @@ later stage.
 In an optimal SDR solution the antenna would be essentially connected
 directly to the ADC. However, in actual applications, it is usually
 necessary to implement a radio front end. Typical parts of such a
-front end include a bandpass filter (BPF), a low-noise amplifier (LNA)
-, and a mixing stage. \cite{needed}
+front end include a band select filter, a low-noise amplifier (LNA),
+and a mixing stage. \cite{raman15}
 
 
 
@@ -341,7 +345,7 @@ that are too low or too high to conform with the expected signal strengths given
 in the application's standard. Out-of-spec signals can be rejected and ignored.
 
 
-Simplified measurement of the RF energy on present on a band can be done on
+Simplified measurement of the RF energy on present on a band can be done on an
 attenuated version of the signal to set the receiver's gain to an
 appropriate level and protect the monitoring system from damage caused by high-power signals.
 
