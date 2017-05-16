@@ -319,6 +319,34 @@ practice.
 
 # Discussion
 
+## Protecting the radio peripheral
+
+An inherent quality of radio spectrum monitoring applications is that receiver
+equipment needs to be able to cope with very high-power transmissions in order
+to have a robust system. When tuning the monitoring system to a certain
+band, one can not be certain of what signals will be present at those frequencies.
+
+In spectrum monitoring it is often desirable to be able to record the presence of signals
+regardless of their power. A general monitoring application may not have given standardized specifications
+to conform to in the same manner as a traditional receiver purpose-built for a specific
+communications application.
+A purpose-built receiver doesn't necessarily need to work with signal strenghts
+that are too low or too high to conform with the expected signal strenghts given
+in the application's standard. Out-of-spec signals can be rejected and ignored.
+
+
+Simplified measurement of the RF energy on present on a band can be done on on
+attenuated version of the signal, in order to to set the receiver's gain to an
+appropriate level and protect the monitoring system from damage caused by high-power signals.
+
+This added level of protection may come at the expense of performance, as sensing
+the power of a band and setting the receiver gain before tuning the radio peripheral
+to the band in question will some amount time. This additional time can accumulate
+if the system is used to scan a wide band of spectrum by constantly re-tuning the radio peripheral,
+making each full scan take significantly longer. 
+
+
+
 
 
 # Further development
