@@ -278,7 +278,7 @@ The USRP and GNURadio ecosystems for signal processing primarily use I/Q-samplin
 when representing waveforms digitally.
 The Nyquist frequency for complex sampling is equal to the complex sample rate.
 In this context, passband width is often shown as the same value as the signal sample rate.
-In fact, passband width is often referred to simply as the sample rate. \cite{needed}
+In fact, passband width is often referred to as the sample rate. \cite{needed}
 
 
 
@@ -296,7 +296,7 @@ Choosing an inappropriate sample rate will cause the data to have CIC roll-off
 artifacts from the filter that is involved in the down sampling.
 
 The input sample rate to output sample rate ratio of the conversion needs to be even in
-order to avoid CIC-roll-off. The CIC roll-off is at its worst when the ratio is odd.
+order to avoid CIC roll-off. The CIC roll-off is at its worst when the ratio is odd.
 
 $$\cfrac{R_{in}}{R_{out}} \mod 2 = 0$$
 
@@ -306,7 +306,7 @@ $$\cfrac{R_{in}}{R_{out}} \mod 2 = 0$$
 
 The measurements shown in \ref{fig:cic-rollof} show the manifestation of CIC roll-off
 at two distinct sample rates. The resampling is done from 100 MSPS, therefore
-the rate rations are 100  MSPS / 20  MSPS} = 5 (odd) and
+the rate ratios are 100  MSPS / 20  MSPS} = 5 (odd) and
 100 MSPS / 25 MSPS = 4 (even)
 
 The sample rates 20 MSPS and 25 MSPS were chosen to show the most extreme and
@@ -370,6 +370,18 @@ making each full scan take longer.
 
 ## DC-offset
 
+![Mechanisms for DC-offset: A) LO leakage, B) LO reradiation, C) in-band interference](img/dc-offset.png)
 
+It's common to see an interference artifact at the center of the band captured by a software defined radio.
+The interference is a DC-offset caused by the direct-conversion receiver in the RF front-end which downmixes signals to the baseband before digitizing the signal. This phenomenon was observed with different software-defined radio peripherals including the NI USPR-n210, and two different
+commercial DVB-T -tuner style radios.
+
+Strong local signals or the receivers own local oscillator (LO) can self-mix with itself down to zero-IF, which causes the DC-offset.
+
+LO leakage, LO reradiation, and having strong in-band interference are the main mechanisms causing DC-offset \cite{raman15}.
+
+DC-offset is caused in the SDR peripheral's RF front-end and is hardware-dependent.
+The root causes for DC-offset cannot be corrected by choosing different digitizing
+parameter in the way eg. CIC roll-off
 
 # Conclusion
