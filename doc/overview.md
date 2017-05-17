@@ -110,12 +110,12 @@ use of dynamic spectrum access \cite{zennaro12}.
 
 ### Opportunistic Spectrum access
 
-A concrete example dynamic spectrum access is the secondary use of TV
-whitespace (TVWS). In Finland
+<!-- A concrete example dynamic spectrum access is the secondary use of TV
+whitespace (TVWS). In Finland -->
 
 ### Enforcement of Radio Regulation
 
-## Licensed Shared Access
+### Licensed Shared Access
 
 Licensed shared access (LSA) is an approach to radio spectrum regulation
 that allows further use of spectrum that is already allocated to
@@ -188,27 +188,33 @@ front end include a band select filter, a low-noise amplifier (LNA),
 and a mixing stage. \cite{raman15}
 
 
+\clearpage
 
 # Materials and Methods
 
 This section describes the implementation of a radio spectrum monitoring system using an NI USRP as the antenna
 interface. The application logic of the spectrum monitor was implemented in the
 Python \cite{python_software} scripting language by utilizing the open-source
-GNU radio \cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
+GNURadio \cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
 visualization, and controlling the USRP.
 
 
 
 ## The Universal Software Radio Peripheral
 
-The USRP is a platform that is designed for research applications
-\cite{needed}, and it's evident based on earlier research publications
-that is suitable for spectrum sensing applications \cite{angrisani16}.
+The USRP is a platform that is designed for research applications,
+and it's evident based on earlier research publications
+that is suitable for spectrum sensing applications \cite{angrisani16}\cite{ni-white-15}.
+
+The majority of practical work in this thesis was done using a USRP-n210.
 
 The USRP has an FPGA that can be used for simple signal processing,
-however, due to the relatively small size of the FPGA, it is limited in
+however, due to the small size of the FPGA, it is limited in
 its capability, and cannot be used to implement complex PHY layer DPS
-blocks. \cite{ni-forum-question}
+blocks for signal decoding. The FPGA's main purpose is to do resampling
+and type conversion of the digitized signal as well as handle
+network communication with the host PC, sample streaming, and
+control the RF daughterboard \cite{ni-forum-question}\cite{ettusN210}
 
 
 ## Data flow
@@ -370,7 +376,9 @@ making each full scan take longer.
 
 ## DC-offset
 
-![Mechanisms for DC-offset: A) LO leakage, B) LO reradiation, C) in-band interference](img/dc-offset.png)
+![Mechanisms for DC-offset: A) LO leakage, B) LO re-radiation, C) in-band interference](img/dc-offset.png)
+
+
 
 It's common to see an interference artifact at the center of the band captured by a software defined radio.
 The interference is a DC-offset caused by the direct-conversion receiver in the RF front-end which downmixes signals to the baseband before digitizing the signal. This phenomenon was observed with different software-defined radio peripherals including the NI USPR-n210, and two different
@@ -378,10 +386,31 @@ commercial DVB-T -tuner style radios.
 
 Strong local signals or the receivers own local oscillator (LO) can self-mix with itself down to zero-IF, which causes the DC-offset.
 
-LO leakage, LO reradiation, and having strong in-band interference are the main mechanisms causing DC-offset \cite{raman15}.
+LO leakage, LO re-radiation, and having strong in-band interference are the main mechanisms causing DC-offset \cite{raman15}.
+The LO is relatively strong signal in order to accomplish mixing in the downconverter.
+The LO signal can leak through unintended paths into the LNA in the in the front-end, where
+it reflects back and is fed into the downconverter where it is mixed with itself and
+causes a DC signal in the downconverter's output. The interference can be even stronger
+it the LO leaks into the LNA's input and is therefore amplified before self-mixing. \cite{raman15}
+
+
+
+The LO signal can unintentionally end up radiating from the receiver's antenna and
+end up reflecting the signal from the environment back into the receiver's RF front-end.
+Fading and multipath propagation can cause the reflected LO signal's strength
+to change quickly, causing the DC-offset's level to vary over time. \cite{raman15}
+
+
+Strong external interference at the LO's frequency can also cause DC-offset.
+The radiated LO signal of a similar nearby receiver is one example of a source
+for such interference. \cite{raman15}
+
+
 
 DC-offset is caused in the SDR peripheral's RF front-end and is hardware-dependent.
 The root causes for DC-offset cannot be corrected by choosing different digitizing
-parameter in the way eg. CIC roll-off
+parameter in the way eg. CIC roll-off can be.
+
+\clearpage
 
 # Conclusion
