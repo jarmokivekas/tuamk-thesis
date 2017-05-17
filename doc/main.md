@@ -206,7 +206,7 @@ The USRP is a platform that is designed for research applications,
 and it's evident based on earlier research publications
 that is suitable for spectrum sensing applications \cite{angrisani16}\cite{ni-white-15}.
 
-The majority of practical work in this thesis was done using a USRP-n210.
+The majority of practical work in this thesis was done using a USRP-2932.
 
 The USRP has an FPGA that can be used for simple signal processing,
 however, due to the small size of the FPGA, it is limited in
@@ -310,7 +310,7 @@ $$\cfrac{R_{in}}{R_{out}} \mod 2 = 0$$
 #### CIC roll-off measurements
 
 
-The measurements shown in \ref{fig:cic-rollof} show the manifestation of CIC roll-off
+The measurements shown in \ref{fig:cic-rolloff} show the manifestation of CIC roll-off
 at two distinct sample rates. The resampling is done from 100 MSPS, therefore
 the rate ratios are 100  MSPS / 20  MSPS} = 5 (odd) and
 100 MSPS / 25 MSPS = 4 (even)
@@ -325,7 +325,7 @@ in the context of the spectrum monitoring application presented in this thesis.
 
 Measurement configuration:
 
-- \itab{radio peripheral:}  \tab{USRP N210}
+- \itab{radio peripheral:}  \tab{USRP-2932}
 - \itab{host interface:}    \tab{Gigabit Ethernet}
 - \itab{FPGA DSP rate:}     \tab{100 MSPS}
 - \itab{I/Q sample rate:}   \tab{25 MSPS, 20 MSPS}
@@ -337,6 +337,54 @@ DC offset artifacts caused by phenomenon unrelated to CIC roll-off.
 
 The measurements verify what should be there, in theory, is observable in
 practice.
+
+## Maximum Frequency Resolution
+
+
+Sample rate and FFT size (bin count) determine the maximum available resolution
+in the frequency domain.
+
+The frequency resolution is given by
+
+$$ resolution \text{ [Hz]} = \cfrac{samplerate \text{ [Hz]}}{FFT size} $$.
+
+That is to say, by capturing a narrower band of the spectrum, it is possible
+achieve more granular frequency resolution with the same amount of computation.
+
+Increasing the number of bins in an FFT increases the amount of computation required.
+It's possible to save the raw I/Q samples to disk, and compute the large FFTs in a post-processing
+step where real-time computation is not required. In this case a likely bottle neck
+will storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximatly
+0.2 MPSP, which will produce close to 0.8 MB of data per second when using 16-bit
+sample. 100 MB data per second is produced at the maximum sample rate 25 MSPS.
+
+
+GNURadio and Baudline\cite{baudline-software} both require the FFT sizes to be
+powers of two ($2^n$).
+
+Major factors limiting sample rate top rate of the SRD preipheral's ADC,
+maximum troughput available for trasferring samples the host PC, and the
+computational load that has to occur in real-time on the host PC.
+
+#### Frequency Resolution Measurement
+
+Raw I/Q samples were saved into a file using the `uhd_rx_cfile` program that is part
+of the USRP + GNURadio ecosystem.
+
+The lowest supported sample rate in `uhd_rx_cfile` is 0.195312 MSPS.
+
+<!--  uhd_rx_cfile -f 815000000 --samp-rate=195312 complex -->
+
+- decompression: off
+- initial byte: 0
+- sample rate: custom, 195312
+- channels: 2, quadrature
+- decode format: 16 bit linear, little endian
+- transform size: 65536
+
+The resolution in the frequency domain with the give configuration is
+
+$$195312 \text{ Hz} / 65536 \approx 2.98 \text{ Hz}$$
 
 ## Visualization
 
@@ -381,7 +429,7 @@ making each full scan take longer.
 
 
 It's common to see an interference artifact at the center of the band captured by a software defined radio.
-The interference is a DC-offset caused by the direct-conversion receiver in the RF front-end which downmixes signals to the baseband before digitizing the signal. This phenomenon was observed with different software-defined radio peripherals including the NI USPR-n210, and two different
+The interference is a DC-offset caused by the direct-conversion receiver in the RF front-end which downmixes signals to the baseband before digitizing the signal. This phenomenon was observed with different software-defined radio peripherals including the NI USPR-2932, and two different
 commercial DVB-T -tuner style radios.
 
 Strong local signals or the receivers own local oscillator (LO) can self-mix with itself down to zero-IF, which causes the DC-offset.
@@ -409,7 +457,8 @@ for such interference. \cite{raman15}
 
 DC-offset is caused in the SDR peripheral's RF front-end and is hardware-dependent.
 The root causes for DC-offset cannot be corrected by choosing different digitizing
-parameter in the way eg. CIC roll-off can be.
+parameter in the way eg. CIC roll-off can be, although they can be corrected for
+using DSP after the fact.
 
 \clearpage
 
