@@ -5,7 +5,7 @@
 
 
 
-# Introduction
+# INTRODUCTION
 
 
 This thesis covers basic aspects of radio spectrum monitoring and some of its
@@ -24,7 +24,7 @@ custom application logic, post-processing, and data visualization scripts.
 
 \clearpage
 
-# Background
+# BACKGROUND
 
 
 <!--------------------------- section deprecated, irrelevant to thesis -------
@@ -190,7 +190,7 @@ and a mixing stage. \cite{raman15}
 
 \clearpage
 
-# Materials and Methods
+# MATERIALS AND METHODS
 
 This section describes the implementation of a radio spectrum monitoring system using an NI USRP as the antenna
 interface. The application logic of the spectrum monitor was implemented in the
@@ -321,7 +321,7 @@ available sample rate, in this case, using 16-bit samples. Choosing a high sampl
 rate allows for measuring a wider band of the spectrum at once, which is desirable
 in the context of the spectrum monitoring application presented in this thesis.
 
-![Sample rates chosen to maximize (left) and minimize (right) the effect of CIC roll-off](img/cic-rollof-by-sample-rate.png)
+![Sample rates chosen to maximize (left) and minimize (right) the effect of CIC roll-off\label{fig:cic-rolloff}](img/cic-rollof-by-sample-rate.png){ width=100% }
 
 Measurement configuration:
 
@@ -332,7 +332,7 @@ Measurement configuration:
 - \itab{I/Q sample depth:}  \tab{16-bit}
 - \itab{load:}              \tab{50 ohm RF terminator}
 
-The carriers visible in the center of plotted spectra in \ref{fig:cic-rolloff} are
+The carriers visible in the center of plotted spectra in figure \ref{fig:cic-rolloff} are
 DC offset artifacts caused by phenomenon unrelated to CIC roll-off.
 
 The measurements verify what should be there, in theory, is observable in
@@ -342,11 +342,11 @@ practice.
 
 
 
-![Time average of scanned spectrum](img/spectrum-heatmap.png)
+![Time average histogram of scanned spectrum\label{fig:viridis-histogram}](img/spectrum-heatmap.png){ width=100% }
 
 \clearpage
 
-# Discussion
+# DISCUSSION
 
 ## Protecting the radio peripheral
 
@@ -376,7 +376,7 @@ making each full scan take longer.
 
 ## DC-offset
 
-![Mechanisms for DC-offset: A) LO leakage, B) LO re-radiation, C) in-band interference](img/dc-offset.png)
+![Mechanisms for DC-offset: A) LO leakage, B) LO re-radiation, C) in-band interference\label{fig:dc-offset}](img/dc-offset.png)
 
 
 
@@ -413,4 +413,4 @@ parameter in the way eg. CIC roll-off can be.
 
 \clearpage
 
-# Conclusion
+# CONCLUSION
