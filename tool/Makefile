@@ -29,3 +29,6 @@ sense:
 
 show:
 	./uhd_fft.py -f 806000000
+
+cfile-high-accuracy:
+	uhd_rx_cfile -f 815001000 --samp-rate=195312 --nsamples 100000 "../data/complex-16IQ-195412-$(date --iso-8601=s)"
