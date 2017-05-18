@@ -12,9 +12,9 @@ This thesis covers basic aspects of radio spectrum monitoring and some of its
 applications in modern communication systems.
 
 Spectrum monitoring, in  general sense, involves sensing and interpreting the frequency content
-of a band of the     radio spectrum over time\\{ni-white-15}.
+of a band of the radio spectrum over time\cite{ni-white-15}.
 The complexity of monitoring systems can vary from simple running time-averages
-of a sensed spectrum to more complex systems that can for example signaling protocols, store spectrum usage history, and analyze data either in real-time or in post-processing in order to provide more information\cite{gronroos16}\cite{ni-white-15}.
+of a sensed spectrum to more complex systems that can, for example, decode signaling protocols, store spectrum usage history, and analyze data either in real-time or in post-processing in order to provide more information\cite{gronroos16}\cite{ni-white-15}.
 
 The bulk of work in this thesis is the implementation of a radio spectrum monitoring system
 consisting of a commercial software-defined radio peripheral and a Linux laptop with
@@ -31,8 +31,7 @@ custom application logic, post-processing, and data visualization scripts.
 
 ## Spectrum Allocation
 
-Conventionally bands of the radio spectrum are allocated for use in a
-particular application, and the rights to transmit on those bands
+Conventionally bands of the radio spectrum are allocated for use in a particular application, and the rights to transmit on those bands
 are licensed by a governing body. Licensees may obtain licenses for
 comparatively long spans of time, during which the allocated spectrum
 might not be used continuously and in full.
@@ -72,9 +71,8 @@ whitespace (TVWS). In Finland -->
 
 Licensed shared access (LSA) is an approach to radio spectrum regulation
 that allows further use of spectrum that is already allocated to
-an incumbent user.  LSA is based on a framework where the incumbent
-user, one or several LSA licensees -- i.e new users, and the spectrum
-regulation authority collectively agree on a sharing scheme. The sharing
+an incumbent user.  LSA is based on a framework where the incumbent user, one or several LSA licensees -- i.e new users,
+and the spectrum regulation authority collectively agree on a sharing scheme. The sharing
 scheme in LSA is controlled in a way that both the incumbent user, as
 well as the licensee can expect predictable quality-of-service and are
 protected from interference.\cite{lsa}
@@ -146,7 +144,7 @@ of the radio spectrum which is then either processed in real-time, or it can be
 written to non-volatile storage and processing of data can happen at a
 later stage.
 
-In an optimal SDR solution the antenna would be essentially connected
+In an ideal SDR solution, the antenna would be essentially connected
 directly to the ADC. However, in actual applications, it is usually
 necessary to implement a radio front end. Typical parts of such a
 front end include a band select filter, a low-noise amplifier (LNA),
@@ -237,8 +235,7 @@ resolution.
 
 The USRP is able to stream complex samples over its Gigabit Ethernet interface
 at rates of up to 50 MSPS at an 8-bit resolution and 25 MSPS at a 16-bit resolution.
-The resolution of the 16-bit samples is 14-bit in practice, which is the maximum
-accuracy of the ADCs used for sample acquisition.\cite{ettusN210}
+The resolution of the 16-bit samples is 14-bit in practice, which is the maximum accuracy of the ADCs used for sample acquisition.\cite{ettusN210}
 
 An 8-bit sample refers to a sampling scheme where 8 bits are used to each of the
 I and Q sample, making the I/Q sample pair a total of 16 bits is size. Similarly an
@@ -317,9 +314,8 @@ That is to say, by capturing a narrower band of the spectrum, it is possible
 achieve more granular frequency resolution with the same amount of computation.
 
 Increasing the number of bins in an FFT increases the amount of computation required.
-It's possible to save the raw I/Q samples to disk, and compute the large FFTs in a post-processing
-step where real-time computation is not required. In this case a likely bottle neck
-will storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximatly
+It's possible to save the raw I/Q samples to disk, and compute the large FFTs in a post-processing step where real-time computation is not required. In this case, a likely bottleneck
+will storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
 0.2 MPSP, which will produce close to 0.8 MB of data per second when using 16-bit
 sample. 100 MB data per second is produced at the maximum sample rate 25 MSPS.
 
@@ -327,8 +323,8 @@ sample. 100 MB data per second is produced at the maximum sample rate 25 MSPS.
 GNURadio and Baudline\cite{baudline-software} both require the FFT sizes to be
 powers of two ($2^n$).
 
-Major factors limiting sample rate top rate of the SRD preipheral's ADC,
-maximum troughput available for trasferring samples the host PC, and the
+Major factors limiting sample rate top rate of the SRD peripheral's ADC,
+maximum throughout available for transferring samples the host PC, and the
 computational load that has to occur in real-time on the host PC.
 
 ### Frequency Resolution Measurement
@@ -356,16 +352,16 @@ The absolute minimum resolution in the frequency domain with the given configura
 
 $$200000 \text{ Hz} / 65536 \approx 3.05 \text{ Hz}$$.
 
-Figure \ref{fig:baud50} shows that baudline is capable of distinguishing between
-distinct peaks 50 Hz apart. 20 Hz and 15 Hz gaps could be also observed during test,
+Figure \ref{fig:baud50} shows that Baudline is capable of distinguishing between
+distinct peaks 50 Hz apart. 20 Hz and 15 Hz gaps could be also observed during the test,
 although at times this required choosing a different windowing mode for the FFT, and even then
 the results were not always consistent.
 
 
 While the FSH4 spectrum analyzer and the USRP are both capable of measuring
 the spectrum of the test signal, the main difference comes in temporal resolution.
-The FSH4 used 7.8 seconds to obtain a single measurement of a 570 Hz span of spectum
-when measuring at approximately the same 3 Hz frequency resolution as the USRP.
+The FSH4 used 7.8 seconds to obtain a single measurement of a 570 Hz span of spectrum
+when measured at approximately the same 3 Hz frequency resolution as the USRP.
 
 When recording I/Q samples with an SDR peripheral such as the USPR, FFTs can
 be computed for each individual sample. In theory, this means the temporal resolution
