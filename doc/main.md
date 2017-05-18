@@ -26,53 +26,6 @@ custom application logic, post-processing, and data visualization scripts.
 # BACKGROUND
 
 
-<!--------------------------- section deprecated, irrelevant to thesis -------
-## The 800 MHz band
-- http://www.cellular-news.com/story/43196.php
-- https://tech.ebu.ch/news/ec-makes-official-recommendation-for-790-29oct09
-
-## Orthogonal Frequencies-Division Multiplexing
-
-OFDM is used in most contemporary communication systems, including cellular standards such as WiMax and LTE Advanced, digital broadcasting such as DVB-T, and several IEEE 802.11 standards.\cite{bloessl13}
-
-
-- http://niviuk.free.fr/lte_bandwidth.php good source for
-
-![LTE 800 network bandwidths](img/LTE 800 frequencies.png)
-
-This section is based on\cite{lte-ofdm-ofdma-scfdma}
-http://www.radio-electronics.com/info/cellulartelecomms/lte-long-term-evolution/lte-ofdm-ofdma-scfdma.php
-
-Multiple closely spaced carriers are modulated with a low data rate. Using orthogonal modulations means there is no mutual interference between the closely spaced carriers.
-
-OFDM can also be used with TDD and FDD (division duplex? **TODO**)
-
-The band consists of:
-
-- B18  (800 Lower)
-- B19  (800 Upper)
-- B20  (800 DD)
-
-
-
-> The channel bandwidths that have been chosen for LTE are:
->
-> - 1.4 MHz
-> - 3 MHz
-> - 5 MHz
-> - 10 MHz
-> - 15 MHz
-> - 20 MHz
->
-> In addition to this the sub-carriers spacing is 15 kHz, i.e. the LTE subcarriers are spaced 15 kHz apart from each > other. To maintain orthogonality, this gives a symbol rate of 1 / 15 kHz = of 66.7 µs.
->
-> Each subcarrier is able to carry data at a maximum rate of 15 ksps (kilosymbols per second). This gives a 20 MHz > bandwidth system a raw symbol rate of 18 MSPS. In turn this is able to provide a raw data rate of 108 Mbps as each symbol using 64QAM is able to represent six bits.
->
-
--->
-
-
-
 
 
 
@@ -139,7 +92,7 @@ Sensing applications can be either generalized or designed for
 a specific type of transmission, in order to monitor the use of particular
 standardized channels of a radio system.
 
-### Energy Detection
+<!-- ### Energy Detection -->
 
 <!--  subramanima15 has many references to sensing studies --> <!-- "using
 the energy detection method with fixed-threshold [9]"\cite{subramaniam15}
@@ -151,7 +104,7 @@ simplistic application, energy detection can be done by digitizing a band
 of the spectrum using a software defined radio, or a purpose-built spectrum
 analyzer.  A binary decision about whether a particular frequency is in
 use is made by comparing the received RF energy on that frequency to a
-fixed threshold value.\cite{subramaniam15}
+fixed threshold value. Energy detection \cite{subramaniam15}.
 
 Energy detection using a fixed threshold is problematic.  Threshold values
 that are set manually are error prone, and may need re-adjustment
@@ -160,19 +113,29 @@ A threshold that is set too high will cause false negatives when
 a signal that is present is not strong enough to pass the threshold.
 Similarly, if the threshold value is too low, false positives may be
 triggered by noise, whether man-made or otherwise, that exceeds the
-threshold.\cite{subramaniam15}
+threshold\cite{subramaniam15}.
 
-<!--  see subramaniam15 reference [12] for more -->
-<!--  
-### Autocorrelation
-Autocorrelation function (ACF)
--->
 
-<!--  see subramaniam15 reference [13] for more -->
-<!--  
+Mathematically more complex and compute-intensive methods relying on
+autocorrelation and correlation distance based algorithms are also used
+besides energy detection. These techniques have the advantage of producing
+more reliable results in environments that change over time, as they can account
+for the changes.
+Even a spectrum monitoring node located in a fixed geographical location may
+observe changes in the noise level in the surrounding environment. Changes can
+occur on different time scales, anything from momentary spurious emissions from
+radio-based communication systems, differences in man-made noise depending on the
+time of day or events on longer time spans such as new buildings being constructed
+in an urban area.
 
-### Correlation Distance
--->
+In order to maintain long-lasting spectrum occupancy measurements or a
+network of spectrum monitoring sensors viable, it is important that
+monitoring nodes can operate without the intervention of a technician.
+Needing to constantly update detection thresholds on monitoring sensors
+is time-consuming and error prone. Using more intelligent decision-making
+algorithms increase the quality of the data produced by a measurement
+campaign.\cite{gronroos16}
+
 
 ## Software Defined Radio
 
@@ -484,6 +447,26 @@ The root causes for DC-offset cannot be corrected by choosing different digitizi
 parameter in the way eg. CIC roll-off can be, although they can be corrected for
 using DSP after the fact.
 
+
+
+
 \clearpage
 
 # CONCLUSION
+
+
+
+
+The initial goal of the work done for this thesis was to develop a radio spectrum monitoring system using a National Instruments USRP.
+The spectrum monitoring system that was implemented was tested
+and implements the features it was intended to. Much of the benefit
+in the work done was not in the implementation itself but in the
+process thereof: in researching available tools, figuring out how
+to integrate them, and learning how software-define radio ecosystems
+work on a lower abstraction level.
+Running into issues and unexpected
+measurement results during the development process prompted several
+tangential projects into researching what configuration parameter
+or circuit is the root cause behind some phenomenon. Much of that knowledge
+is applicable in other software-defined radio and general RF system
+even outside the context of spectrum monitoring.
