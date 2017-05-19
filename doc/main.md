@@ -377,24 +377,28 @@ at which FFT can be obtained in this example is, in theory, 1/200000 Hz = 0.0000
 Part of the spectrum monitoring system presented in this thesis includes a is a visualization mechanism for showing histograms
 of spectrum usage over time.
 
+
+
 Figure \ref{fig:hist-DVB} shows the spectrum histogram at the low-frequency edge of a Digital Video Broadcast (DVB) signal.
 The histogram shows no data points at the noise floor's level (around  7 dB) above frequencies of the DVB signal's lower edge at  634 MHz, which means the signal was likely to be present 100% of the time.  There is a delay between each time the spectrum is measured, where it is possible for a signal to not be present for a short while and return before the next measurement.
 Shortening the delay, therefore increasing the temporal resolution, is foremost a tradeoff in data set size and required computational power.
 
+![The edge of a high-throughput digital signal in without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
+
+![A mobile communications band not in use 100% of the time\label{fig:hist-mobile}](img/histogram-mobile.png){ width=100% }
+
+![225 MHz span of spectum stiched from multiple measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
+
+Figure \ref{fig:hist-mobile} shows a measurement of a band of spectrum used for mobile communication.
+The power distribution shows a clearly visible noise floor within the
+allocated frequency band, which indicates that the frequencies are not
+constantly in use and there are periods of time where no signals are present. A running time-average of the spectrum, which typical in traditional spectrum analyzers, does not clearly show the partial absence of signals seen in this example. The intermittent use of the band shows up as lower average power, but the band still seems constantly occupied over time.
 
 
-![The edge of a high-throughput digital signal in without downtime\label{fig:hist-mobile}](img/histogram-DVB.png){ width=100% }
+Figure \ref{fig:hist-long} showcases a wide-band data set which
+was obtained by scanning the band and stitching several consecutive measurements into one dataset.
 
-Figure \ref{fig:hist-mobile} shows a band of spectrum used for mobile communication.
 
-
-![A mobile communications band not in use 100% of the time\label{fig:viridis-histogram}](img/histogram-mobile.png){ width=100% }
-
-![225 MHz span of spectum stiched from multiple 25 MHz wide measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
-
-Terrestrial systems capable of
-providing electronic
-communications services
 \clearpage
 
 # DISCUSSION
