@@ -369,15 +369,24 @@ at which FFT can be obtained in this example is, in theory, 1/200000 Hz = 0.0000
 
 
 
-## Visualization % Interpretation
+## Visualization & Interpretation
+
+Part of the spectrum monitoring system presented in this thesis includes a is a visualization mechanism for showing histograms
+of spectrum usage over time.
+
+Figure \ref{fig:hist-DVB} shows the spectrum histogram at the low-frequency edge of a Digital Video Broadcast (DVB) signal.
+The histogram shows no data points at the noise floor's level (around  7 dB) above frequencies of the DVB signal's lower edge at  634 MHz, which means the signal was likely to be present 100% of the time.  There is a delay between each time the spectrum is measured, where it is possible for a signal to not be present for a short while and return before the next measurement.
+Shortening the delay, therefore increasing the temporal resolution, is foremost a tradeoff in data set size and required computational power.
 
 
 
-![The edge of a high-througput digital signal in without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
+![The edge of a high-throughput digital signal in without downtime\label{fig:hist-mobile}](img/histogram-DVB.png){ width=100% }
+
+Figure \ref{fig:hist-mobile} shows a band of spectrum used for mobile communication.
 
 ![A mobile communications band not in use 100% of the time\label{fig:viridis-histogram}](img/histogram-mobile.png){ width=100% }
 
-![225 MHz span of spectum stiched from multiple 25 MHz wide measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
+![225 MHz span stiched from multiple 25 MHz wide measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
 
 Terrestrial systems capable of
 providing electronic
