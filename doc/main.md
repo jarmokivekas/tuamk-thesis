@@ -369,12 +369,19 @@ at which FFT can be obtained in this example is, in theory, 1/200000 Hz = 0.0000
 
 
 
-## Visualization
+## Visualization % Interpretation
 
 
 
-![Time average histogram of scanned spectrum\label{fig:viridis-histogram}](img/spectrum-heatmap.png){ width=100% }
+![The edge of a high-througput digital signal in without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
 
+![A mobile communications band not in use 100% of the time\label{fig:viridis-histogram}](img/histogram-mobile.png){ width=100% }
+
+![225 MHz span of spectum stiched from multiple 25 MHz wide measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
+
+Terrestrial systems capable of
+providing electronic
+communications services
 \clearpage
 
 # DISCUSSION
