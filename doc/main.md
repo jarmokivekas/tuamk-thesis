@@ -59,6 +59,9 @@ use of dynamic spectrum access\cite{zennaro12}.
 
 ## Applications of Spectrum Monitoring
 
+Spectrum monitoring, or spectrum occupancy measurement, is used to study how effectively a frequency band of interest is used in some geographical area. The level of utilization is determined based on the proportion of time when the frequencies are in use versus them being unoccupied. Information obtained from spectrum monitoring helps regulatory authorities assess the effectiveness their current allocation and plan for future use of the radio spectrum.  Spectrum monitoring is also used to improve the accuracy of spectrum usage databases in order to facilitate sharing of spectrum.
+
+
 
 ### Opportunistic Spectrum access
 
@@ -86,9 +89,7 @@ a system such as LSA.
 ## Spectrum Sensing Methods
 
 <!-- TODO: this section -->
-Sensing applications can be either generalized or designed for
-a specific type of transmission, in order to monitor the use of particular
-standardized channels of a radio system.
+
 
 <!-- ### Energy Detection -->
 
@@ -102,7 +103,7 @@ simplistic application, energy detection can be done by digitizing a band
 of the spectrum using a software defined radio, or a purpose-built spectrum
 analyzer.  A binary decision about whether a particular frequency is in
 use is made by comparing the received RF energy on that frequency to a
-fixed threshold value. Energy detection \cite{subramaniam15}.
+fixed threshold value.\cite{subramaniam15}
 
 Energy detection using a fixed threshold is problematic.  Threshold values
 that are set manually are error prone, and may need re-adjustment
@@ -111,7 +112,7 @@ A threshold that is set too high will cause false negatives when
 a signal that is present is not strong enough to pass the threshold.
 Similarly, if the threshold value is too low, false positives may be
 triggered by noise, whether man-made or otherwise, that exceeds the
-threshold\cite{subramaniam15}.
+threshold.\cite{subramaniam15}
 
 
 Mathematically more complex and compute-intensive methods relying on
@@ -134,6 +135,9 @@ is time-consuming and error prone. Using more intelligent decision-making
 algorithms increase the quality of the data produced by a measurement
 campaign.\cite{gronroos16}
 
+
+Sensing applications can be either generalized or designed for
+a specific type of transmission, in order to monitor the use of particular of a radio system. Energy detection, autocorrelation, and correlation distance based system are generalized techniques for determining occupancy. A system-specific monitoring application may be able to provide more useful information about the use of a spectral band compared to a general solution by demodulating and decoding signals in order to determine eg. how many timeslots are used in a time-domain multiplexed communications network. Having free timeslots available means, that while the band is technically occupied, there is still additional throughput capacity available in the network.\cite{hoyhtya16}
 
 ## Software Defined Radio
 
@@ -245,8 +249,7 @@ The USRP and GNURadio ecosystems for signal processing primarily use I/Q-samplin
 when representing waveforms digitally.
 The Nyquist frequency for complex sampling is equal to the complex sample rate.
 In this context, passband width is often shown as the same value as the signal sample rate.
-In fact, passband width is often referred to as the sample rate.\cite{needed}
-
+In fact, passband width is often referred to as the sample rate.
 
 
 ## CIC roll-off
@@ -384,9 +387,10 @@ Shortening the delay, therefore increasing the temporal resolution, is foremost 
 
 Figure \ref{fig:hist-mobile} shows a band of spectrum used for mobile communication.
 
+
 ![A mobile communications band not in use 100% of the time\label{fig:viridis-histogram}](img/histogram-mobile.png){ width=100% }
 
-![225 MHz span stiched from multiple 25 MHz wide measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
+![225 MHz span of spectum stiched from multiple 25 MHz wide measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
 
 Terrestrial systems capable of
 providing electronic
