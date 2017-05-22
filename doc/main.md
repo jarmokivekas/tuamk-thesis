@@ -11,10 +11,10 @@
 This thesis covers basic aspects of radio spectrum monitoring and some of its
 applications in modern communication systems.
 
-Spectrum monitoring, in  general sense, involves sensing and interpreting the frequency content
-of a band of the radio spectrum over time\cite{ni-white-15}.
+Spectrum monitoring, in a general sense, involves sensing and interpreting the frequency content
+of a band of the radio spectrum over time.
 The complexity of monitoring systems can vary from simple running time-averages
-of a sensed spectrum to more complex systems that can, for example, decode signaling protocols, store spectrum usage history, and analyze data either in real-time or in post-processing in order to provide more information\cite{gronroos16}\cite{ni-white-15}.
+of a sensed spectrum to more complex systems that can, for example, decode signaling protocols, store spectrum usage history, and analyze data either in real-time or in post-processing in order to provide more information.\cite{gronroos16}\cite{ni-white-15}
 
 The bulk of work in this thesis is the implementation of a radio spectrum monitoring system
 consisting of a commercial software-defined radio peripheral and a Linux laptop with
@@ -31,12 +31,12 @@ custom application logic, post-processing, and data visualization scripts.
 
 ## Spectrum Allocation
 
-Conventionally bands of the radio spectrum are allocated for use in a particular application, and the rights to transmit on those bands
+Conventionally, bands of the radio spectrum are allocated for use in a particular application, and the rights to transmit on those bands
 are licensed by a governing body. Licensees may obtain licenses for
 comparatively long spans of time, during which the allocated spectrum
 might not be used continuously and in full.
 Faster data transmission rates and widespread use of radio-based communications
-means that the efficient use of the available spectrum is increasingly important.\cite{subramaniam15}
+means that the efficient use of the available spectrum is increasingly important, as it is a finite resource.\cite{subramaniam15}
 
 The Finnish Communications Regulatory Authority (FICORA) is the governing
 body that handles spectrum allocation in Finland. FICORA regulates the
@@ -47,19 +47,18 @@ radio spectrum and satellite orbits. The ITU is involved in coordinating with na
 to maintain cross-compatible radio regulations globally.
 
 Advances in radio technology allow the implementation of flexible
-radio systems that reduce underutilization of available RF spectrum.
-\cite{gronroos16}. Thanks to increased flexibility, transmission
+radio systems that reduce underutilization of available RF spectrum\cite{gronroos16}. Transmission
 frequencies, bandwidth, and modulation schemes can be changed rapidly
-in a dynamic way in order to accommodate for changes in the available
+in a dynamic way thanks to increased flexibility, in order to accommodate for changes in the available
 spectrum.  Spectrum monitoring is a key technology when considering the
-use of dynamic spectrum access\cite{zennaro12}.
+use of dynamic spectrum access.\cite{zennaro12}
 
 
 <!--  read hoyhtya16 and write something in this section-->
 
 ## Applications of Spectrum Monitoring
 
-Spectrum monitoring, or spectrum occupancy measurement, is used to study how effectively a frequency band of interest is used in some geographical area. The level of utilization is determined based on the proportion of time when the frequencies are in use versus them being unoccupied. Information obtained from spectrum monitoring helps regulatory authorities assess the effectiveness their current allocation and plan for future use of the radio spectrum.  Spectrum monitoring is also used to improve the accuracy of spectrum usage databases in order to facilitate sharing of spectrum.
+Spectrum monitoring, or spectrum occupancy measurement, is used to study how effectively a frequency band of interest is used in some geographical area. The level of utilization is determined based on the proportion of time when the frequencies are in use versus them being unoccupied. Information obtained from spectrum monitoring helps regulatory authorities assess the effectiveness their current allocations, and plan for future use of the radio spectrum.  Spectrum monitoring is also used to improve the accuracy of spectrum usage databases in order to facilitate sharing of spectrum.\cite{hoyhtya16}
 
 
 
@@ -68,7 +67,7 @@ Spectrum monitoring, or spectrum occupancy measurement, is used to study how eff
 <!-- A concrete example dynamic spectrum access is the secondary use of TV
 whitespace (TVWS). In Finland -->
 
-
+Opportunistic spectrum access refers to techniques that make it possible for radio systems to use frequencies in a flexible manner, by automatically changing transmission frequency or the time of transmission depending of were unoccupied spectrum can be found at any given moment.
 
 #### Licensed Shared Access
 
@@ -84,7 +83,7 @@ Availability information and spectrum access policies are held centrally
 in an LSA repository. Spectrum monitoring is a key component for implementing
 a system such as LSA.
 
-### Enforcement of Radio Regulation
+<!-- ### Enforcement of Radio Regulation -->
 
 ## Spectrum Sensing Methods
 
@@ -114,6 +113,7 @@ Similarly, if the threshold value is too low, false positives may be
 triggered by noise, whether man-made or otherwise, that exceeds the
 threshold.\cite{subramaniam15}
 
+###
 
 Mathematically more complex and compute-intensive methods relying on
 autocorrelation and correlation distance based algorithms are also used
@@ -125,10 +125,10 @@ observe changes in the noise level in the surrounding environment. Changes can
 occur on different time scales, anything from momentary spurious emissions from
 radio-based communication systems, differences in man-made noise depending on the
 time of day or events on longer time spans such as new buildings being constructed
-in an urban area.
+in an urban area.\cite{subramaniam15}\cite{gronroos16}
 
-In order to maintain long-lasting spectrum occupancy measurements or a
-network of spectrum monitoring sensors viable, it is important that
+In order to maintain long-lasting spectrum occupancy measurements or a viable
+network of spectrum monitoring sensors, it is important that
 monitoring nodes can operate without the intervention of a technician.
 Needing to constantly update detection thresholds on monitoring sensors
 is time-consuming and error prone. Using more intelligent decision-making
@@ -139,20 +139,21 @@ campaign.\cite{gronroos16}
 Sensing applications can be either generalized or designed for
 a specific type of transmission, in order to monitor the use of particular of a radio system. Energy detection, autocorrelation, and correlation distance based system are generalized techniques for determining occupancy. A system-specific monitoring application may be able to provide more useful information about the use of a spectral band compared to a general solution by demodulating and decoding signals in order to determine eg. how many timeslots are used in a time-domain multiplexed communications network. Having free timeslots available means, that while the band is technically occupied, there is still additional throughput capacity available in the network.\cite{hoyhtya16}
 
+
+
 ## Software Defined Radio
 
 
-A software defined radio peripheral is in simple terms a fast ADC that's
-attached to an antenna. SDR platforms are used to digitize a section
+An ideal software-defined radio peripheral is in simple terms a fast analog-to-digital converter (ADC) that's
+attached to an antenna. SDR peripherals are used to digitize a band
 of the radio spectrum which is then either processed in real-time, or it can be
-written to non-volatile storage and processing of data can happen at a
-later stage.
+written to non-volatile storage and processing of data can happen at a later stage.
 
 In an ideal SDR solution, the antenna would be essentially connected
 directly to the ADC. However, in actual applications, it is usually
-necessary to implement a radio front end. Typical parts of such a
-front end include a band select filter, a low-noise amplifier (LNA),
-and a mixing stage.\cite{raman15}
+necessary to implement an RF front-end. Typical parts of such a
+front-end include a band select filter, a low-noise amplifier (LNA),
+and a mixing stage. The signal conditioning done by the front-end is needed to shift the wanted signals to lower frequencies so that they are within the maximum bandwidth limit of the ADC.\cite{raman15}
 
 
 \clearpage
