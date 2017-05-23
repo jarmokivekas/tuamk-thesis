@@ -286,7 +286,7 @@ available sample rate, in this case, using 16-bit samples. Choosing a high sampl
 rate allows for measuring a wider band of the spectrum at once, which is desirable
 in the context of the spectrum monitoring application presented in this thesis.
 
-![Sample rates chosen to maximize (left) and minimize (right) the effect of CIC roll-off\label{fig:cic-rolloff}](img/cic-rollof-by-sample-rate.png){ width=100% }
+![Sample rates chosen to maximize (20 MSPS) and minimize (25 MSPS) the effect of CIC roll-off\label{fig:cic-rolloff}](img/cic-rollof-by-sample-rate-superpose.png){ width=100% }
 
 Measurement configuration:
 
@@ -388,14 +388,14 @@ Increasing the temporal resolution will increase the number of measurements, hen
 
 ![A mobile communications band not in use 100% of the time\label{fig:hist-mobile}](img/histogram-mobile.png){ width=100% }
 
-![Time-average of the power spectum shown as a histogram in figure \ref{fig:hist-mobile}\label{fig:avg-mobile}](img/mobile-average-spectrum.png){ width=100% }
+![Time-average of the measurements shown as a histogram in figure \ref{fig:hist-mobile}\label{fig:avg-mobile}](img/mobile-average-spectrum.png){ width=100% }
 
 
 Figure \ref{fig:hist-mobile} shows a measurement of a band of spectrum used for mobile communication.
 The power distribution shows a clearly visible noise floor within the
 allocated frequency band, which indicates that the frequencies are not
 constantly in use and there are periods of time where no signals are present. A running time-average of the spectrum, which typical in traditional spectrum analyzers, does not clearly show the partial absence of signals seen in this example. The intermittent use of the band shows up as lower average power, but the band still seems constantly occupied over time.
-Figure \ref{fig:hist-mobile} show the same specrtum measurement represented as a time-average plot
+Figure \ref{fig:avg-mobile} shows the same spectrum measurement represented as a time-average plot
 of the power.
 
 ![225 MHz span of spectum stiched from multiple measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
@@ -469,7 +469,7 @@ for such interference.\cite{raman15}
 
 DC-offset is caused in the SDR peripheral's RF front-end and is hardware-dependent.
 The root causes for DC-offset cannot be corrected by choosing different digitizing
-parameter in the way eg. CIC roll-off can be, although they can be corrected for
+parameters in the way eg. CIC roll-off can be, although they can be corrected for
 using DSP after the fact.
 
 
