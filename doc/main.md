@@ -127,8 +127,7 @@ radio-based communication systems, differences in man-made noise depending on th
 time of day or events on longer time spans such as new buildings being constructed
 in an urban area.\cite{subramaniam15}\cite{gronroos16}
 
-In order to maintain long-lasting spectrum occupancy measurements or a viable
-network of spectrum monitoring sensors, it is important that
+In order to maintain long-lasting spectrum occupancy measurements or a viable network of spectrum monitoring sensors, it is important that
 monitoring nodes can operate without the intervention of a technician.
 Needing to constantly update detection thresholds on monitoring sensors
 is time-consuming and error prone. Using more intelligent decision-making
@@ -172,13 +171,13 @@ visualization, and controlling the USRP.
 
 The USRP is a platform that is designed for research applications,
 and it's evident based on earlier research publications
-that is suitable for spectrum sensing applications\cite{angrisani16}\cite{ni-white-15}.
+that is suitable for spectrum sensing applications.\cite{ni-white-15}\cite{angrisani16}
 
 The majority of practical work in this thesis was done using a USRP-2932.
 
-The USRP has an FPGA that can be used for simple signal processing,
+The USRP has an FPGA that can be used for simple signal processing.
 however, due to the small size of the FPGA, it is limited in
-its capability, and cannot be used to implement complex PHY layer DPS
+its capability and cannot be used to implement complex physical layer (PHY) layer DPS
 blocks for signal decoding. The FPGA's main purpose is to do resampling
 and type conversion of the digitized signal as well as handle
 network communication with the host PC, sample streaming, and
@@ -188,7 +187,7 @@ control the RF daughterboard\cite{ni-forum-question}\cite{ettusN210}
 ## Data flow
 
 The USRP's center frequency is incremented at regular intervals to complete
-full scans of a wide part of the spectrum.
+full scans of a wide band of the spectrum.
 An FFT is calculated and stored for each hop during the scan.
 
 The difference in the center frequency of each consecutive hop is slightly less
@@ -226,7 +225,7 @@ comma separated tabular data in .csv files. This makes it easy to import the dat
 a large variety of applications for post-processing.
 
 Alternatively, the data can be stored in a more compact way using python's native
-pickle storage. This is in order to collect data over long periods of time,
+pickle storage. This is in order to collect data over long periods of time.
 
 
 <!--  CAN IT, THOUGH? -->
@@ -256,7 +255,7 @@ In fact, passband width is often referred to as the sample rate.
 ## CIC roll-off
 
 Cascaded integrator-comb filters, CIC filters for short, are a class of hardware-efficient
-finite response filters that can be used for decimation and interpolation of a signal\cite{donadio2000}
+finite response filters that can be used for decimation and interpolation of a signal.\cite{donadio2000}
 
 The USRP's integrated FPGA processes samples at 100 MSPS from the antenna ADC.
 The samples are downsampled to a lower sample rate in order to transfer them
@@ -319,29 +318,29 @@ achieve more granular frequency resolution with the same amount of computation.
 
 Increasing the number of bins in an FFT increases the amount of computation required.
 It's possible to save the raw I/Q samples to disk, and compute the large FFTs in a post-processing step where real-time computation is not required. In this case, a likely bottleneck
-will storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
+will be storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
 0.2 MPSP, which will produce close to 0.8 MB of data per second when using 16-bit
 sample. 100 MB data per second is produced at the maximum sample rate 25 MSPS.
 
 
 GNURadio and Baudline\cite{baudline-software} both require the FFT sizes to be
-powers of two ($2^n$).
+powers of two ($2^n$), due to the algorithms used.
 
-Major factors limiting sample rate top rate of the SRD peripheral's ADC,
+Major factors limiting sample rate are the maximum rate of the SRD peripheral's ADC,
 maximum throughout available for transferring samples the host PC, and the
 computational load that has to occur in real-time on the host PC.
 
 ### Frequency Resolution Measurement
 
-![Baudline used to distinguish between 50 Hz peaks (left) . Verification done with FSH4 spectrum analyzer (right).\label{fig:baud50}](img/50-hz-combined.png){ width=100% }
+![Baudline used to distinguish between 50 Hz peaks (left). Comparissons done with an FSH4 spectrum analyzer (right).\label{fig:baud50}](img/50-hz-combined.png){ width=100% }
 
 
 Raw I/Q samples were recorded with a USRP into a file using the `uhd_rx_cfile` program that is part
 of the USRP + GNURadio ecosystem. The samples were recorded at 0.2 MPSP, a rounded
 sample rate close to the lowest supported sample rate, which is 0.195312 MSPS.
 
-The recorded files do note contain any metadata about sample types or sample rates
-, only the raw sample values. The following settings were used to read the recorded files
+The recorded files do not contain any metadata about sample types or sample rates,
+only the raw sample values. The following settings were used to read the recorded files
 into baudline:
 
 - \itab{decompression:  }  \tab{  off}
@@ -366,35 +365,40 @@ While the FSH4 spectrum analyzer and the USRP are both capable of measuring
 the spectrum of the test signal, the main difference comes in temporal resolution.
 The FSH4 used 7.8 seconds to obtain a single measurement of a 570 Hz span of spectrum
 when measured at approximately the same 3 Hz frequency resolution as the USRP.
-
-When recording I/Q samples with an SDR peripheral such as the USPR, FFTs can
-be computed for each individual sample. In theory, this means the temporal resolution
-at which FFT can be obtained in this example is, in theory, 1/200000 Hz = 0.000005 s.
+FFTs can be computed for each individual new sample when recording I/Q samples with an SDR peripheral such as the USPR.
+In theory, this means the temporal resolution
+at which FFTs can be obtained in this example is 1/200000 Hz = 0.000005 s.
 
 
 
 ## Visualization & Interpretation
 
-Part of the spectrum monitoring system presented in this thesis includes a is a visualization mechanism for showing histograms
-of spectrum usage over time.
+The spectrum monitoring system presented in this thesis includes a visualization mechanism for showing histograms
+of spectrum usage over time. As the name implies, histograms can be used to display the distribution of measured data points over time in a single graph.
 
-
-
-Figure \ref{fig:hist-DVB} shows the spectrum histogram at the low-frequency edge of a Digital Video Broadcast (DVB) signal.
-The histogram shows no data points at the noise floor's level (around  7 dB) above frequencies of the DVB signal's lower edge at  634 MHz, which means the signal was likely to be present 100% of the time.  There is a delay between each time the spectrum is measured, where it is possible for a signal to not be present for a short while and return before the next measurement.
-Shortening the delay, therefore increasing the temporal resolution, is foremost a tradeoff in data set size and required computational power.
 
 ![The edge of a high-throughput digital signal in without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
 
+Figure \ref{fig:hist-DVB} shows the spectrum histogram at the low-frequency edge of a Digital Video Broadcast (DVB) signal.
+The histogram shows no data points at the noise floor's level (around  7 dB) above frequencies of the DVB signal's lower edge at  634 MHz, which means the signal was likely to be present 100% of the time. It is not guaranteed that the signal was present at all times, as there is a delay between each time the spectrum is measured, where it is possible for a signal to not be present for a short while and return before the next measurement is made.
+Shortening the delay, therefore increasing the temporal resolution, is foremost a tradeoff in data set size and required computational power.
+
+Increasing the temporal resolution will increase the number of measurements, hence increasing data size. Digitized signal waveform has to be processed on the host PC before completing each measurement. Additional computation power helps with increasing temporal resolution by speeding up the waveform processing.
+
+
 ![A mobile communications band not in use 100% of the time\label{fig:hist-mobile}](img/histogram-mobile.png){ width=100% }
 
-![225 MHz span of spectum stiched from multiple measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
+![Time-average of the power spectum shown as a histogram in figure \ref{fig:hist-mobile}\label{fig:avg-mobile}](img/mobile-average-spectrum.png){ width=100% }
+
 
 Figure \ref{fig:hist-mobile} shows a measurement of a band of spectrum used for mobile communication.
 The power distribution shows a clearly visible noise floor within the
 allocated frequency band, which indicates that the frequencies are not
 constantly in use and there are periods of time where no signals are present. A running time-average of the spectrum, which typical in traditional spectrum analyzers, does not clearly show the partial absence of signals seen in this example. The intermittent use of the band shows up as lower average power, but the band still seems constantly occupied over time.
+Figure \ref{fig:hist-mobile} show the same specrtum measurement represented as a time-average plot
+of the power.
 
+![225 MHz span of spectum stiched from multiple measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
 
 Figure \ref{fig:hist-long} showcases a wide-band data set which
 was obtained by scanning the band and stitching several consecutive measurements into one dataset.
