@@ -14,7 +14,9 @@ applications in modern communication systems.
 Spectrum monitoring, in a general sense, involves sensing and interpreting the frequency content
 of a band of the radio spectrum over time.
 The complexity of monitoring systems can vary from simple running time-averages
-of a sensed spectrum to more complex systems that can, for example, decode signaling protocols, store spectrum usage history, and analyze data either in real-time or in post-processing in order to provide more information.\cite{gronroos16}\cite{ni-white-15}
+of a sensed spectrum to more complex systems that can, for example, decode signaling protocols,
+store spectrum usage history, and analyze data either in real-time or in post-processing
+to provide more information.\cite{gronroos16}\cite{ni-white-15}
 
 The bulk of work in this thesis is the implementation of a radio spectrum monitoring system
 consisting of a commercial software-defined radio peripheral and a Linux laptop with
@@ -43,13 +45,13 @@ body that handles spectrum allocation in Finland. FICORA regulates the
 use of frequencies 9 kHz -- 400 GHz.\cite{ficoraReg15}
 
 The International Telecommunications Union (ITU) is a specialized agency of the United Nations that allocates
-radio spectrum and satellite orbits. The ITU is involved in coordinating with national regulatory authorities
+radio spectrum and satellite orbits. The ITU coordinates with national regulatory authorities
 to maintain cross-compatible radio regulations globally.
 
 Advances in radio technology allow the implementation of flexible
 radio systems that reduce underutilization of available RF spectrum\cite{gronroos16}. Transmission
-frequencies, bandwidth, and modulation schemes can be changed rapidly
-in a dynamic way thanks to increased flexibility, in order to accommodate for changes in the available
+frequencies, bandwidth, and modulation schemes can be changed
+in a dynamic way thanks to increased flexibility and accommodate for changes in the available
 spectrum.  Spectrum monitoring is a key technology when considering the
 use of dynamic spectrum access.\cite{zennaro12}
 
@@ -58,7 +60,15 @@ use of dynamic spectrum access.\cite{zennaro12}
 
 ## Applications of Spectrum Monitoring
 
-Spectrum monitoring, or spectrum occupancy measurement, is used to study how effectively a frequency band of interest is used in some geographical area. The level of utilization is determined based on the proportion of time when the frequencies are in use versus them being unoccupied. Information obtained from spectrum monitoring helps regulatory authorities assess the effectiveness their current allocations, and plan for future use of the radio spectrum.  Spectrum monitoring is also used to improve the accuracy of spectrum usage databases in order to facilitate sharing of spectrum.\cite{hoyhtya16}
+Spectrum monitoring, or spectrum occupancy measurement, is used to study how
+effectively a frequency band of interest is used in some geographical area.
+The level of use is determined based on the proportion of time when the
+frequencies are in use versus them being unoccupied. Information obtained from
+spectrum monitoring helps regulatory authorities assess the effectiveness their
+current allocations, and plan for future use of the radio spectrum.
+Spectrum monitoring is also used to improve the accuracy of spectrum usage
+databases to facilitate sharing of spectrum.\cite{hoyhtya16}
+
 
 
 
@@ -73,7 +83,7 @@ Opportunistic spectrum access refers to techniques that make it possible for rad
 
 Licensed shared access (LSA) is an approach to radio spectrum regulation
 that allows further use of spectrum that is already allocated to
-an incumbent user.  LSA is based on a framework where the incumbent user, one or several LSA licensees -- i.e new users,
+an incumbent user.  LSA is based on a framework where the incumbent user, one or more LSA licensees -- i.e new users,
 and the spectrum regulation authority collectively agree on a sharing scheme. The sharing
 scheme in LSA is controlled in a way that both the incumbent user, as
 well as the licensee can expect predictable quality-of-service and are
@@ -92,7 +102,7 @@ a system such as LSA.
 
 <!-- ### Energy Detection -->
 
-<!--  subramanima15 has many references to sensing studies --> <!-- "using
+<!--  subramanima15 has references to sensing studies --> <!-- "using
 the energy detection method with fixed-threshold [9]"\cite{subramaniam15}
 -->
 
@@ -127,7 +137,7 @@ radio-based communication systems, differences in man-made noise depending on th
 time of day or events on longer time spans such as new buildings being constructed
 in an urban area.\cite{subramaniam15}\cite{gronroos16}
 
-In order to maintain long-lasting spectrum occupancy measurements or a viable network of spectrum monitoring sensors, it is important that
+To maintain long-lasting spectrum occupancy measurements or a viable network of spectrum monitoring sensors, it is important that
 monitoring nodes can operate without the intervention of a technician.
 Needing to constantly update detection thresholds on monitoring sensors
 is time-consuming and error prone. Using more intelligent decision-making
@@ -136,7 +146,15 @@ campaign.\cite{gronroos16}
 
 
 Sensing applications can be either generalized or designed for
-a specific type of transmission, in order to monitor the use of particular of a radio system. Energy detection, autocorrelation, and correlation distance based system are generalized techniques for determining occupancy. A system-specific monitoring application may be able to provide more useful information about the use of a spectral band compared to a general solution by demodulating and decoding signals in order to determine eg. how many timeslots are used in a time-domain multiplexed communications network. Having free timeslots available means, that while the band is technically occupied, there is still additional throughput capacity available in the network.\cite{hoyhtya16}
+a specific transmission type, to monitor the use of particular of a
+radio system. Energy detection, autocorrelation, and correlation distance based
+system are generalized techniques for determining occupancy. A system-specific
+monitoring application may be able to provide more useful information about the
+use of a spectral band compared to a general solution by demodulating and decoding
+signals to determine eg. the number of timeslots used in a time-domain
+multiplexed communications network. Having free timeslots available means,
+that while the band is technically occupied, there is still throughput
+capacity available in the network.\cite{hoyhtya16}
 
 
 
@@ -149,10 +167,12 @@ of the radio spectrum which is then either processed in real-time, or it can be
 written to non-volatile storage and processing of data can happen at a later stage.
 
 In an ideal SDR solution, the antenna would be essentially connected
-directly to the ADC. However, in actual applications, it is usually
-necessary to implement an RF front-end. Typical parts of such a
+directly to the ADC. In actual applications, it is
+necessary to use an RF front-end. Typical parts of such a
 front-end include a band select filter, a low-noise amplifier (LNA),
-and a mixing stage. The signal conditioning done by the front-end is needed to shift the wanted signals to lower frequencies so that they are within the maximum bandwidth limit of the ADC.\cite{raman15}
+and a mixing stage. The signal conditioning done by the front-end is needed to
+shift the wanted signals to lower frequencies so that they are within the
+bandwidth limit of the ADC.\cite{raman15}
 
 
 \clearpage
@@ -170,7 +190,7 @@ visualization, and controlling the USRP.
 ## The Universal Software Radio Peripheral
 
 The USRP is a platform that is designed for research applications,
-and it's evident based on earlier research publications
+and it is evident based on earlier research publications
 that is suitable for spectrum sensing applications.\cite{ni-white-15}\cite{angrisani16}
 
 The majority of practical work in this thesis was done using a USRP-2932.
@@ -225,7 +245,8 @@ comma separated tabular data in .csv files. This makes it easy to import the dat
 a large variety of applications for post-processing.
 
 Alternatively, the data can be stored in a more compact way using python's native
-pickle storage. This is in order to collect data over long periods of time.
+pickle storage. This is in order to collect data over long periods of time
+without being constrained as much by storage space limitations.
 
 
 <!--  CAN IT, THOUGH? -->
@@ -239,7 +260,7 @@ resolution.
 
 The USRP is able to stream complex samples over its Gigabit Ethernet interface
 at rates of up to 50 MSPS at an 8-bit resolution and 25 MSPS at a 16-bit resolution.
-The resolution of the 16-bit samples is 14-bit in practice, which is the maximum accuracy of the ADCs used for sample acquisition.\cite{ettusN210}
+The resolution of the 16-bit samples is 14-bit in practice, which is the accuracy of the ADCs used for sample acquisition.\cite{ettusN210}
 
 An 8-bit sample refers to a sampling scheme where 8 bits are used to each of the
 I and Q sample, making the I/Q sample pair a total of 16 bits is size. Similarly an
@@ -255,10 +276,10 @@ In fact, passband width is often referred to as the sample rate.
 ## CIC roll-off
 
 Cascaded integrator-comb filters, CIC filters for short, are a class of hardware-efficient
-finite response filters that can be used for decimation and interpolation of a signal.\cite{donadio2000}
+finite response filters that are used for decimation and interpolation of a signal.\cite{donadio2000}
 
 The USRP's integrated FPGA processes samples at 100 MSPS from the antenna ADC.
-The samples are downsampled to a lower sample rate in order to transfer them
+The samples are downsampled to a lower sample rate to transfer them
 over the Gigabit Ethernet interface to the computer using a CIC filter.
 
 The chosen sample rate has a significant impact on the quality of the scan data.
@@ -276,7 +297,7 @@ The CIC roll-off is at its worst when the ratio is odd.
 
 
 The measurements shown in figure \ref{fig:cic-rolloff} show the manifestation of CIC roll-off
-at two distinct sample rates. The resampling is done from 100 MSPS, therefore
+at two distinct sample rates. The resampling is done from 100 MSPS, making
 the rate ratios are 100  MSPS / 20  MSPS} = 5 (odd) and
 100 MSPS / 25 MSPS = 4 (even)
 
@@ -303,10 +324,10 @@ DC offset artifacts caused by phenomenon unrelated to CIC roll-off.
 The measurements verify what should be there, in theory, is observable in
 practice.
 
-## Maximum Frequency Resolution
+## Frequency Resolution
 
 
-Sample rate and FFT size (bin count) determine the maximum available resolution
+Sample rate and FFT size (bin count) determine the greatest available resolution
 in the frequency domain.
 
 The frequency resolution is given by
@@ -317,17 +338,18 @@ That is to say, by capturing a narrower band of the spectrum, it is possible
 achieve more granular frequency resolution with the same amount of computation.
 
 Increasing the number of bins in an FFT increases the amount of computation required.
-It's possible to save the raw I/Q samples to disk, and compute the large FFTs in a post-processing step where real-time computation is not required. In this case, a likely bottleneck
+It is possible to save the raw I/Q samples to disk, and compute the large FFTs in a post-processing step where real-time computation is not required. In this case, a likely bottleneck
 will be storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
 0.2 MPSP, which will produce close to 0.8 MB of data per second when using 16-bit
-sample. 100 MB data per second is produced at the maximum sample rate 25 MSPS.
+samples.
+The maximum sample rate 25 MSPS produces 100 MB data per second.
 
 
 GNURadio and Baudline\cite{baudline-software} both require the FFT sizes to be
 powers of two ($2^n$), due to the algorithms used.
 
-Major factors limiting sample rate are the maximum rate of the SRD peripheral's ADC,
-maximum throughout available for transferring samples the host PC, and the
+Major factors limiting sample rate are the rate of the SRD peripheral's ADC,
+throughout available for transferring samples the host PC, and the
 computational load that has to occur in real-time on the host PC.
 
 ### Frequency Resolution Measurement
@@ -380,10 +402,20 @@ of spectrum usage over time. As the name implies, histograms can be used to disp
 ![The edge of a high-throughput digital signal in without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
 
 Figure \ref{fig:hist-DVB} shows the spectrum histogram at the low-frequency edge of a Digital Video Broadcast (DVB) signal.
-The histogram shows no data points at the noise floor's level (around  7 dB) above frequencies of the DVB signal's lower edge at  634 MHz, which means the signal was likely to be present 100% of the time. It is not guaranteed that the signal was present at all times, as there is a delay between each time the spectrum is measured, where it is possible for a signal to not be present for a short while and return before the next measurement is made.
-Shortening the delay, therefore increasing the temporal resolution, is foremost a tradeoff in data set size and required computational power.
+The histogram shows no data points at the noise floor's level (around  7 dB) above
+frequencies of the DVB signal's lower edge at  634 MHz, which means the signal
+was likely to be present 100% of the time. It is not guaranteed that the signal
+was present at all times, as there is a delay between each time the spectrum is
+measured, making it possible for a signal to not be present for a short while
+and return before the next measurement is made.
+Shortening the delay, therefore increasing the temporal resolution, is foremost
+a tradeoff in data set size and required computational power.
 
-Increasing the temporal resolution will increase the number of measurements, hence increasing data size. Digitized signal waveform has to be processed on the host PC before completing each measurement. Additional computation power helps with increasing temporal resolution by speeding up the waveform processing.
+Increasing the temporal resolution will increase the number of measurements, hence
+increasing data size. Digitized signal waveform has to be processed on the host
+PC before completing each measurement.
+More computation power helps with increasing temporal resolution by speeding up
+the waveform processing.
 
 
 ![A mobile communications band not in use 100% of the time\label{fig:hist-mobile}](img/histogram-mobile.png){ width=100% }
@@ -392,11 +424,22 @@ Increasing the temporal resolution will increase the number of measurements, hen
 
 
 Figure \ref{fig:hist-mobile} shows a measurement of a band of spectrum used for mobile communication.
-The power distribution shows a clearly visible noise floor within the
+The power distribution shows a visible noise floor within the
 allocated frequency band, which indicates that the frequencies are not
-constantly in use and there are periods of time where no signals are present. A running time-average of the spectrum, which typical in traditional spectrum analyzers, does not clearly show the partial absence of signals seen in this example. The intermittent use of the band shows up as lower average power, but the band still seems constantly occupied over time.
+constantly in use and there are periods of time where no signals are present.
 Figure \ref{fig:avg-mobile} shows the same spectrum measurement represented as a time-average plot
 of the power.
+The partial absence of signals in this example is not clearly visible in the type of running time-average typically
+found in traditional spectum analyzers. The intermittent use of the band shows up as lower average power, but the band still
+seems constantly occupied over time.
+
+
+
+
+
+
+
+
 
 ![225 MHz span of spectum stiched from multiple measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
 
@@ -483,14 +526,14 @@ using DSP after the fact.
 
 
 The initial goal of the work done for this thesis was to develop a radio spectrum monitoring system using a National Instruments USRP.
-The spectrum monitoring system that was implemented was tested
-and implements the features it was intended to. Much of the benefit
+The implemented spectrum monitoring system was tested
+and implements the intended features. Much of the benefit
 in the work done was not in the implementation itself but in the
 process thereof: in researching available tools, figuring out how
 to integrate them, and learning how software-define radio ecosystems
 work on a lower abstraction level.
 Running into issues and unexpected
-measurement results during the development process prompted several
+measurement results during the development process prompted
 tangential projects into researching what configuration parameter
 or circuit is the root cause behind some phenomenon. Much of that knowledge
 is applicable in other software-defined radio and general RF system
