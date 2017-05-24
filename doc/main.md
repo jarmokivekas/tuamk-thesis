@@ -354,7 +354,7 @@ computational load that has to occur in real-time on the host PC.
 
 ### Frequency Resolution Measurement
 
-![Baudline used to distinguish between 50 Hz peaks (left). Comparissons done with an FSH4 spectrum analyzer (right).\label{fig:baud50}](img/50-hz-combined.png){ width=100% }
+![Baudline used to distinguish between 50 Hz peaks (left). Comparisons done with an FSH4 spectrum analyzer (right).\label{fig:baud50}](img/50-hz-combined.png){ width=100% }
 
 
 Raw I/Q samples were recorded with a USRP into a file using the `uhd_rx_cfile` program that is part
@@ -380,7 +380,14 @@ $$200000 \text{ Hz} / 65536 \approx 3.05 \text{ Hz}$$.
 Figure \ref{fig:baud50} shows that Baudline is capable of distinguishing between
 distinct peaks 50 Hz apart. 20 Hz and 15 Hz gaps could be also observed during the test,
 although at times this required choosing a different windowing mode for the FFT, and even then
-the results were not always consistent.
+the results were not always consistent. Sine wave peaks too close to each other start
+melding together into one peak in the FFT due to spectral leakage, where the power of
+a sine wave is distrimuted among neighbouring frequency bins\cite{}.
+
+The effects of spectral leakage can be influenced by choosing different windowing
+methods. Different widnowing methods can be used for example dependeing on whether is more
+important to have narrow peaks or accurate amplitude imformation. A Hann window
+is often used, since it has little spectral leakage, and good frequency resolution.\cite{ni-white-fft}
 
 
 While the FSH4 spectrum analyzer and the USRP are both capable of measuring
@@ -391,6 +398,18 @@ FFTs can be computed for each individual new sample when recording I/Q samples w
 In theory, this means the temporal resolution
 at which FFTs can be obtained in this example is 1/200000 Hz = 0.000005 s.
 
+
+## Noise floor
+
+![The level of the noise floor can be lowered by increasing the number of FFT bins\label{fig:noise-vs-bins}](img/noise-vs-bins.png){ width=100% }
+
+Figure \ref{fig:noise-vs-bins} shows a measurement of the relation of an FFT's noise floor as a function
+of the FFT bin count. The bin count of an FFT acts in a similar way as resolution
+bandwidth (RBW) in analog spectrum analyzers. The measurement conforms with what
+was expected, the noise floor drops by 3 dB when the number of bins is doubled.
+Doubling the bin count results in the bandwidth of each individual bin to be half
+of what it was earlier. Half the bandwidth means the power of the measured noise
+is cut in half as well, a 3 dB difference.
 
 
 ## Visualization & Interpretation
