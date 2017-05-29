@@ -36,7 +36,7 @@ custom application logic, post-processing, and data visualization scripts.
 Conventionally, bands of the radio spectrum are allocated for use in a particular application, and the rights to transmit on those bands
 are licensed by a governing body. Licensees may obtain licenses for
 comparatively long spans of time, during which the allocated spectrum
-might not be used continuously and in full.
+might not be used fully and continuously.
 Faster data transmission rates and widespread use of radio-based communications
 means that the efficient use of the available spectrum is increasingly important, as it is a finite resource.\cite{subramaniam15}
 
@@ -64,7 +64,7 @@ Spectrum monitoring, or spectrum occupancy measurement, is used to study how
 effectively a frequency band of interest is used in some geographical area.
 The level of use is determined based on the proportion of time when the
 frequencies are in use versus them being unoccupied. Information obtained from
-spectrum monitoring helps regulatory authorities assess the effectiveness their
+spectrum monitoring helps regulatory authorities assess the effectiveness of their
 current allocations, and plan for future use of the radio spectrum.
 Spectrum monitoring is also used to improve the accuracy of spectrum usage
 databases to facilitate sharing of spectrum.\cite{hoyhtya16}
@@ -77,7 +77,10 @@ databases to facilitate sharing of spectrum.\cite{hoyhtya16}
 <!-- A concrete example dynamic spectrum access is the secondary use of TV
 whitespace (TVWS). In Finland -->
 
-Opportunistic spectrum access refers to techniques that make it possible for radio systems to use frequencies in a flexible manner, by automatically changing transmission frequency or the time of transmission depending of were unoccupied spectrum can be found at any given moment.
+Opportunistic spectrum access refers to techniques that make it possible for radio
+systems to use frequencies in a flexible manner, by automatically changing transmission
+frequency, modulation method, or the time of transmission depending of were unoccupied spectrum can be
+found at any given moment.
 
 #### Licensed Shared Access
 
@@ -141,17 +144,17 @@ To maintain long-lasting spectrum occupancy measurements or a viable network of 
 monitoring nodes can operate without the intervention of a technician.
 Needing to constantly update detection thresholds on monitoring sensors
 is time-consuming and error prone. Using more intelligent decision-making
-algorithms increase the quality of the data produced by a measurement
+algorithms increases the quality of the data produced by a measurement
 campaign.\cite{gronroos16}
 
 
 Sensing applications can be either generalized or designed for
-a specific transmission type, to monitor the use of particular of a
+a specific transmission type, to monitor the use of  a particular
 radio system. Energy detection, autocorrelation, and correlation distance based
 system are generalized techniques for determining occupancy. A system-specific
 monitoring application may be able to provide more useful information about the
 use of a spectral band compared to a general solution by demodulating and decoding
-signals to determine eg. the number of timeslots used in a time-domain
+signals to determine eg. The number of timeslots used in a time-domain
 multiplexed communications network. Having free timeslots available means,
 that while the band is technically occupied, there is still throughput
 capacity available in the network.\cite{hoyhtya16}
@@ -166,7 +169,7 @@ attached to an antenna. SDR peripherals are used to digitize a band
 of the radio spectrum which is then either processed in real-time, or it can be
 written to non-volatile storage and processing of data can happen at a later stage.
 
-In an ideal SDR solution, the antenna would be essentially connected
+In an ideal SDR solution, the antenna would be connected
 directly to the ADC. In actual applications, it is
 necessary to use an RF front-end. Typical parts of such a
 front-end include a band select filter, a low-noise amplifier (LNA),
@@ -189,19 +192,18 @@ visualization, and controlling the USRP.
 
 ## The Universal Software Radio Peripheral
 
-The USRP is a platform that is designed for research applications,
-and it is evident based on earlier research publications
-that is suitable for spectrum sensing applications.\cite{ni-white-15}\cite{angrisani16}
+The USRP is a software-defined radio platform that is designed for research applications,
+and it is suitable for spectrum sensing applications.\cite{ni-white-15}\cite{angrisani16}
 
 The majority of practical work in this thesis was done using a USRP-2932.
 
 The USRP has an FPGA that can be used for simple signal processing.
-however, due to the small size of the FPGA, it is limited in
-its capability and cannot be used to implement complex physical layer (PHY) layer DPS
+However, due to the small size of the FPGA, it is limited in
+its capability and cannot be used to implement complex physical layer (PHY) DPS
 blocks for signal decoding. The FPGA's main purpose is to do resampling
 and type conversion of the digitized signal as well as handle
 network communication with the host PC, sample streaming, and
-control the RF daughterboard\cite{ni-forum-question}\cite{ettusN210}
+control the RF daughterboard.\cite{ni-forum-question}\cite{ettusN210}
 
 
 ## Data flow
@@ -211,7 +213,7 @@ full scans of a wide band of the spectrum.
 An FFT is calculated and stored for each hop during the scan.
 
 The difference in the center frequency of each consecutive hop is slightly less
-than what the width of each FFT. This overlap between FFTs can be used to improve
+than the width of each FFT. This overlap between FFTs can be used to improve
 data quality by discarding some of the lowest and highest frequency FFT bins,
 which may suffer from roll-off.
 
@@ -235,7 +237,7 @@ Representing the data in the described manner allows for easy manipulation
 of the data with existing tools at the cost of increased data set size due
 to redundancy.
 
-Developing a more storage-efficient data model is outside the scope of work
+Developing a more storage-efficient data model is beyond the scope of work
 for this thesis.
 
 ## Data storage on disk
@@ -244,33 +246,37 @@ The collected spectrum data can be stored long-term in plain text files as
 comma separated tabular data in .csv files. This makes it easy to import the data into
 a large variety of applications for post-processing.
 
-Alternatively, the data can be stored in a more compact way using python's native
-pickle storage. This is in order to collect data over long periods of time
-without being constrained as much by storage space limitations.
+Alternatively, the data can be stored in a more compact way using Python's native
+pickle storage or compressed text files. This is for collecting data over long periods of time
+without being constrained as much by storage space limitations. The redundant representation
+of the data makes very compressable, with compressed files being commonly 1/5 of the original size.
 
 
 <!--  CAN IT, THOUGH? -->
-<!-- The USRP is capable of streaming up to 50 MSPS over Gigabit Ethernet\cite{ettusN210}, which is a high enough sample rate that the entire LTE 800 DD band, which covers a 30 MHz span at 791 – 821 MHz\cite{ficoraAlloc15} can be captured by a single FFT. -->
+<!-- The USRP is capable of streaming up to 50 MSPS over Gigabit Ethernet\cite{ettusN210},
+which is a high enough sample rate that the entire LTE 800 DD band, which covers
+a 30 MHz span at 791 – 821 MHz\cite{ficoraAlloc15} can be captured by a single FFT. -->
 
 
 ## Choosing the sample rate.
 
-What sample rate is chosen impacts the speed of scanning and the available frequency
+The sample rate chosen impacts the speed of scanning and the available frequency
 resolution.
 
 The USRP is able to stream complex samples over its Gigabit Ethernet interface
 at rates of up to 50 MSPS at an 8-bit resolution and 25 MSPS at a 16-bit resolution.
-The resolution of the 16-bit samples is 14-bit in practice, which is the accuracy of the ADCs used for sample acquisition.\cite{ettusN210}
+The resolution of the 16-bit samples is 14 bits in practice, which is the accuracy
+of the ADCs used for sample acquisition.\cite{ettusN210}
 
 An 8-bit sample refers to a sampling scheme where 8 bits are used to each of the
-I and Q sample, making the I/Q sample pair a total of 16 bits is size. Similarly an
-I/Q pair of 16-bit samples 32 bits in size.
+in-phase (I) and quadrature (Q) samples, making the I/Q sample pair a total of 16 bits in size.
+Similarly, an I/Q pair of 16-bit samples 32 bits in size.
 
 The USRP and GNURadio ecosystems for signal processing primarily use I/Q-sampling
 when representing waveforms digitally.
 The Nyquist frequency for complex sampling is equal to the complex sample rate.
-In this context, passband width is often shown as the same value as the signal sample rate.
-In fact, passband width is often referred to as the sample rate.
+In this context, passband bandwidth is often shown as the same value as the signal sample rate.
+In fact, passband bandwidth is often referred to as the sample rate.
 
 
 ## CIC roll-off
@@ -296,9 +302,9 @@ The CIC roll-off is at its worst when the ratio is odd.
 #### CIC roll-off measurements
 
 
-The measurements shown in figure \ref{fig:cic-rolloff} show the manifestation of CIC roll-off
+The measurements presented in figure \ref{fig:cic-rolloff} show the manifestation of CIC roll-off
 at two distinct sample rates. The resampling is done from 100 MSPS, making
-the rate ratios are 100  MSPS / 20  MSPS} = 5 (odd) and
+the rate ratios are 100  MSPS / 20  MSPS = 5 (odd) and
 100 MSPS / 25 MSPS = 4 (even)
 
 The sample rates 20 MSPS and 25 MSPS were chosen to show the most extreme and
@@ -334,12 +340,13 @@ The frequency resolution is given by
 
 $$ resolution \text{ [Hz]} = \cfrac{samplerate \text{ [Hz]}}{FFT size} $$.
 
-That is to say, by capturing a narrower band of the spectrum, it is possible
+That is to say, by capturing a narrower band of the spectrum, it is possible to
 achieve more granular frequency resolution with the same amount of computation.
 
 Increasing the number of bins in an FFT increases the amount of computation required.
-It is possible to save the raw I/Q samples to disk, and compute the large FFTs in a post-processing step where real-time computation is not required. In this case, a likely bottleneck
-will be storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
+It is possible to save the raw I/Q samples to disk, and compute the large FFTs in a
+post-processing step where real-time computation is not required. In this case, a likely bottleneck
+will be the amount storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
 0.2 MPSP, which will produce close to 0.8 MB of data per second when using 16-bit
 samples.
 The maximum sample rate 25 MSPS produces 100 MB data per second.
@@ -348,8 +355,8 @@ The maximum sample rate 25 MSPS produces 100 MB data per second.
 GNURadio and Baudline\cite{baudline-software} both require the FFT sizes to be
 powers of two ($2^n$), due to the algorithms used.
 
-Major factors limiting sample rate are the rate of the SRD peripheral's ADC,
-throughout available for transferring samples the host PC, and the
+Major factors limiting sample rate are the rate of the SDR peripheral's ADC,
+throughput available for transferring samples to the host PC, and the
 computational load that has to occur in real-time on the host PC.
 
 ### Frequency Resolution Measurement
@@ -369,7 +376,7 @@ into baudline:
 - \itab{initial byte:   }  \tab{  0}
 - \itab{sample rate:    }  \tab{  custom, 200000 samples per second}
 - \itab{channels:       }  \tab{  2, quadrature, flip complex}
-- \itab{decode format:  }  \tab{  32-bit float}
+- \itab{decode format:  }  \tab{  32-bit float, little endian}
 - \itab{normalization:  }  \tab{  1.0}
 - \itab{transform size: }  \tab{  65536}
 
@@ -382,7 +389,7 @@ distinct peaks 50 Hz apart. 20 Hz and 15 Hz gaps could be also observed during t
 although at times this required choosing a different windowing mode for the FFT, and even then
 the results were not always consistent. Sine wave peaks too close to each other start
 melding together into one peak in the FFT due to spectral leakage, where the power of
-a sine wave is distrimuted among neighbouring frequency bins\cite{}.
+a sine wave is distrimuted among neighbouring frequency bins.
 
 The effects of spectral leakage can be influenced by choosing different windowing
 methods. Different widnowing methods can be used for example dependeing on whether is more
@@ -418,7 +425,11 @@ The spectrum monitoring system presented in this thesis includes a visualization
 of spectrum usage over time. As the name implies, histograms can be used to display the distribution of measured data points over time in a single graph.
 
 
-![The edge of a high-throughput digital signal in without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
+All the measurements presented in this section were done with a D470-860FN1 antenna
+made by Aerial OY. The antenna's bandwidth is 470 – 860 MHz.
+The measurements were done indoors at the Turku University of Applied Sciences radiolab.
+
+![The edge of a high-throughput digital signal without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
 
 Figure \ref{fig:hist-DVB} shows the spectrum histogram at the low-frequency edge of a Digital Video Broadcast (DVB) signal.
 The histogram shows no data points at the noise floor's level (around  7 dB) above
@@ -431,7 +442,7 @@ Shortening the delay, therefore increasing the temporal resolution, is foremost
 a tradeoff in data set size and required computational power.
 
 Increasing the temporal resolution will increase the number of measurements, hence
-increasing data size. Digitized signal waveform has to be processed on the host
+increasing data size. The digitized signal waveform has to be processed on the host
 PC before completing each measurement.
 More computation power helps with increasing temporal resolution by speeding up
 the waveform processing.
@@ -460,11 +471,18 @@ seems constantly occupied over time.
 
 
 
-![225 MHz span of spectum stiched from multiple measurements \label{fig:hist-long}](img/histogram-long.png){ width=100% }
+![225 MHz span of spectum stiched from multiple measurements. \label{fig:hist-long}](img/stiched-spectum-0-2.png){ width=100% }
 
 Figure \ref{fig:hist-long} showcases a wide-band data set which
 was obtained by scanning the band and stitching several consecutive measurements into one dataset.
+The white line figure \ref{fig:hist-long} is a comparison measurement done using
+a Rhode & Schwarz FSH-4  spectrum analyzer. The comparison shows that the spectum
+measured by the USRP does not have excessive amounts of interference created
+internally by the USRP hardware, as the measured spectums are similar.
 
+It should be noted that the comparison measurements are not from the exact some point
+in time, as both devices measure the spectum in different ways, and neither can obtain a snapshot
+of the band from a single moment in time.
 
 \clearpage
 
@@ -486,7 +504,7 @@ that are too low or too high to conform with the expected signal strengths given
 in the application's standard. Out-of-spec signals can be rejected and ignored.
 
 
-Simplified measurement of the RF energy on present on a band can be done on an
+Simplified measurement of the RF energy present on a band can be done on an
 attenuated version of the signal to set the receiver's gain to an
 appropriate level and protect the monitoring system from damage caused by high-power signals.
 
@@ -513,7 +531,7 @@ The LO is relatively strong signal in order to accomplish mixing in the downconv
 The LO signal can leak through unintended paths into the LNA in the in the front-end, where
 it reflects back and is fed into the downconverter where it is mixed with itself and
 causes a DC signal in the downconverter's output. The interference can be even stronger
-it the LO leaks into the LNA's input and is therefore amplified before self-mixing.\cite{raman15}
+if the LO leaks into the LNA's input and is therefore amplified before self-mixing.\cite{raman15}
 
 
 
@@ -533,6 +551,24 @@ DC-offset is caused in the SDR peripheral's RF front-end and is hardware-depende
 The root causes for DC-offset cannot be corrected by choosing different digitizing
 parameters in the way eg. CIC roll-off can be, although they can be corrected for
 using DSP after the fact.
+
+
+
+#### Impact on data quality
+
+
+
+![DC-offset can cause sever data quality issues.\label{fig:dc-offset-issues}](img/dc-offset-impact.png){ width=100% }
+
+Figure \cite{fig:dc-offset-issues} showcases how DC offset can cause data quality issues.
+The spectum shown in the figure was measured with a 50 ohm RF terminator as the load
+on the USRP's antenna connector. Each of the peaks in the spectrm
+
+The bandwidth of each measurement hop, and the size of the FFT were chosen in a way
+to make the impact on data quality more server. Using a narrow passband bandwidth
+and FFT's with a samll bin count results in tightly spaced DC-offset artifacts
+that have a wide peak.
+
 
 
 
@@ -556,4 +592,4 @@ measurement results during the development process prompted
 tangential projects into researching what configuration parameter
 or circuit is the root cause behind some phenomenon. Much of that knowledge
 is applicable in other software-defined radio and general RF system
-even outside the context of spectrum monitoring.
+even beyond the context of spectrum monitoring.
