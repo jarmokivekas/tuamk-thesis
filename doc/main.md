@@ -325,7 +325,7 @@ Measurement configuration:
 - \itab{load:}              \tab{50 ohm RF terminator}
 
 The carriers visible in the center of plotted spectra in figure \ref{fig:cic-rolloff} are
-DC offset artifacts caused by phenomenon unrelated to CIC roll-off.
+DC-offset artifacts caused by phenomenon unrelated to CIC roll-off.
 
 The measurements verify what should be there, in theory, is observable in
 practice.
