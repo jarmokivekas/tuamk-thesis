@@ -78,7 +78,7 @@ databases to facilitate sharing of spectrum.\cite{hoyhtya16}
 whitespace (TVWS). In Finland -->
 
 Opportunistic spectrum access refers to techniques that make it possible for radio
-systems to use frequencies in a flexible manner, by automatically changing transmission
+systems to use frequencies in a flexible manner, by automatically changing the transmission
 frequency, modulation method, or the time of transmission depending of were unoccupied spectrum can be
 found at any given moment.
 
@@ -126,7 +126,7 @@ Similarly, if the threshold value is too low, false positives may be
 triggered by noise, whether man-made or otherwise, that exceeds the
 threshold.\cite{subramaniam15}
 
-###
+#### Advanced methods
 
 Mathematically more complex and compute-intensive methods relying on
 autocorrelation and correlation distance based algorithms are also used
@@ -149,7 +149,7 @@ campaign.\cite{gronroos16}
 
 
 Sensing applications can be either generalized or designed for
-a specific transmission type, to monitor the use of  a particular
+a specific transmission type, to monitor the use of a particular
 radio system. Energy detection, autocorrelation, and correlation distance based
 system are generalized techniques for determining occupancy. A system-specific
 monitoring application may be able to provide more useful information about the
@@ -206,8 +206,11 @@ network communication with the host PC, sample streaming, and
 control the RF daughterboard.\cite{ni-forum-question}\cite{ettusN210}
 
 
-## Data flow
+## Control flow
 
+![Overview of the system control flow\label{fig:control-flow}](img/control-flow.png){ width=100% }
+
+An overview of the monitoring system's control flow is presented in Figure \ref{fig:control-flow}.
 The USRP's center frequency is incremented at regular intervals to complete
 full scans of a wide band of the spectrum.
 An FFT is calculated and stored for each hop during the scan.
@@ -216,6 +219,10 @@ The difference in the center frequency of each consecutive hop is slightly less
 than the width of each FFT. This overlap between FFTs can be used to improve
 data quality by discarding some of the lowest and highest frequency FFT bins,
 which may suffer from roll-off.
+
+A new identical scan is started every time a scan of the entire band of interest is completed. The application keeps scanning until it is interrupted by a user.
+
+
 
 ## Data model
 
@@ -249,7 +256,7 @@ a large variety of applications for post-processing.
 Alternatively, the data can be stored in a more compact way using Python's native
 pickle storage or compressed text files. This is for collecting data over long periods of time
 without being constrained as much by storage space limitations. The redundant representation
-of the data makes very compressable, with compressed files being commonly 1/5 of the original size.
+of the data makes very compressible, with compressed files being commonly 1/5 of the original size.
 
 
 <!--  CAN IT, THOUGH? -->
@@ -260,7 +267,7 @@ a 30 MHz span at 791 – 821 MHz\cite{ficoraAlloc15} can be captured by a single
 
 ## Choosing the sample rate.
 
-The sample rate chosen impacts the speed of scanning and the available frequency
+The sample rate that is chosen impacts the speed of scanning and the available frequency
 resolution.
 
 The USRP is able to stream complex samples over its Gigabit Ethernet interface
@@ -389,12 +396,12 @@ distinct peaks 50 Hz apart. 20 Hz and 15 Hz gaps could be also observed during t
 although at times this required choosing a different windowing mode for the FFT, and even then
 the results were not always consistent. Sine wave peaks too close to each other start
 melding together into one peak in the FFT due to spectral leakage, where the power of
-a sine wave is distrimuted among neighbouring frequency bins.
+a sine wave is distributed among neighboring frequency bins.
 
 The effects of spectral leakage can be influenced by choosing different windowing
-methods. Different widnowing methods can be used for example dependeing on whether is more
-important to have narrow peaks or accurate amplitude imformation. A Hann window
-is often used, since it has little spectral leakage, and good frequency resolution.\cite{ni-white-fft}
+methods. Different windowing methods can be used for example depending on whether is more
+important to have narrow peaks or accurate amplitude information. A Hann window
+is often used since it has little spectral leakage, and good frequency resolution.\cite{ni-white-fft}
 
 
 While the FSH4 spectrum analyzer and the USRP are both capable of measuring
@@ -403,7 +410,7 @@ The FSH4 used 7.8 seconds to obtain a single measurement of a 570 Hz span of spe
 when measured at approximately the same 3 Hz frequency resolution as the USRP.
 FFTs can be computed for each individual new sample when recording I/Q samples with an SDR peripheral such as the USPR.
 In theory, this means the temporal resolution
-at which FFTs can be obtained in this example is 1/200000 Hz = 0.000005 s.
+at which FFTs can be obtained in this example is 1/200000 Hz = 5 \textmu{}s.
 
 
 ## Noise floor
@@ -427,7 +434,7 @@ of spectrum usage over time. As the name implies, histograms can be used to disp
 
 All the measurements presented in this section were done with a D470-860FN1 antenna
 made by Aerial OY. The antenna's bandwidth is 470 – 860 MHz.
-The measurements were done indoors at the Turku University of Applied Sciences radiolab.
+The measurements were done indoors at the Turku University of Applied Sciences radio laboratory.
 
 ![The edge of a high-throughput digital signal without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
 
@@ -460,7 +467,7 @@ constantly in use and there are periods of time where no signals are present.
 Figure \ref{fig:avg-mobile} shows the same spectrum measurement represented as a time-average plot
 of the power.
 The partial absence of signals in this example is not clearly visible in the type of running time-average typically
-found in traditional spectum analyzers. The intermittent use of the band shows up as lower average power, but the band still
+found in traditional spectrum analyzers. The intermittent use of the band shows up as lower average power, but the band still
 seems constantly occupied over time.
 
 
@@ -476,12 +483,12 @@ seems constantly occupied over time.
 Figure \ref{fig:hist-long} showcases a wide-band data set which
 was obtained by scanning the band and stitching several consecutive measurements into one dataset.
 The white line figure \ref{fig:hist-long} is a comparison measurement done using
-a Rhode & Schwarz FSH-4  spectrum analyzer. The comparison shows that the spectum
+a Rhode & Schwarz FSH-4  spectrum analyzer. The comparison shows that the spectrum
 measured by the USRP does not have excessive amounts of interference created
-internally by the USRP hardware, as the measured spectums are similar.
+internally by the USRP hardware, as the measured spectrums are similar.
 
 It should be noted that the comparison measurements are not from the exact some point
-in time, as both devices measure the spectum in different ways, and neither can obtain a snapshot
+in time, as both devices measure the spectrum in different ways, and neither can obtain a snapshot
 of the band from a single moment in time.
 
 \clearpage
@@ -561,16 +568,32 @@ using DSP after the fact.
 ![DC-offset can cause sever data quality issues.\label{fig:dc-offset-issues}](img/dc-offset-impact.png){ width=100% }
 
 Figure \cite{fig:dc-offset-issues} showcases how DC offset can cause data quality issues.
-The spectum shown in the figure was measured with a 50 ohm RF terminator as the load
-on the USRP's antenna connector. Each of the peaks in the spectrm
+The spectrum shown in the figure was measured with a 50 ohm RF terminator as the load
+on the USRP's antenna connector. Each of the peaks in the spectrum
 
-The bandwidth of each measurement hop, and the size of the FFT were chosen in a way
+The bandwidth of each measurement hop and the size of the FFT were chosen in a way
 to make the impact on data quality more server. Using a narrow passband bandwidth
-and FFT's with a samll bin count results in tightly spaced DC-offset artifacts
+and FFT's with a small bin count results in tightly spaced DC-offset artifacts
 that have a wide peak.
 
 
 
+## IQ imbalance
+
+![A) No IQ imbalance B) IQ phase imbalance C) IQ amplitude imbalance](img/iq-balance.png){ width=100% }
+
+The analog RF-front in the USRP is an IQ receiver.
+An ideal IQ receiver has two identical signal paths after the mixing stage, one for the in-phase (I) signal, and the other for the quadrature (Q) signal.
+In practice, the signal paths have slight differences that are inherent to the manufacturing process of electronic circuits, which create IQ imbalance.
+Propagation delays in each signal path can cause the I and Q signals to not reach the sampling ADCs at the same time, making the phase-offset of the sampled signal something other than 90 degrees.
+The differences in gain of the signal paths also cause IQ imbalance. \cite{ni-iq-balance}
+
+
+Imbalances in the IQ signal paths can be visualized by showing how they impact a signal constellation plot.
+
+IQ imbalance is hardware dependent and will vary between individual circuit boards due to component variance.
+Operating temperature and signal frequency also have an effect on IQ imbalance.
+The USRP Hardware Driver (UHD) comes bundled with calibration utilities that can be used to correct for imbalances.
 
 
 \clearpage
