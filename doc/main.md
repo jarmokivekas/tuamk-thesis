@@ -126,7 +126,7 @@ Similarly, if the threshold value is too low, false positives may be
 triggered by noise, whether man-made or otherwise, that exceeds the
 threshold.\cite{subramaniam15}
 
-#### Advanced methods
+#### Advanced Methods
 
 Mathematically more complex and compute-intensive methods relying on
 autocorrelation and correlation distance based algorithms are also used
@@ -161,7 +161,7 @@ capacity available in the network.\cite{hoyhtya16}
 
 
 
-## Software Defined Radio
+## Software-Defined Radio
 
 
 An ideal software-defined radio peripheral is in simple terms a fast analog-to-digital converter (ADC) that's
@@ -180,9 +180,9 @@ bandwidth limit of the ADC.\cite{raman15}
 
 \clearpage
 
-# MATERIALS AND METHODS
+# IMPLEMENTATION OVERVIEW
 
-This section describes the implementation of a radio spectrum monitoring system using an NI USRP as the antenna
+This section describes the manifestation of a radio spectrum monitoring system using an NI USRP as the antenna
 interface. The application logic of the spectrum monitor was implemented in the
 Python\cite{python_software} scripting language by utilizing the open-source
 GNURadio\cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
@@ -195,18 +195,20 @@ visualization, and controlling the USRP.
 The USRP is a software-defined radio platform that is designed for research applications,
 and it is suitable for spectrum sensing applications.\cite{ni-white-15}\cite{angrisani16}
 
-The majority of practical work in this thesis was done using a USRP-2932.
+The majority of practical work in this thesis was done using a USRP-2932 programmed
+with the USRP Hardware Driver (UHD) firmware.
 
 The USRP has an FPGA that can be used for simple signal processing.
 However, due to the small size of the FPGA, it is limited in
-its capability and cannot be used to implement complex physical layer (PHY) DPS
+its capability and cannot be used to implement complex physical layer (PHY) DSP
 blocks for signal decoding. The FPGA's main purpose is to do resampling
 and type conversion of the digitized signal as well as handle
 network communication with the host PC, sample streaming, and
 control the RF daughterboard.\cite{ni-forum-question}\cite{ettusN210}
 
 
-## Control flow
+
+## Control Flow
 
 ![Overview of the system control flow\label{fig:control-flow}](img/control-flow.png){ width=100% }
 
@@ -224,21 +226,19 @@ A new identical scan is started every time a scan of the entire band of interest
 
 
 
-## Data model
+## Data Model
 
 The scan data is represented as a tabular data structure where each row
 represents a single FFT bin.
 
 The columns in the data structure are
 
-- \itab{date:  }   \tab{    a timestamp with millisecond accuracy}
-- \itab{center:  } \tab{      the center frequency to which the USRP was tuned}
-- \itab{freq:  }   \tab{    frequency of the FFT bin}
-- \itab{power  }    \tab{ power magnitude of the FFT bin}
-<!-- - noise: the power of the low*    *TODO** deprecate this bullet point** -->
-<!-- these are scan and sweep in the actual source code -->
-- \itab{hop:}   \tab{ which incremental hop of a scan the FFT bin belongs to}
-- \itab{scan:}  \tab{ which incremental scan the hop of the FFT bin belongs to}
+1. a timestamp with millisecond accuracy
+1. the center frequency to which the USRP was tuned
+1. frequency of the FFT bin
+1. magnitude of the FFT bin's power
+1. a counter value for which hop of a scan the FFT bin belongs to, and
+1. a counter value for which scan iteration the hop belongs to.
 
 Representing the data in the described manner allows for easy manipulation
 of the data with existing tools at the cost of increased data set size due
@@ -264,8 +264,11 @@ of the data makes very compressible, with compressed files being commonly 1/5 of
 which is a high enough sample rate that the entire LTE 800 DD band, which covers
 a 30 MHz span at 791 – 821 MHz\cite{ficoraAlloc15} can be captured by a single FFT. -->
 
+\clearpage
 
-## Choosing the sample rate.
+# MEASUREMENTS AND OBSERVED PHENOMENA
+
+## Available Sample Rates
 
 The sample rate that is chosen impacts the speed of scanning and the available frequency
 resolution.
@@ -286,7 +289,7 @@ In this context, passband bandwidth is often shown as the same value as the sign
 In fact, passband bandwidth is often referred to as the sample rate.
 
 
-## CIC roll-off
+## CIC Roll-Off
 
 Cascaded integrator-comb filters, CIC filters for short, are a class of hardware-efficient
 finite response filters that are used for decimation and interpolation of a signal.\cite{donadio2000}
@@ -306,7 +309,7 @@ $$\cfrac{rate_{in}}{rate_{out}} \mod 2 = 0$$
 
 The CIC roll-off is at its worst when the ratio is odd.
 
-#### CIC roll-off measurements
+#### CIC Roll-Off Measurements
 
 
 The measurements presented in figure \ref{fig:cic-rolloff} show the manifestation of CIC roll-off
@@ -366,7 +369,7 @@ Major factors limiting sample rate are the rate of the SDR peripheral's ADC,
 throughput available for transferring samples to the host PC, and the
 computational load that has to occur in real-time on the host PC.
 
-### Frequency Resolution Measurement
+#### Frequency Resolution Measurement
 
 ![Baudline used to distinguish between 50 Hz peaks (left). Comparisons done with an FSH4 spectrum analyzer (right).\label{fig:baud50}](img/50-hz-combined.png){ width=100% }
 
@@ -407,13 +410,13 @@ is often used since it has little spectral leakage, and good frequency resolutio
 While the FSH4 spectrum analyzer and the USRP are both capable of measuring
 the spectrum of the test signal, the main difference comes in temporal resolution.
 The FSH4 used 7.8 seconds to obtain a single measurement of a 570 Hz span of spectrum
-when measured at approximately the same 3 Hz frequency resolution as the USRP.
+phase imbalance
 FFTs can be computed for each individual new sample when recording I/Q samples with an SDR peripheral such as the USPR.
 In theory, this means the temporal resolution
 at which FFTs can be obtained in this example is 1/200000 Hz = 5 \textmu{}s.
 
 
-## Noise floor
+## Noise Floor
 
 ![The level of the noise floor can be lowered by increasing the number of FFT bins\label{fig:noise-vs-bins}](img/noise-vs-bins.png){ width=100% }
 
@@ -493,9 +496,9 @@ of the band from a single moment in time.
 
 \clearpage
 
-# DISCUSSION
+# THE RF FRONT-END
 
-## Protecting the radio peripheral
+## Protecting The Radio Peripheral
 
 An inherent quality of radio spectrum monitoring applications is that receiver
 equipment needs to be able to cope with very high-power transmissions in order
@@ -521,7 +524,7 @@ to the band in question will some amount time. This time can accumulate
 if the system is used to scan a wide band of spectrum by constantly re-tuning the radio peripheral,
 making each full scan take longer.
 
-## DC-offset
+## DC-Offset
 
 ![Mechanisms for DC-offset: A) LO leakage, B) LO re-radiation, C) in-band interference\label{fig:dc-offset}](img/dc-offset.png)
 
@@ -561,13 +564,13 @@ using DSP after the fact.
 
 
 
-#### Impact on data quality
+#### Impact On Data Quality
 
 
 
 ![DC-offset can cause sever data quality issues.\label{fig:dc-offset-issues}](img/dc-offset-impact.png){ width=100% }
 
-Figure \cite{fig:dc-offset-issues} showcases how DC offset can cause data quality issues.
+Figure \ref{fig:dc-offset-issues} showcases how DC offset can cause data quality issues.
 The spectrum shown in the figure was measured with a 50 ohm RF terminator as the load
 on the USRP's antenna connector. Each of the peaks in the spectrum
 
@@ -578,9 +581,8 @@ that have a wide peak.
 
 
 
-## IQ imbalance
+## IQ Imbalance
 
-![A) No IQ imbalance B) IQ phase imbalance C) IQ amplitude imbalance](img/iq-balance.png){ width=100% }
 
 The analog RF-front in the USRP is an IQ receiver.
 An ideal IQ receiver has two identical signal paths after the mixing stage, one for the in-phase (I) signal, and the other for the quadrature (Q) signal.
@@ -589,11 +591,22 @@ Propagation delays in each signal path can cause the I and Q signals to not reac
 The differences in gain of the signal paths also cause IQ imbalance. \cite{ni-iq-balance}
 
 
-Imbalances in the IQ signal paths can be visualized by showing how they impact a signal constellation plot.
+![A) No IQ imbalance B) IQ phase imbalance C) IQ amplitude imbalance\label{fig:iq-imbalance}](img/iq-balance.png){ width=100% }
+
+The manifestation of imbalances in the IQ signal paths can be visualized by showing how they impact a signal constellation plot.
+Figure \ref{fig:iq-imbalance} shows three constellations, constellation A does is a clean constellation without
+any IQ imbalance, constellation B is vertically skewed due to phase imbalance, and constellation C is stretched horizontally
+due to amplitude imbalance. The constellation is skewed or stretched either horizontally or vertically depending which signal path has longer propagation delay or gain.\cite{ni-iq-balance}
 
 IQ imbalance is hardware dependent and will vary between individual circuit boards due to component variance.
-Operating temperature and signal frequency also have an effect on IQ imbalance.
-The USRP Hardware Driver (UHD) comes bundled with calibration utilities that can be used to correct for imbalances.
+Operating temperature and signal frequency also have an effect on IQ imbalance.\cite{ettus-uhd}
+
+The USRP Hardware Driver (UHD) comes bundled with a calibration utility that can be used to correct for imbalances in the receiver's signal path. The calibration requires no additional hardware, it relies on known signals leaking from the transmitter to the receiver path.
+The signal leaked into the receiver path is compared to the known baseline, and correction parameters are stored as a function of signal frequency in the USRP's FPGA.\cite{ettus-uhd-manual}
+
+Since the IQ imbalances are temperature-dependent, the USRP should be left powered on for a while before calibration, so that components reach their operating temperature.
+The temperature of the environment should also be taken into account.
+
 
 
 \clearpage
