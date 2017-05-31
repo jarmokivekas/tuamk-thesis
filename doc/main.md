@@ -256,7 +256,7 @@ a large variety of applications for post-processing.
 Alternatively, the data can be stored in a more compact way using Python's native
 pickle storage or compressed text files. This is for collecting data over long periods of time
 without being constrained as much by storage space limitations. The redundant representation
-of the data makes very compressible, with compressed files being commonly 1/5 of the original size.
+of the data makes compressible, with compressed files being commonly 1/5 of the original size.
 
 
 <!--  CAN IT, THOUGH? -->
@@ -276,11 +276,13 @@ resolution.
 The USRP is able to stream complex samples over its Gigabit Ethernet interface
 at rates of up to 50 MSPS at an 8-bit resolution and 25 MSPS at a 16-bit resolution.
 The resolution of the 16-bit samples is 14 bits in practice, which is the accuracy
-of the ADCs used for sample acquisition.\cite{ettusN210}
+of the ADCs used for sample acquisition. The acquisition ADCs have a sample rate of 100 MSPS,
+the available sample rates are limited by the throughput capacity of the Ethernet host PC interface.\cite{ettusN210}
 
 An 8-bit sample refers to a sampling scheme where 8 bits are used to each of the
 in-phase (I) and quadrature (Q) samples, making the I/Q sample pair a total of 16 bits in size.
 Similarly, an I/Q pair of 16-bit samples 32 bits in size.
+
 
 The USRP and GNURadio ecosystems for signal processing primarily use I/Q-sampling
 when representing waveforms digitally.
@@ -357,7 +359,7 @@ Increasing the number of bins in an FFT increases the amount of computation requ
 It is possible to save the raw I/Q samples to disk, and compute the large FFTs in a
 post-processing step where real-time computation is not required. In this case, a likely bottleneck
 will be the amount storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
-0.2 MPSP, which will produce close to 0.8 MB of data per second when using 16-bit
+0.2 MSPS, which will produce close to 0.8 MB of data per second when using 16-bit
 samples.
 The maximum sample rate 25 MSPS produces 100 MB data per second.
 
@@ -375,7 +377,7 @@ computational load that has to occur in real-time on the host PC.
 
 
 Raw I/Q samples were recorded with a USRP into a file using the `uhd_rx_cfile` program that is part
-of the USRP + GNURadio ecosystem. The samples were recorded at 0.2 MPSP, a rounded
+of the USRP + GNURadio ecosystem. The samples were recorded at 0.2 MSPS, a rounded
 sample rate close to the lowest supported sample rate, which is 0.195312 MSPS.
 
 The recorded files do not contain any metadata about sample types or sample rates,
@@ -411,7 +413,7 @@ While the FSH4 spectrum analyzer and the USRP are both capable of measuring
 the spectrum of the test signal, the main difference comes in temporal resolution.
 The FSH4 used 7.8 seconds to obtain a single measurement of a 570 Hz span of spectrum
 phase imbalance
-FFTs can be computed for each individual new sample when recording I/Q samples with an SDR peripheral such as the USPR.
+FFTs can be computed for each individual new sample when recording I/Q samples with an SDR peripheral such as the USRP.
 In theory, this means the temporal resolution
 at which FFTs can be obtained in this example is 1/200000 Hz = 5 \textmu{}s.
 
@@ -531,7 +533,7 @@ making each full scan take longer.
 
 
 It's common to see an interference artifact at the center of the band captured by a software defined radio.
-The interference is a DC-offset caused by the direct-conversion receiver in the RF front-end which downmixes signals to the baseband before digitizing the signal. This phenomenon was observed with different software-defined radio peripherals including the NI USPR-2932, and two different
+The interference is a DC-offset caused by the direct-conversion receiver in the RF front-end which downmixes signals to the baseband before digitizing the signal. This phenomenon was observed with different software-defined radio peripherals including the NI USRP-2932, and two different
 commercial DVB-T -tuner style radios.
 
 Strong local signals or the receivers own local oscillator (LO) can self-mix with itself down to zero-IF, which causes the DC-offset.
@@ -553,7 +555,7 @@ to change quickly, causing the DC-offset's level to vary over time.\cite{raman15
 
 Strong external interference at the LO's frequency can also cause DC-offset.
 The radiated LO signal of a similar nearby receiver is one example of a source
-for such interference.\cite{raman15}
+for such interference. Interference can also be caused by nonlinearities in the receiver chain before mixing.\cite{raman15}
 
 
 
@@ -584,7 +586,7 @@ that have a wide peak.
 ## IQ Imbalance
 
 
-The analog RF-front in the USRP is an IQ receiver.
+The analog RF front-end in the USRP is an IQ receiver.
 An ideal IQ receiver has two identical signal paths after the mixing stage, one for the in-phase (I) signal, and the other for the quadrature (Q) signal.
 In practice, the signal paths have slight differences that are inherent to the manufacturing process of electronic circuits, which create IQ imbalance.
 Propagation delays in each signal path can cause the I and Q signals to not reach the sampling ADCs at the same time, making the phase-offset of the sampled signal something other than 90 degrees.
@@ -596,7 +598,7 @@ The differences in gain of the signal paths also cause IQ imbalance. \cite{ni-iq
 The manifestation of imbalances in the IQ signal paths can be visualized by showing how they impact a signal constellation plot.
 Figure \ref{fig:iq-imbalance} shows three constellations, constellation A does is a clean constellation without
 any IQ imbalance, constellation B is vertically skewed due to phase imbalance, and constellation C is stretched horizontally
-due to amplitude imbalance. The constellation is skewed or stretched either horizontally or vertically depending which signal path has longer propagation delay or gain.\cite{ni-iq-balance}
+due to amplitude imbalance. The constellation is skewed or stretched either horizontally or vertically depending which signal path has longer propagation delay or higher gain.\cite{ni-iq-balance}
 
 IQ imbalance is hardware dependent and will vary between individual circuit boards due to component variance.
 Operating temperature and signal frequency also have an effect on IQ imbalance.\cite{ettus-uhd}
