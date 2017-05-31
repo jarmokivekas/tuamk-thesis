@@ -17,22 +17,29 @@ Electronics
 
 
 
+
 This thesis covers general theory about the applications of radio spectrum occupancy
 monitoring, and the methods behind it, and describes essential elements of a
-spectrum monitoring system that was implemented as part of the work for this
-thesis using a National Instruments Universal Radio Peripheral and custom
-application logic. The intention of the work was not to implement a feature-rich
-monitoring system but to instead to use the implementation process of a simpler
-system as a way to create a solid understanding of the parts of such
-a system by finding solutions to problems encountered on the way.
+spectrum monitoring system that was implemented using a National Instruments Universal Radio Peripheral (USRP).
+The intention for the thesis was to gain deeper understanding of the required components
+by using the implementation process to aid in identifying challenges.
+The root causes of the challenges were studied so that their negative impact could be minimized.
+
+The system was implemented using the Python scripting language for high-level functionality, and the GNURaido
+code libraries were used for signal processing and control of the USRP
+Spectrum measurements collected with the system were compared to measurements made with a conventional spectrum analyzer with matching results.
+The thesis also compares the use of histograms, where power distribution information in the time domain is kept, instead of commonly used spectrograms.
+
+
 Measurements were done to observe the behavior of phenomena such as CIC roll-off,
 DC-offset, and the trade-off relations between system characteristics such as
 frequency resolution, temporal resolution, required computational power,
 and data set size.
+The thesis states that the RF front-end of the USRP can be protected from high-power signals by using additional circuitry to sense power. IQ imbalance caused by the front-end can be corrected for by using device-specific
+empirical calibration measurements.
 
 
-
-\vspace{25mm}
+\vspace{15mm}
 
 KEYWORDS:
 
@@ -60,7 +67,7 @@ Elektroniikka
 {\Large Jarmo Kivekäs \par}
 
 \vspace{7mm}
-{\huge SPEKTRINMONITOROINTIJÄRJESTELMÄN TOTEUTUS OHJELMISTORADIOLLA \par}
+{\huge SPEKTRINMONITOROINTIJÄRJESTELMÄN\newline TOTEUTUS OHJELMISTORADIOLLA \par}
 
 \vspace{7mm}
 
@@ -69,14 +76,16 @@ Tämä opinnäytetyö käsittelee radiospektrin monitorointiin liittyvää teori
 Työn tarkoituksena oli luoda syvempi ymmärrys tarvittavien komponenttien toiminnasta ja niiden aiheuttamista ongelmista käyttäen järjestelmän toteutusprosessia tukena ongelmien löytämistä varten.
 
 Toteutuksen aikana havaittiin toimintaan vaikuttavia ilmiöitä, joita tutkittiin jotta niiden negatiivinen vaikutus voitiin minimoida.
-Monitorointijärjestelmän logiikka toteutettiin käyttämällä GNURadio -koodikirjastoa signaalinkäsittelyyn sekä USRP:n ohjaamista varten.
-Python -skriptikieltä käytettiin korkeamman tason toimintojen toteuttamisessa.
+Monitorointijärjestelmän logiikka toteutettiin käyttämällä GNURadio-koodikirjastoa signaalinkäsittelyyn sekä USRP:n ohjaamista varten.
+Python-skriptikieltä käytettiin korkeamman tason toimintojen toteuttamisessa.
 Järjestelmällä kerättyä mittaustietoa verrattiin perinteisen spektrianalysaattorin mittatietoihin, ja todettiin tietojen täsmäävän toistensa kanssa.
-Työssä verrataan mittaustulosten esittelyä histogrammina, jolloin informaatio tehon jakautumisesta säilyy, toisin kuin tavanomaisessa tehospektrissä.
+Työssä verrataan mittaustulosten esittelyä histogrammina, jolloin informaatio tehon jakautumisesta aikatasossa säilyy, toisin kuin tavanomaisessa tehospektrissä.
 
-Työssä selvitettiin miten ohjelmistoradioiden etuosan epäideaalisuudet aiheuttavat spektrissä näkyviä tasajännitepiikkejä ja kuinka sopimattoman näytetaajuuden valitseminen voi aiheuttaa suuria vääristymiä mitatun spektrin amplitudissa vastaanottimen jälleennäytteistämisvaiheen jälkeen.
-Ohjelmistoradiota käyttäessä, voidaan spektrin mittauksessa tehdä kompromisseja tarvittavan levytilan, laskentakyvyn, taajuusresoluution ja aikaresoluution välillä, riippuen siitä millaisia ilmiöitä halutaan mitata.
-Lopuksi pohditaan, miten etuosan toimintaan voidaan vaikuttaa laitteen suojelemiseksi suurtehosilta signaaleilta, ja miten etuosan aiheuttamia IQ-näytteistämisen epätasapainoisuuksia korjataan empiirisen kalibroinnin avulla.
+Työssä selvitettiin, miten ohjelmistoradioiden etuosan epäideaalisuudet aiheuttavat spektrissä näkyviä tasajännitepiikkejä ja kuinka sopimattoman näytetaajuuden valitseminen voi aiheuttaa suuria vääristymiä mitatun spektrin amplitudissa vastaanottimen tekemän udelleenäytteistämisen jälkeen.
+Ohjelmistoradiota käytettäessä voidaan spektrin mittauksessa tehdä kompromisseja tarvittavan levytilan, laskentakyvyn, taajuusresoluution ja aikaresoluution välillä, riippuen siitä millaisia ilmiöitä halutaan mitata.
+Työssä todettiin, että etuosan toimintaan voidaan vaikuttaa laitteen suojelemiseksi suurtehosilta signaaleilta.
+Etuosan aiheuttamia IQ-näytteistämisen epätasapainoisuuksia voitiin korjata empiirisen kalibroinnin avulla.
+
 
 
 
