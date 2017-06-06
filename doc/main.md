@@ -1,4 +1,4 @@
-
+oo
 
 
 
@@ -182,7 +182,7 @@ bandwidth limit of the ADC.\cite{raman15}
 
 # IMPLEMENTATION OVERVIEW
 
-This section describes the manifestation of a radio spectrum monitoring system using an NI USRP as the antenna
+This section describes the implementation of a radio spectrum monitoring system using an NI USRP as the antenna
 interface. The application logic of the spectrum monitor was implemented in the
 Python\cite{python_software} scripting language by utilizing the open-source
 GNURadio\cite{gnu_radio_software} software suite and adjacent code libraries for DSP algorithms,
@@ -210,7 +210,7 @@ control the RF daughterboard.\cite{ni-forum-question}\cite{ettusN210}
 
 ## Control Flow
 
-![Overview of the system control flow\label{fig:control-flow}](img/control-flow.png){ width=100% }
+![Overview of the system control flow.\label{fig:control-flow}](img/control-flow.png){ width=100% }
 
 An overview of the monitoring system's control flow is presented in Figure \ref{fig:control-flow}.
 The USRP's center frequency is incremented at regular intervals to complete
@@ -256,7 +256,7 @@ a large variety of applications for post-processing.
 Alternatively, the data can be stored in a more compact way using Python's native
 pickle storage or compressed text files. This is for collecting data over long periods of time
 without being constrained as much by storage space limitations. The redundant representation
-of the data makes compressible, with compressed files being commonly 1/5 of the original size.
+of the data makes it compressible, with compressed files being commonly 1/5 of the original size.
 
 
 <!--  CAN IT, THOUGH? -->
@@ -281,7 +281,7 @@ the available sample rates are limited by the throughput capacity of the Etherne
 
 An 8-bit sample refers to a sampling scheme where 8 bits are used to each of the
 in-phase (I) and quadrature (Q) samples, making the I/Q sample pair a total of 16 bits in size.
-Similarly, an I/Q pair of 16-bit samples 32 bits in size.
+Similarly, an I/Q pair of 16-bit samples is 32 bits in size.
 
 
 The USRP and GNURadio ecosystems for signal processing primarily use I/Q-sampling
@@ -325,7 +325,7 @@ available sample rate, in this case, using 16-bit samples. Choosing a high sampl
 rate allows for measuring a wider band of the spectrum at once, which is desirable
 in the context of the spectrum monitoring application presented in this thesis.
 
-![Sample rates chosen to maximize (20 MSPS) and minimize (25 MSPS) the effect of CIC roll-off\label{fig:cic-rolloff}](img/cic-rollof-by-sample-rate-superpose.png){ width=100% }
+![Sample rates chosen to maximize (20 MSPS) and minimize (25 MSPS) the effect of CIC roll-off.\label{fig:cic-rolloff}](img/cic-rollof-by-sample-rate-superpose.png){ width=100% }
 
 Measurement configuration:
 
@@ -339,7 +339,7 @@ Measurement configuration:
 The carriers visible in the center of plotted spectra in figure \ref{fig:cic-rolloff} are
 DC-offset artifacts caused by phenomenon unrelated to CIC roll-off.
 
-The measurements verify what should be there, in theory, is observable in
+The measurements verify what should be there in theory, is also observable in
 practice.
 
 ## Frequency Resolution
@@ -358,7 +358,7 @@ achieve more granular frequency resolution with the same amount of computation.
 Increasing the number of bins in an FFT increases the amount of computation required.
 It is possible to save the raw I/Q samples to disk, and compute the large FFTs in a
 post-processing step where real-time computation is not required. In this case, a likely bottleneck
-will be the amount storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
+will be the amount of aivailable storage space. The lowest sample rate supported by `uhd_rx_cfile` is approximately
 0.2 MSPS, which will produce close to 0.8 MB of data per second when using 16-bit
 samples.
 The maximum sample rate 25 MSPS produces 100 MB data per second.
@@ -404,7 +404,7 @@ melding together into one peak in the FFT due to spectral leakage, where the pow
 a sine wave is distributed among neighboring frequency bins.
 
 The effects of spectral leakage can be influenced by choosing different windowing
-methods. Different windowing methods can be used for example depending on whether is more
+methods. Different windowing methods can be used for example depending on whether it is more
 important to have narrow peaks or accurate amplitude information. A Hann window
 is often used since it has little spectral leakage, and good frequency resolution.\cite{ni-white-fft}
 
@@ -420,7 +420,7 @@ at which FFTs can be obtained in this example is 1/200000 Hz = 5 \textmu{}s.
 
 ## Noise Floor
 
-![The level of the noise floor can be lowered by increasing the number of FFT bins\label{fig:noise-vs-bins}](img/noise-vs-bins.png){ width=100% }
+![The level of the noise floor can be lowered by increasing the number of FFT bins.\label{fig:noise-vs-bins}](img/noise-vs-bins.png){ width=100% }
 
 Figure \ref{fig:noise-vs-bins} shows a measurement of the relation of an FFT's noise floor as a function
 of the FFT bin count. The bin count of an FFT acts in a similar way as resolution
@@ -441,7 +441,7 @@ All the measurements presented in this section were done with a D470-860FN1 ante
 made by Aerial OY. The antenna's bandwidth is 470 – 860 MHz.
 The measurements were done indoors at the Turku University of Applied Sciences radio laboratory.
 
-![The edge of a high-throughput digital signal without downtime\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
+![The edge of a high-throughput digital signal without downtime.\label{fig:hist-DVB}](img/histogram-DVB.png){ width=100% }
 
 Figure \ref{fig:hist-DVB} shows the spectrum histogram at the low-frequency edge of a Digital Video Broadcast (DVB) signal.
 The histogram shows no data points at the noise floor's level (around  7 dB) above
@@ -460,9 +460,9 @@ More computation power helps with increasing temporal resolution by speeding up
 the waveform processing.
 
 
-![A mobile communications band not in use 100% of the time\label{fig:hist-mobile}](img/histogram-mobile.png){ width=100% }
+![A mobile communications band not in use 100% of the time.\label{fig:hist-mobile}](img/histogram-mobile.png){ width=100% }
 
-![Time-average of the measurements shown as a histogram in figure \ref{fig:hist-mobile}\label{fig:avg-mobile}](img/mobile-average-spectrum.png){ width=100% }
+![Time-average of the measurements shown as a histogram in figure \ref{fig:hist-mobile}.\label{fig:avg-mobile}](img/mobile-average-spectrum.png){ width=100% }
 
 
 Figure \ref{fig:hist-mobile} shows a measurement of a band of spectrum used for mobile communication.
@@ -483,7 +483,7 @@ seems constantly occupied over time.
 
 
 
-![225 MHz span of spectum stiched from multiple measurements. \label{fig:hist-long}](img/stiched-spectum-0-2.png){ width=100% }
+![225 MHz span of spectrum stiched from multiple measurements.\label{fig:hist-long}](img/stiched-spectum-0-2.png){ width=100% }
 
 Figure \ref{fig:hist-long} showcases a wide-band data set which
 was obtained by scanning the band and stitching several consecutive measurements into one dataset.
@@ -522,13 +522,13 @@ appropriate level and protect the monitoring system from damage caused by high-p
 
 This added level of protection may come at the expense of performance, as sensing
 the power of a band and setting the receiver gain before tuning the radio peripheral
-to the band in question will some amount time. This time can accumulate
+to the band in question will take some amount time. This time can accumulate
 if the system is used to scan a wide band of spectrum by constantly re-tuning the radio peripheral,
 making each full scan take longer.
 
 ## DC-Offset
 
-![Mechanisms for DC-offset: A) LO leakage, B) LO re-radiation, C) in-band interference\label{fig:dc-offset}](img/dc-offset.png)
+![Mechanisms for DC-offset: A) LO leakage, B) LO re-radiation, C) in-band interference.\label{fig:dc-offset}](img/dc-offset.png)
 
 
 
@@ -538,8 +538,8 @@ commercial DVB-T -tuner style radios.
 
 Strong local signals or the receivers own local oscillator (LO) can self-mix with itself down to zero-IF, which causes the DC-offset.
 
-LO leakage, LO re-radiation, and having strong in-band interference are the main mechanisms causing DC-offset\cite{raman15}.
-The LO is relatively strong signal in order to accomplish mixing in the downconverter.
+LO leakage, LO re-radiation, and having strong in-band interference are the main mechanisms causing DC-offset.
+The LO is a relatively strong signal in order to accomplish mixing in the downconverter.
 The LO signal can leak through unintended paths into the LNA in the in the front-end, where
 it reflects back and is fed into the downconverter where it is mixed with itself and
 causes a DC signal in the downconverter's output. The interference can be even stronger
@@ -570,14 +570,14 @@ using DSP after the fact.
 
 
 
-![DC-offset can cause sever data quality issues.\label{fig:dc-offset-issues}](img/dc-offset-impact.png){ width=100% }
+![DC-offset can cause severe data quality issues.\label{fig:dc-offset-issues}](img/dc-offset-impact.png){ width=100% }
 
 Figure \ref{fig:dc-offset-issues} showcases how DC offset can cause data quality issues.
 The spectrum shown in the figure was measured with a 50 ohm RF terminator as the load
-on the USRP's antenna connector. Each of the peaks in the spectrum
+on the USRP's antenna connector. Each of the peaks in the spectrum are caused by DC-offset at different hop of the scan.
 
 The bandwidth of each measurement hop and the size of the FFT were chosen in a way
-to make the impact on data quality more server. Using a narrow passband bandwidth
+to make the impact on data quality more severe. Using a narrow passband bandwidth
 and FFT's with a small bin count results in tightly spaced DC-offset artifacts
 that have a wide peak.
 
@@ -590,10 +590,10 @@ The analog RF front-end in the USRP is an IQ receiver.
 An ideal IQ receiver has two identical signal paths after the mixing stage, one for the in-phase (I) signal, and the other for the quadrature (Q) signal.
 In practice, the signal paths have slight differences that are inherent to the manufacturing process of electronic circuits, which create IQ imbalance.
 Propagation delays in each signal path can cause the I and Q signals to not reach the sampling ADCs at the same time, making the phase-offset of the sampled signal something other than 90 degrees.
-The differences in gain of the signal paths also cause IQ imbalance. \cite{ni-iq-balance}
+The differences in gain of the signal paths also cause IQ imbalance.\cite{ni-iq-balance}
 
 
-![A) No IQ imbalance B) IQ phase imbalance C) IQ amplitude imbalance\label{fig:iq-imbalance}](img/iq-balance.png){ width=100% }
+![A) No IQ imbalance B) IQ phase imbalance C) IQ amplitude imbalance.\label{fig:iq-imbalance}](img/iq-balance.png){ width=100% }
 
 The manifestation of imbalances in the IQ signal paths can be visualized by showing how they impact a signal constellation plot.
 Figure \ref{fig:iq-imbalance} shows three constellations, constellation A does is a clean constellation without
@@ -619,7 +619,7 @@ The temperature of the environment should also be taken into account.
 
 
 The initial goal of the work done for this thesis was to develop a radio spectrum monitoring system using a National Instruments USRP.
-The implemented spectrum monitoring system was tested
+The implemented spectrum monitoring system was tested,
 and implements the intended features. Much of the benefit
 in the work done was not in the implementation itself but in the
 process thereof: in researching available tools, figuring out how
